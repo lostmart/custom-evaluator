@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cmd //c \"rmdir /s /q \\\\\"C:\\\\Users\\\\$CM7100-M9DP4O11CIGV\\\\Documents\\\\code\\\\custom-evaluator\\\\src\\\\app\\\\question\\\\multiple\\\\\" && rmdir /s /q \\\\\"C:\\\\Users\\\\$CM7100-M9DP4O11CIGV\\\\Documents\\\\code\\\\custom-evaluator\\\\src\\\\app\\\\question\\\\code\\\\\"\")",
+      "Bash(powershell -Command \"Remove-Item -Recurse -Force 'C:\\\\Users\\\\$CM7100-M9DP4O11CIGV\\\\Documents\\\\code\\\\custom-evaluator\\\\src\\\\app\\\\question\\\\multiple'; Remove-Item -Recurse -Force 'C:\\\\Users\\\\$CM7100-M9DP4O11CIGV\\\\Documents\\\\code\\\\custom-evaluator\\\\src\\\\app\\\\question\\\\code'\")",
+      "Bash(powershell -Command \"Remove-Item -Recurse -Force 'C:\\\\Users\\\\`$CM7100-M9DP4O11CIGV\\\\Documents\\\\code\\\\custom-evaluator\\\\src\\\\app\\\\question\\\\multiple'; Remove-Item -Recurse -Force 'C:\\\\Users\\\\`$CM7100-M9DP4O11CIGV\\\\Documents\\\\code\\\\custom-evaluator\\\\src\\\\app\\\\question\\\\code'\")",
+      "Bash(powershell -Command \"Get-ChildItem 'C:\\\\Users' | Where-Object { \\\\$_.Name -like '*CM7100*' } | Select-Object FullName\")",
+      "Bash(powershell -Command \"\n\\\\$base = \\(Get-ChildItem 'C:\\\\Users' | Where-Object { \\\\$_.Name -like '*CM7100*' }\\).FullName\nRemove-Item -Recurse -Force \\\\\"\\\\$base\\\\Documents\\\\code\\\\custom-evaluator\\\\src\\\\app\\\\question\\\\multiple\\\\\"\nRemove-Item -Recurse -Force \\\\\"\\\\$base\\\\Documents\\\\code\\\\custom-evaluator\\\\src\\\\app\\\\question\\\\code\\\\\"\n\")",
+      "Bash(powershell -Command \"\nSet-Location 'C:\\\\Users\\\\$CM7100-M9DP4O11CIGV\\\\Documents\\\\code\\\\custom-evaluator'\nNew-Item -ItemType Directory -Force src/components/ui | Out-Null\nNew-Item -ItemType Directory -Force src/components/question | Out-Null\ngit mv src/components/Badge.tsx src/components/ui/Badge.tsx\ngit mv src/components/Hint.tsx src/components/ui/Hint.tsx\ngit mv src/components/Modal.tsx src/components/ui/Modal.tsx\ngit mv src/components/Nav.tsx src/components/ui/Nav.tsx\ngit mv src/components/ProgressBar.tsx src/components/ui/ProgressBar.tsx\ngit mv src/components/Prompt.tsx src/components/ui/Prompt.tsx\ngit mv src/components/CodeContext.tsx src/components/question/CodeContext.tsx\ngit mv src/components/CodeEditor.tsx src/components/question/CodeEditor.tsx\ngit mv src/components/MultipleChoice.tsx src/components/question/MultipleChoice.tsx\n\")"
+    ]
+  }
+}

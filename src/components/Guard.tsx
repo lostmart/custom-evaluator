@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useUser } from "@/context/UserContext"
 import { useTest } from "@/context/TestContext"
-import Modal from "@/components/Modal"
+import Modal from "@/components/ui/Modal"
 
 export default function Guard({ children }: { children: React.ReactNode }) {
 	const { user } = useUser()
