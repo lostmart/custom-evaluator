@@ -7,6 +7,7 @@ import CodeEditor from "@/components/question/CodeEditor"
 import Guard from "@/components/Guard"
 import Hint from "@/components/ui/Hint"
 import MultipleChoice from "@/components/question/MultipleChoice"
+import Modal from "@/components/ui/Modal"
 import Nav from "@/components/ui/Nav"
 import ProgressBar from "@/components/ui/ProgressBar"
 import Prompt from "@/components/ui/Prompt"
@@ -37,12 +38,22 @@ export default function QuestionPage() {
 	const [type, setType] = useState<QuestionType>("multiple")
 	const [selected, setSelected] = useState<string | null>(null)
 	const [answer, setAnswer] = useState("")
+	const [showModal, setShowModal] = useState(false)
 
 	return (
 		<Guard>
 			<div className="min-h-screen flex flex-col bg-stone-100 font-sans">
 				<ProgressBar current={current} total={total} />
 				<Nav title="Assessment Engine" />
+
+				<Modal
+					show={showModal}
+					title="Confirm submission"
+					message="Are you sure you want to submit your answer? You cannot go back."
+					color="secondary"
+					onConfirm={() => setShowModal(false)}
+					onCancel={() => setShowModal(false)}
+				/>
 
 				<main className="flex flex-col gap-6 px-8 py-8 w-full max-w-2xl mx-auto">
 					{/* Dev toggle — remove when questions are driven by data */}
@@ -64,6 +75,12 @@ export default function QuestionPage() {
 							className={`text-xs font-mono px-3 py-1.5 border transition ${type === "text" ? "bg-secondary text-white border-secondary" : "border-zinc-300 text-zinc-500 hover:border-zinc-400"}`}
 						>
 							text
+						</button>
+						<button
+							onClick={() => setShowModal(true)}
+							className="text-xs font-mono px-3 py-1.5 border border-zinc-300 text-zinc-500 hover:border-zinc-400 transition ml-auto"
+						>
+							modal
 						</button>
 					</div>
 

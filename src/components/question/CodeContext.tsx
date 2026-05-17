@@ -5,7 +5,7 @@ type CodeContextProps = {
 
 export default function CodeContext({ title, code }: CodeContextProps) {
 	return (
-		<div className="rounded-lg overflow-hidden border border-zinc-700">
+		<div className="rounded-sm overflow-hidden border border-zinc-700">
 			<div className="bg-zinc-700 flex items-center justify-between px-4 py-2.5">
 				<span className="text-xs text-zinc-300 font-mono">{title}</span>
 				<button

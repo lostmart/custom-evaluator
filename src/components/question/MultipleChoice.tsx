@@ -27,15 +27,15 @@ export default function MultipleChoice({ options, selected, onChange }: Multiple
 						}`}
 					>
 						<span
-							className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 transition ${
+							className={`w-4 h-4 rounded-sm border-2 flex items-center justify-center shrink-0 transition ${
 								isSelected ? "border-primary" : "border-zinc-300"
 							}`}
 						>
-							{isSelected && <span className="w-2 h-2 rounded-full bg-primary" />}
+							{isSelected && <span className="w-2 h-2 rounded-sm bg-primary" />}
 						</span>
 						<span className="flex-1 font-mono">{option.label}</span>
 						{isSelected && (
-							<span className="w-5 h-5 rounded-full bg-primary flex items-center justify-center shrink-0">
+							<span className="w-5 h-5 rounded-sm bg-primary flex items-center justify-center shrink-0">
 								<svg width="10" height="8" viewBox="0 0 10 8" fill="none">
 									<path d="M1 4L3.5 6.5L9 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
 								</svg>

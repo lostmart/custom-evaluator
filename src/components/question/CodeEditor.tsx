@@ -5,7 +5,7 @@ type CodeEditorProps = {
 
 export default function CodeEditor({ filename, defaultValue = "" }: CodeEditorProps) {
 	return (
-		<div className="rounded-lg overflow-hidden border border-zinc-200">
+		<div className="rounded-sm overflow-hidden border border-zinc-200">
 			{/* Titlebar */}
 			<div className="bg-zinc-700 flex items-center justify-between px-4 py-2.5">
 				<div className="flex gap-1.5">
