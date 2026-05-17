@@ -1,0 +1,11 @@
+# dependencies
+src/node_modules
+src/.pnp
+src/.pnp.*
+src/.yarn/*
+
+# yarn
+!src/.yarn/patches
+!src/.yarn/plugins
+!src/.yarn/releases
+!src/.yarn/versions
