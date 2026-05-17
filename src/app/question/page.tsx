@@ -14,7 +14,7 @@ import Prompt from "@/components/ui/Prompt"
 const current = 3
 const total = 10
 
-type QuestionType = "multiple" | "code"
+type QuestionType = "multiple" | "code" | "text"
 
 const options = [
 	{ id: "o1",    label: "O(1)" },
@@ -36,6 +36,7 @@ const contextCode = `function binarySearch(arr, target) {
 export default function QuestionPage() {
 	const [type, setType] = useState<QuestionType>("multiple")
 	const [selected, setSelected] = useState<string | null>(null)
+	const [answer, setAnswer] = useState("")
 
 	return (
 		<Guard>
@@ -57,6 +58,12 @@ export default function QuestionPage() {
 							className={`text-xs font-mono px-3 py-1.5 border transition ${type === "code" ? "bg-secondary text-white border-secondary" : "border-zinc-300 text-zinc-500 hover:border-zinc-400"}`}
 						>
 							code
+						</button>
+						<button
+							onClick={() => setType("text")}
+							className={`text-xs font-mono px-3 py-1.5 border transition ${type === "text" ? "bg-secondary text-white border-secondary" : "border-zinc-300 text-zinc-500 hover:border-zinc-400"}`}
+						>
+							text
 						</button>
 					</div>
 
@@ -137,6 +144,47 @@ export default function QuestionPage() {
 							<Hint
 								text="Consider using built-in string and array methods like split(), reverse(), and join()."
 								color="primary"
+							/>
+						</>
+					)}
+
+					{type === "text" && (
+						<>
+							<div className="flex flex-col gap-1">
+								<h1 className="text-2xl font-semibold text-secondary">
+									Question {current} of {total}
+								</h1>
+							</div>
+
+							<div className="bg-white rounded-sm shadow-sm flex flex-col gap-5 p-6">
+								<Badge label="Text" color="tertiary" />
+								<Prompt
+									title="In your own words, explain the difference between a stack and a queue."
+									description="Focus on how each structure handles insertion and retrieval order."
+								/>
+								<textarea
+									value={answer}
+									onChange={(e) => setAnswer(e.target.value)}
+									placeholder="Write your answer here…"
+									rows={6}
+									className="w-full border border-zinc-200 rounded-sm px-4 py-3 text-sm text-secondary placeholder:text-zinc-400 outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none transition"
+								/>
+								<div className="flex items-center justify-between">
+									<span className="text-xs text-zinc-400 font-mono">
+										{answer.length} characters
+									</span>
+									<button
+										disabled={answer.trim().length === 0}
+										className="bg-primary text-white text-sm font-medium px-6 py-2.5 hover:opacity-90 active:opacity-80 transition disabled:opacity-40 disabled:cursor-not-allowed"
+									>
+										Submit Answer →
+									</button>
+								</div>
+							</div>
+
+							<Hint
+								text="There is no single correct answer — write what you understand. This helps us calibrate, not grade."
+								color="tertiary"
 							/>
 						</>
 					)}
