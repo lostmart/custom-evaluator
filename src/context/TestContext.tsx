@@ -4,8 +4,10 @@ import { createContext, useContext, useState } from "react"
 
 type TestState = {
 	currentQuestion: number
+	totalQuestions: number
 	points: number
 	cancelled: boolean
+	questionSet: "set1" | "set2" | null
 }
 
 type TestContextValue = {
@@ -18,8 +20,10 @@ const TestContext = createContext<TestContextValue | null>(null)
 export function TestProvider({ children }: { children: React.ReactNode }) {
 	const [test, setTestState] = useState<TestState>({
 		currentQuestion: 0,
+		totalQuestions: 0,
 		points: 0,
 		cancelled: false,
+		questionSet: null,
 	})
 
 	function setTest(data: Partial<TestState>) {

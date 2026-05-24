@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 
 type UserState = {
 	name: string
@@ -16,13 +16,15 @@ type UserContextValue = {
 const UserContext = createContext<UserContextValue | null>(null)
 
 export function UserProvider({ children }: { children: React.ReactNode }) {
-	const [user, setUserState] = useState<UserState>({
-		name: "",
-		email: "",
+	const [user, setUserState] = useState<UserState>(() => ({
+		name: typeof window !== "undefined" ? (localStorage.getItem("user_name") ?? "") : "",
+		email: typeof window !== "undefined" ? (localStorage.getItem("user_email") ?? "") : "",
 		hasStarted: false,
-	})
+	}))
 
 	function setUser(data: Partial<UserState>) {
+		if (data.name !== undefined) localStorage.setItem("user_name", data.name)
+		if (data.email !== undefined) localStorage.setItem("user_email", data.email)
 		setUserState((prev) => ({ ...prev, ...data }))
 	}
 

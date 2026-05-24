@@ -1,0 +1,142 @@
+[                                                                                                                                                                                                                        
+    {                                                                                                                                                                                                                      
+      "title": "Remove a file",                                                                                                                                                                                            
+      "question": "Which command deletes a file in Linux?",                                                                                                                                                                
+      "answer": "rm",                                                                                                                                                                                                      
+      "type": "multiple",                                                                                                                                                                                                  
+      "options": ["rm", "del", "remove", "erase"]
+    },                                                                                                                                                                                                                     
+    {             
+      "title": "Copy a file",
+      "question": "Which command copies a file in Linux?",
+      "answer": "cp",                                                                                                                                                                                                      
+      "type": "multiple",
+      "options": ["cp", "copy", "mv", "dup"]                                                                                                                                                                               
+    },            
+    {
+      "title": "Move a file",                                                                                                                                                                                              
+      "question": "Which command moves or renames a file in Linux?",
+      "answer": "mv",                                                                                                                                                                                                      
+      "type": "multiple",
+      "options": ["mv", "move", "cp", "rename"]
+    },                                                                                                                                                                                                                     
+    {
+      "title": "Create directory",                                                                                                                                                                                         
+      "question": "Which command creates a new directory?",
+      "answer": "mkdir",
+      "type": "multiple",                                                                                                                                                                                                  
+      "options": ["mkdir", "mkd", "newdir", "createdir"]
+    },                                                                                                                                                                                                                     
+    {             
+      "title": "All arguments",
+      "question": "Which special variable holds all arguments passed to a script as a single string?",                                                                                                                     
+      "answer": "$*",
+      "type": "multiple",                                                                                                                                                                                                  
+      "options": ["$@", "$*", "$#", "$1"]
+    },                                                                                                                                                                                                                     
+    {
+      "title": "Stdout redirect",                                                                                                                                                                                          
+      "question": "Which operator redirects stdout to a file, overwriting it?",
+      "answer": ">",                                                                                                                                                                                                       
+      "type": "multiple",
+      "options": ["|", ">>", ">", "<"]                                                                                                                                                                                     
+    },                                                                                                                                                                                                                     
+    {
+      "title": "Read file into command",                                                                                                                                                                                   
+      "question": "Which operator passes a file's content as stdin to a command?",
+      "answer": "<",                                                                                                                                                                                                       
+      "type": "multiple",
+      "options": [">", "<<", "<", "|"]                                                                                                                                                                                     
+    },                                                                                                                                                                                                                     
+    {
+      "title": "Variable in string",                                                                                                                                                                                       
+      "question": "Which quotes allow variable expansion inside a string?",                                                                                                                                                
+      "answer": "Double quotes \"\"",
+      "type": "multiple",                                                                                                                                                                                                  
+      "options": ["Single quotes ''", "Double quotes \"\"", "Backticks ``", "Brackets []"]
+    },                                                                                                                                                                                                                     
+    {             
+      "title": "Command substitution",                                                                                                                                                                                     
+      "question": "How do you store the output of a command into a variable?",
+      "answer": "VAR=$(command)",                                                                                                                                                                                          
+      "type": "multiple",                                                                                                                                                                                                  
+      "options": ["VAR=(command)", "VAR=$(command)", "VAR=#command", "VAR->command"]
+    },                                                                                                                                                                                                                     
+    {             
+      "title": "Check file exists",
+      "question": "Which flag inside [ ] checks if a file or directory exists?",                                                                                                                                           
+      "answer": "-e",
+      "type": "multiple",                                                                                                                                                                                                  
+      "options": ["-f", "-e", "-x", "-d"]                                                                                                                                                                                  
+    },
+    {                                                                                                                                                                                                                      
+      "title": "Executable test",
+      "question": "Which flag inside [ ] checks if a file is executable?",                                                                                                                                                 
+      "answer": "-x",
+      "type": "multiple",                                                                                                                                                                                                  
+      "options": ["-r", "-x", "-e", "-w"]
+    },                                                                                                                                                                                                                     
+    {
+      "title": "Logical AND in condition",                                                                                                                                                                                 
+      "question": "Which operator represents logical AND between two conditions inside [[ ]]?",
+      "answer": "&&",                                                                                                                                                                                                      
+      "type": "multiple",
+      "options": ["&", "&&", "AND", "-a"]                                                                                                                                                                                  
+    },                                                                                                                                                                                                                     
+    {
+      "title": "Logical OR in condition",                                                                                                                                                                                  
+      "question": "Which operator represents logical OR between two conditions inside [[ ]]?",
+      "answer": "||",                                                                                                                                                                                                      
+      "type": "multiple",
+      "options": ["|", "||", "OR", "-o"]                                                                                                                                                                                   
+    },            
+    {
+      "title": "While loop syntax",
+      "question": "What keyword starts the body of a while loop in bash?",                                                                                                                                                 
+      "answer": "do",
+      "type": "multiple",                                                                                                                                                                                                  
+      "options": ["then", "do", "begin", "start"]
+    },                                                                                                                                                                                                                     
+    {
+      "title": "Function definition",                                                                                                                                                                                      
+      "question": "Which of these correctly defines a function named greet in bash?",
+      "answer": "greet() { ... }",                                                                                                                                                                                         
+      "type": "multiple",
+      "options": ["function: greet { ... }", "def greet() { ... }", "greet() { ... }", "greet => { ... }"]                                                                                                                 
+    },                                                                                                                                                                                                                     
+    {
+      "title": "AWK print field",                                                                                                                                                                                          
+      "question": "In AWK, which variable refers to the second field of a line?",
+      "answer": "$2",                                                                                                                                                                                                      
+      "type": "multiple",
+      "options": ["$1", "$2", "F2", "field[2]"]                                                                                                                                                                            
+    },                                                                                                                                                                                                                     
+    {
+      "title": "sed substitution",                                                                                                                                                                                         
+      "question": "Which sed command replaces the first occurrence of 'foo' with 'bar' in a line?",
+      "answer": "sed 's/foo/bar/'",                                                                                                                                                                                        
+      "type": "multiple",
+      "options": ["sed 's/foo/bar/'", "sed 'r/foo/bar/'", "sed '/foo/bar/'", "sed 'foo->bar'"]                                                                                                                             
+    },                                                                                                                                                                                                                     
+    {
+      "title": "sed global replace",                                                                                                                                                                                       
+      "question": "What flag makes sed replace all occurrences in a line, not just the first?",
+      "answer": "g",                                                                                                                                                                                                       
+      "type": "multiple",
+      "options": ["a", "g", "i", "x"]                                                                                                                                                                                      
+    },                                                                                                                                                                                                                     
+    {
+      "title": "Array length",                                                                                                                                                                                             
+      "question": "How do you get the number of elements in an array named arr?",
+      "answer": "${#arr[@]}",                                                                                                                                                                                              
+      "type": "multiple",
+      "options": ["${arr.length}", "${#arr[@]}", "len(arr)", "${arr[#]}"]                                                                                                                                                  
+    },                                                                                                                                                                                                                     
+    {
+      "title": "Infinite loop",                                                                                                                                                                                            
+      "question": "Which condition creates an infinite while loop in bash?",
+      "answer": "while true",
+      "type": "multiple",                                                                                                                                                                                                  
+      "options": ["while forever", "while true", "while 1==1", "loop always"]
+    }                                                                                                                                                                                                                      
+  ]   

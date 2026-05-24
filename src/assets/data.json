@@ -1,0 +1,77 @@
+[
+  {
+    "title": "Append to file",
+    "question": "Which operator appends output to a file without overwriting it?",
+    "answer": ">>",
+    "type": "multiple",
+    "options": [">", ">>", "=>", "+>"]
+  },
+  {
+    "title": "File test",
+    "question": "Which flag checks if a path is a regular file inside [ ]?",
+    "answer": "-f",
+    "type": "multiple",
+    "options": ["-f", "-d", "-e", "-r"]
+  },
+  {
+    "title": "Directory test",
+    "question": "Which flag checks if a path is a directory inside [ ]?",
+    "answer": "-d",
+    "type": "multiple",
+    "options": ["-f", "-d", "-x", "-b"]
+  },
+  {
+    "title": "Declare array",
+    "question": "How do you declare an array in bash?",
+    "answer": "arr=(a b c)",
+    "type": "multiple",
+    "options": ["arr=[a, b, c]", "arr=(a b c)", "array arr a b c", "arr: a b c"]
+  },
+  {
+    "title": "Array element",
+    "question": "How do you access the first element of an array named arr?",
+    "answer": "${arr[0]}",
+    "type": "multiple",
+    "options": ["$arr[0]", "arr[0]", "${arr[0]}", "${arr(0)}"]
+  },
+  {
+    "title": "Case statement end",
+    "question": "What keyword closes a case block in bash?",
+    "answer": "esac",
+    "type": "multiple",
+    "options": ["fi", "done", "esac", "end"]
+  },
+  {
+    "title": "Local variable",
+    "question": "Which keyword restricts a variable's scope to the current function?",
+    "answer": "local",
+    "type": "multiple",
+    "options": ["local", "private", "var", "scope"]
+  },
+  {
+    "title": "Shift arguments",
+    "question": "What does the shift command do to script arguments?",
+    "answer": "Removes $1 and shifts remaining arguments down",
+    "type": "multiple",
+    "options": [
+      "Removes $1 and shifts remaining arguments down",
+      "Adds a new argument at the start",
+      "Reverses the argument order",
+      "Clears all arguments"
+    ]
+  },
+  {
+    "title": "Regex match",
+    "question": "Which operator tests a string against a regex pattern in bash?",
+    "answer": "=~",
+    "type": "multiple",
+    "options": ["==", "=~", "~=", "match"]
+  },
+  {
+    "title": "AWK field separator",
+    "question": "Which AWK variable defines the field separator?",
+    "answer": "FS",
+    "type": "multiple",
+    "options": ["FS", "SEP", "DELIM", "IFS"]
+  }
+]
