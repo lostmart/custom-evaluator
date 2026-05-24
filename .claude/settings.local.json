@@ -12,7 +12,9 @@
       "Read(//c/Users/$CM7100-M9DP4O11CIGV/Documents/code/custom-evaluator/src/assets/**)",
       "Bash(type \"C:\\\\Users$CM7100-M9DP4O11CIGV\\\\Documents\\\\code\\\\custom-evaluator\\\\src\\\\assets\\\\data.json\")",
       "Read(//c/Users/$CM7100-M9DP4O11CIGV/Documents/code/custom-evaluator/src/**)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(cmd //c \"del C:\\\\Users\\\\\\\\$CM7100-M9DP4O11CIGV\\\\Documents\\\\code\\\\custom-evaluator\\\\src\\\\middleware.ts\")",
+      "Bash(powershell -Command \"Remove-Item 'C:\\\\Users\\\\$CM7100-M9DP4O11CIGV\\\\Documents\\\\code\\\\custom-evaluator\\\\src\\\\middleware.ts'\")"
     ]
   }
 }

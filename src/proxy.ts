@@ -8,7 +8,7 @@ function isProtected(pathname: string) {
   return PROTECTED.some((path) => pathname === path || pathname.startsWith(path + "/"))
 }
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl
 
   if (!isProtected(pathname) || pathname === LOGIN_PAGE) {
