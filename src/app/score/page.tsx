@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
 import { useTest } from "@/context/TestContext"
 import { useUser } from "@/context/UserContext"
@@ -22,8 +22,10 @@ export default function ScorePage() {
 	const { points, totalQuestions } = test
 	const pct = totalQuestions > 0 ? Math.round((points / totalQuestions) * 100) : 0
 
+	const tracked = useRef(false)
 	useEffect(() => {
-		if (totalQuestions > 0) {
+		if (totalQuestions > 0 && !tracked.current) {
+			tracked.current = true
 			track({ email: user.email, name: user.name, event: "completed", detail: `${points}/${totalQuestions} correct` })
 		}
 	}, [])
