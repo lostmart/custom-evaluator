@@ -4,15 +4,15 @@ import db from "@/lib/db"
 export async function POST(req: NextRequest) {
   const body = await req.json()
 
-  if (body.event !== "question_answered") db.prepare(`
-    INSERT INTO events (timestamp, email, name, event, detail)
-    VALUES (@timestamp, @email, @name, @event, @detail)
-  `).run({
-    timestamp: body.timestamp ?? new Date().toISOString(),
-    email: body.email ?? "",
-    name: body.name ?? "",
-    event: body.event ?? "",
-    detail: body.detail ?? "",
+  if (body.event !== "question_answered") await db.execute({
+    sql: `INSERT INTO events (timestamp, email, name, event, detail) VALUES (?, ?, ?, ?, ?)`,
+    args: [
+      body.timestamp ?? new Date().toLocaleString("sv-SE", { timeZone: "Europe/Paris" }),
+      body.email ?? "",
+      body.name ?? "",
+      body.event ?? "",
+      body.detail ?? "",
+    ],
   })
 
   const url = process.env.PA_WEBHOOK_URL

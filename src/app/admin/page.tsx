@@ -34,10 +34,9 @@ function EventBadge({ event }: { event: string }) {
   )
 }
 
-export default function AdminPage() {
-  const events = db
-    .prepare("SELECT * FROM events ORDER BY id DESC")
-    .all() as Event[]
+export default async function AdminPage() {
+  const result = await db.execute("SELECT * FROM events ORDER BY id DESC")
+  const events = result.rows as unknown as Event[]
 
   const total = events.length
   const started = events.filter((e) => e.event === "started").length
