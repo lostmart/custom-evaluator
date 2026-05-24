@@ -1,0 +1,182 @@
+[
+  {
+    "title": "Bounded context ownership",
+    "question": "In a microservices architecture, which rule defines a bounded context?",
+    "answer": "A service owns its data exclusively — no other service can touch its database directly",
+    "type": "multiple",
+    "options": [
+      "A service owns its data exclusively — no other service can touch its database directly",
+      "A service shares its database with at most one other service",
+      "A service is limited to a single HTTP endpoint",
+      "A service must be deployed on its own server"
+    ]
+  },
+  {
+    "title": "Service map arrows",
+    "question": "On a GameHub service map, what does a dashed arrow between two services represent?",
+    "answer": "Asynchronous communication (event/message queue)",
+    "type": "multiple",
+    "options": [
+      "Asynchronous communication (event/message queue)",
+      "Synchronous REST call",
+      "A shared database connection",
+      "An optional/unused link"
+    ]
+  },
+  {
+    "title": "Conway's Law",
+    "question": "Conway's Law states that a system's architecture tends to mirror what?",
+    "answer": "The communication structure of the organisation that built it",
+    "type": "multiple",
+    "options": [
+      "The communication structure of the organisation that built it",
+      "The programming language chosen for each service",
+      "The number of developers on the team",
+      "The deployment frequency of the system"
+    ]
+  },
+  {
+    "title": "notification-service language",
+    "question": "Why does notification-service use Node.js while the rest of GameHub uses Python?",
+    "answer": "Microservices allow each service to use the best technology for its job — language choice is a per-service decision",
+    "type": "multiple",
+    "options": [
+      "Microservices allow each service to use the best technology for its job — language choice is a per-service decision",
+      "Python cannot send emails or push notifications",
+      "Node.js services are always faster than Python services",
+      "The course required at least one non-Python service for grading purposes"
+    ]
+  },
+  {
+    "title": "FastAPI layering — repository",
+    "question": "In the GameHub layered architecture, what is the sole responsibility of the repository layer?",
+    "answer": "Raw database queries — no business logic",
+    "type": "multiple",
+    "options": [
+      "Raw database queries — no business logic",
+      "HTTP routing and request validation",
+      "Business logic and orchestration",
+      "Pydantic schema definitions"
+    ]
+  },
+  {
+    "title": "FastAPI layering — schemas",
+    "question": "Which layer holds the Pydantic DTOs that define what the API sends and receives?",
+    "answer": "schemas",
+    "type": "multiple",
+    "options": [
+      "schemas",
+      "models",
+      "repository",
+      "routes"
+    ]
+  },
+  {
+    "title": "Alembic purpose",
+    "question": "What does running `alembic upgrade head` do in a GameHub service?",
+    "answer": "Applies all pending database migrations up to the latest version",
+    "type": "multiple",
+    "options": [
+      "Applies all pending database migrations up to the latest version",
+      "Starts the FastAPI development server",
+      "Runs the pytest test suite",
+      "Generates a new SQLAlchemy model file"
+    ]
+  },
+  {
+    "title": "ilike operator",
+    "question": "Which SQLAlchemy operator is used for the `/v1/games/search?q=<term>` endpoint to perform a case-insensitive partial match?",
+    "answer": "ilike",
+    "type": "multiple",
+    "options": [
+      "ilike",
+      "like",
+      "contains",
+      "match"
+    ]
+  },
+  {
+    "title": "Gateway port",
+    "question": "On which port does the GameHub gateway listen, and what is its role?",
+    "answer": "Port 8000 — single entry point that forwards all client requests to the correct downstream service",
+    "type": "multiple",
+    "options": [
+      "Port 8000 — single entry point that forwards all client requests to the correct downstream service",
+      "Port 8001 — user-service endpoint",
+      "Port 8080 — load balancer for all services",
+      "Port 8000 — runs business logic for all services"
+    ]
+  },
+  {
+    "title": "Gateway unknown route",
+    "question": "A request arrives at the gateway for `/v1/unknown`. What HTTP status should it return?",
+    "answer": "404",
+    "type": "multiple",
+    "options": [
+      "404",
+      "400",
+      "503",
+      "200 with an empty body"
+    ]
+  },
+  {
+    "title": "Gateway downstream unreachable",
+    "question": "A request is forwarded to user-service but the service is not running. What HTTP status should the gateway return to the client?",
+    "answer": "503 Service Unavailable",
+    "type": "multiple",
+    "options": [
+      "503 Service Unavailable",
+      "404 Not Found",
+      "500 Internal Server Error",
+      "200 with a null body"
+    ]
+  },
+  {
+    "title": "Validation vs enrichment",
+    "question": "When activity-service creates an activity, it calls user-service to validate the user and game-service to enrich the response. What happens when game-service is unreachable?",
+    "answer": "The activity is saved anyway and the response includes \"game\": null",
+    "type": "multiple",
+    "options": [
+      "The activity is saved anyway and the response includes \"game\": null",
+      "The request fails with a 503 error",
+      "The activity is saved but no response is returned to the client",
+      "The request is retried up to 3 times before failing"
+    ]
+  },
+  {
+    "title": "Retry library",
+    "question": "Which Python library is used in Module 3 to add retry logic to the user-service validation call?",
+    "answer": "tenacity",
+    "type": "multiple",
+    "options": [
+      "tenacity",
+      "retry",
+      "backoff",
+      "httpx"
+    ]
+  },
+  {
+    "title": "Cascading failure risk",
+    "question": "Three services are chained synchronously: gateway → activity-service → user-service. If user-service takes 3 seconds to respond, what is the effect on the client?",
+    "answer": "The client waits at least 3 seconds — latency compounds across the entire chain",
+    "type": "multiple",
+    "options": [
+      "The client waits at least 3 seconds — latency compounds across the entire chain",
+      "The gateway times out immediately and returns 200",
+      "Only activity-service is affected; the client sees no delay",
+      "The chain runs in parallel so the client waits only 1 second"
+    ]
+  },
+  {
+    "title": "Why async for activity→logging",
+    "question": "Why is it better to publish activity events to logging-service via a message queue (async) rather than a direct REST call (sync)?",
+    "answer": "A slow or down logging-service would block and fail every activity creation if the call were synchronous",
+    "type": "multiple",
+    "options": [
+      "A slow or down logging-service would block and fail every activity creation if the call were synchronous",
+      "REST calls cannot carry the required payload size",
+      "Async is always faster than sync regardless of context",
+      "The gateway cannot route to logging-service"
+    ]
+  }
+]

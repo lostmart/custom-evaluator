@@ -10,14 +10,20 @@ const SETS = [
   {
     id: "set1" as const,
     label: "Bash Scripting",
-    description: "Arrays, case statements, regex, AWK, and advanced shell features.",
+    description:
+      "Arrays, case statements, regex, AWK, and advanced shell features.",
   },
   {
     id: "set2" as const,
     label: "Linux Commands",
     description: "File operations, redirects, loops, functions, sed, and AWK.",
   },
-]
+  {
+    id: "set3" as const,
+    label: "Microservices with Python",
+    description: "Python, and microservices architecture",
+  },
+];
 
 export default function Home() {
   const { user, setUser } = useUser();
@@ -26,7 +32,9 @@ export default function Home() {
 
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
-  const [selectedSet, setSelectedSet] = useState<"set1" | "set2" | null>(null);
+  const [selectedSet, setSelectedSet] = useState<
+    "set1" | "set2" | "set3" | null
+  >(null);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -70,12 +78,17 @@ export default function Home() {
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <label className="flex flex-col gap-1.5">
-            <span className="text-sm font-medium text-secondary">Your email</span>
+            <span className="text-sm font-medium text-secondary">
+              Your email
+            </span>
             <input
               type="email"
               placeholder="firstname.lastname@epita.fr"
               value={email}
-              onChange={(e) => { setEmail(e.target.value); setError(""); }}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setError("");
+              }}
               required
               className={`border px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition ${error ? "border-red-400" : "border-zinc-200"}`}
             />
@@ -83,7 +96,9 @@ export default function Home() {
           </label>
 
           <label className="flex flex-col gap-1.5">
-            <span className="text-sm font-medium text-secondary">Your name</span>
+            <span className="text-sm font-medium text-secondary">
+              Your name
+            </span>
             <input
               type="text"
               placeholder="Firstname Lastname"
@@ -95,10 +110,12 @@ export default function Home() {
           </label>
 
           <div className="flex flex-col gap-1.5 mt-1">
-            <span className="text-sm font-medium text-secondary">Question set</span>
+            <span className="text-sm font-medium text-secondary">
+              Question set
+            </span>
             <div className="flex flex-col gap-2">
               {SETS.map((set) => {
-                const active = selectedSet === set.id
+                const active = selectedSet === set.id;
                 return (
                   <button
                     key={set.id}
@@ -110,12 +127,16 @@ export default function Home() {
                         : "border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50"
                     }`}
                   >
-                    <span className={`text-sm font-medium ${active ? "text-primary" : "text-secondary"}`}>
+                    <span
+                      className={`text-sm font-medium ${active ? "text-primary" : "text-secondary"}`}
+                    >
                       {set.label}
                     </span>
-                    <span className="text-xs text-zinc-400">{set.description}</span>
+                    <span className="text-xs text-zinc-400">
+                      {set.description}
+                    </span>
                   </button>
-                )
+                );
               })}
             </div>
           </div>
@@ -130,7 +151,8 @@ export default function Home() {
         </form>
 
         <p className="text-xs text-zinc-400 text-center">
-          You can only submit once. Make sure your email is correct before starting.
+          You can only submit once. Make sure your email is correct before
+          starting.
         </p>
       </main>
     </div>

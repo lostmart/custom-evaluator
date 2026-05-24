@@ -14,7 +14,15 @@
       "Read(//c/Users/$CM7100-M9DP4O11CIGV/Documents/code/custom-evaluator/src/**)",
       "Bash(npm install:*)",
       "Bash(cmd //c \"del C:\\\\Users\\\\\\\\$CM7100-M9DP4O11CIGV\\\\Documents\\\\code\\\\custom-evaluator\\\\src\\\\middleware.ts\")",
-      "Bash(powershell -Command \"Remove-Item 'C:\\\\Users\\\\$CM7100-M9DP4O11CIGV\\\\Documents\\\\code\\\\custom-evaluator\\\\src\\\\middleware.ts'\")"
+      "Bash(powershell -Command \"Remove-Item 'C:\\\\Users\\\\$CM7100-M9DP4O11CIGV\\\\Documents\\\\code\\\\custom-evaluator\\\\src\\\\middleware.ts'\")",
+      "Bash(xargs cat:*)",
+      "Read(//c/Users/$CM7100-M9DP4O11CIGV/Documents/code/custom-evaluator/**)",
+      "Bash(npm run:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx:*)",
+      "Bash(src/node_modules/.bin/tsc -p src/tsconfig.json --noEmit 2>&1)",
+      "Bash(ls:*)",
+      "Bash(cmd /c \"src\\\\\\\\node_modules\\\\\\\\.bin\\\\\\\\tsc.cmd -p src\\\\\\\\tsconfig.json --noEmit\" 2>&1)"
     ]
   }
 }
