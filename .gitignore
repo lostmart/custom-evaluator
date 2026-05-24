@@ -9,3 +9,5 @@ src/.yarn/*
 !src/.yarn/plugins
 !src/.yarn/releases
 !src/.yarn/versions
+.vercel
+.env*
