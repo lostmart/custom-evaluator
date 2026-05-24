@@ -30,7 +30,7 @@ The Next.js application. See `src/README.md` for how to run it locally.
 
 | Version | Focus |
 |---|---|
-| v1 | Multiple choice + code input, JSON storage, linear flow, score screen |
+| v1 | Multiple choice + code input, SQLite storage, linear flow, score screen, admin view |
 | v2 | Blur detection, copy-paste blocking, basic anti-cheat |
 | v3 | AI-assisted grading for code submissions |
 | v4 | Teacher dashboard, Google Sheets integration, student history |

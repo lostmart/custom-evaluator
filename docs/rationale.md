@@ -28,9 +28,11 @@ The first version needs to be functional within days and will replace Google For
 - **Code/text input questions** — manually reviewed or AI-assisted in future versions
 - **One question per page** — linear flow, no going back once an answer is submitted
 - **Final score screen** — shows result with a friendly diagnostic message (low pressure, not a judgment)
-- **Submission persistence** — results stored in a JSON file server-side for teacher review
+- **Submission persistence** — results stored in a SQLite database server-side for teacher review
 - **No double submission allowed** - once the students submitted an form, it can't be changed (email based)
-- **Shuffled question order** - questions are served in a random order
+- **Shuffled question order** — questions are served in a random order
+- **Multiple question sets** — students select from distinct topic sets (e.g. Bash Scripting, Linux Commands, Microservices with Python); each set draws from its own JSON question bank
+- **Admin page** — password-protected view of all submissions, with per-set filtering and event tracking
 
 ### Out of Scope for MVP
 
@@ -45,8 +47,8 @@ The first version needs to be functional within days and will replace Google For
 | Layer           | Choice                        | Reason                                                                         |
 | --------------- | ----------------------------- | ------------------------------------------------------------------------------ |
 | Framework       | Next.js                       | Full-stack in one repo; API routes handle submission storage; React-compatible |
-| UI              | Tilwind css                   | Speed over polish on tight deadline                                            |
-| Data            | Local JSON file (server-side) | Simple, no database setup needed for MVP                                       |
+| UI              | shadcn/ui + Tailwind CSS      | Pre-built accessible components; speed over polish on tight deadline           |
+| Data            | SQLite (server-side)          | Simple, file-based, no external database needed                                |
 | Question source | JSON file                     | Easy to author and edit questions quickly                                      |
 
 ## Assessment Philosophy
@@ -72,14 +74,14 @@ The following constraints are planned for post-MVP:
 2. Questions are served one at a time from a JSON file
 3. Each answer is captured in local component state
 4. On final submission, answers + score are sent to a Next.js API route
-5. API route appends the result to a server-side JSON file
+5. API route writes the result to a SQLite database
 6. Student sees their score with a diagnostic summary message
 
 ## Roadmap
 
 | Version  | Focus                                                                 |
 | -------- | --------------------------------------------------------------------- |
-| v1 (now) | Multiple choice + code input, JSON storage, linear flow, score screen |
+| v1 (now) | Multiple choice + code input, SQLite storage, linear flow, score screen, admin view |
 | v2       | Blur detection, copy-paste blocking, basic anti-cheat                 |
 | v3       | AI-assisted grading for code submissions                              |
 | v4       | Teacher dashboard, Google Sheets integration, student history         |
