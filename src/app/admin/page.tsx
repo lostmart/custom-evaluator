@@ -1,6 +1,8 @@
-import db from "@/lib/db"
+import db, { ready } from "@/lib/db"
 import LogoutButton from "./LogoutButton"
 import DeleteButton from "./DeleteButton"
+
+export const dynamic = "force-dynamic"
 
 type Event = {
   id: number
@@ -35,6 +37,7 @@ function EventBadge({ event }: { event: string }) {
 }
 
 export default async function AdminPage() {
+  await ready
   const result = await db.execute("SELECT * FROM events ORDER BY id DESC")
   const events = result.rows as unknown as Event[]
 

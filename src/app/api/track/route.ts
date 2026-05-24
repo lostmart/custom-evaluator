@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server"
-import db from "@/lib/db"
+import db, { ready } from "@/lib/db"
 
 export async function POST(req: NextRequest) {
   const body = await req.json()
+  await ready
 
   if (body.event !== "question_answered") await db.execute({
     sql: `INSERT INTO events (timestamp, email, name, event, detail) VALUES (?, ?, ?, ?, ?)`,

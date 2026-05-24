@@ -1,11 +1,7 @@
-import { createClient } from "@libsql/client"
+import db from "../lib/db"
 
-const db = createClient({
-  url: process.env.TURSO_DATABASE_URL ?? "file:./data/evaluator.db",
-  authToken: process.env.TURSO_AUTH_TOKEN,
-})
-
-export const ready = db.executeMultiple(`
+async function migrate() {
+  await db.executeMultiple(`
   CREATE TABLE IF NOT EXISTS events (
     id        INTEGER PRIMARY KEY AUTOINCREMENT,
     timestamp TEXT    NOT NULL,
@@ -14,6 +10,7 @@ export const ready = db.executeMultiple(`
     event     TEXT    NOT NULL,
     detail    TEXT    NOT NULL DEFAULT ''
   );
+
   CREATE TABLE IF NOT EXISTS submissions (
     id           INTEGER PRIMARY KEY AUTOINCREMENT,
     submitted_at TEXT    NOT NULL,
@@ -24,4 +21,7 @@ export const ready = db.executeMultiple(`
   );
 `)
 
-export default db
+  console.log("Migration complete.")
+}
+
+migrate()
