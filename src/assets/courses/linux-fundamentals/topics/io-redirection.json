@@ -1,0 +1,53 @@
+{
+  "id": "io-redirection",
+  "courseId": "linux-fundamentals",
+  "title": "I/O Redirection",
+  "summary": "Every Linux process has three standard streams: stdin (0), stdout (1), and stderr (2). Redirection operators let you connect these streams to files or other commands, making it possible to chain tools and capture or discard output.",
+  "keyPoints": [
+    "> writes stdout to a file, overwriting it",
+    ">> appends stdout to a file",
+    "< feeds a file into a command's stdin",
+    "| (pipe) connects stdout of one command to stdin of the next",
+    "2> redirects stderr to a file",
+    "2>&1 merges stderr into stdout (useful before a pipe or file redirect)",
+    "/dev/null is the discard sink — anything written to it disappears"
+  ],
+  "externalLinks": [
+    {
+      "label": "GNU Bash Manual — Redirections",
+      "url": "https://www.gnu.org/software/bash/manual/bash.html#Redirections"
+    },
+    {
+      "label": "Linux man-pages — bash(1) Redirection section",
+      "url": "https://man7.org/linux/man-pages/man1/bash.1.html"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "ior-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which operator passes a file's content as stdin to a command?",
+      "options": [">", "<<", "<", "|"],
+      "answer": "<",
+      "explanation": "< redirects a file to stdin. | redirects another command's stdout, not a file."
+    },
+    {
+      "id": "ior-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which operator redirects stdout to a file, overwriting it?",
+      "options": ["|", ">>", ">", "<"],
+      "answer": ">",
+      "explanation": "> truncates and writes. >> appends. | pipes to another command, not a file."
+    },
+    {
+      "id": "ior-ex-03",
+      "type": "code",
+      "difficulty": "intermediate",
+      "prompt": "Write a command that sorts the lines of input.txt and saves the result to sorted.txt, while discarding any error messages.",
+      "hint": "Pipe sort's stderr to /dev/null and redirect stdout to sorted.txt.",
+      "solution": "sort input.txt > sorted.txt 2>/dev/null"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+[
+  {
+    "id": "bash-scripting",
+    "title": "Bash Scripting",
+    "description": "Core Bash scripting concepts for automation and system administration.",
+    "icon": "terminal"
+  },
+  {
+    "id": "linux-fundamentals",
+    "title": "Linux Fundamentals",
+    "description": "Essential Linux commands and file system navigation."
+  },
+  {
+    "id": "python-microservices",
+    "title": "Python Microservices",
+    "description": "Building and deploying microservices with Python."
+  }
+]

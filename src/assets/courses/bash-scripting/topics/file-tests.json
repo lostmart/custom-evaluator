@@ -1,0 +1,50 @@
+{
+  "id": "file-tests",
+  "courseId": "bash-scripting",
+  "title": "File Tests",
+  "summary": "Bash provides conditional expressions that test properties of files and directories inside [ ] or [[ ]]. These are essential for writing scripts that behave safely depending on whether files exist, are readable, or are directories.",
+  "keyPoints": [
+    "-e: true if the path exists (file or directory)",
+    "-f: true if the path is a regular file",
+    "-d: true if the path is a directory",
+    "-r: true if the file is readable",
+    "-w: true if the file is writable",
+    "-x: true if the file is executable",
+    "-s: true if the file exists and has size > 0",
+    "Combine with && or || inside [[ ]] for compound tests"
+  ],
+  "externalLinks": [
+    {
+      "label": "GNU Bash Manual — Bash Conditional Expressions",
+      "url": "https://www.gnu.org/software/bash/manual/bash.html#Bash-Conditional-Expressions"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "ft-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which flag checks if a path is a regular file inside [ ]?",
+      "options": ["-f", "-d", "-e", "-r"],
+      "answer": "-f",
+      "explanation": "-f is true only for regular files. -e is true for any existing path including directories."
+    },
+    {
+      "id": "ft-ex-02",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Complete the condition to check if /etc/hosts exists and is readable.",
+      "code": "if [[ ___ /etc/hosts && ___ /etc/hosts ]]; then",
+      "answer": "-e, -r",
+      "explanation": "-e checks existence, -r checks readability. Both must be true."
+    },
+    {
+      "id": "ft-ex-03",
+      "type": "code",
+      "difficulty": "intermediate",
+      "prompt": "Write a script snippet that prints 'is a directory' if $1 is a directory, 'is a file' if it's a regular file, or 'not found' otherwise.",
+      "hint": "Use if / elif / else with -d and -f.",
+      "solution": "if [[ -d \"$1\" ]]; then\n  echo 'is a directory'\nelif [[ -f \"$1\" ]]; then\n  echo 'is a file'\nelse\n  echo 'not found'\nfi"
+    }
+  ]
+}

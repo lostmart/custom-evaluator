@@ -1,0 +1,50 @@
+{
+  "id": "arrays",
+  "courseId": "linux-fundamentals",
+  "title": "Arrays",
+  "summary": "Bash arrays let you store multiple values in a single variable. They are indexed from 0 and support iteration, slicing, and appending. Mastering arrays avoids the need for temporary files when processing lists of values in scripts.",
+  "keyPoints": [
+    "Declare: arr=(val1 val2 val3) — space-separated, no commas",
+    "Access element: ${arr[0]}",
+    "All elements: ${arr[@]}",
+    "Count of elements: ${#arr[@]}",
+    "Append: arr+=(newval)",
+    "Delete element: unset arr[index]",
+    "Loop: for item in \"${arr[@]}\"; do ... done",
+    "Slicing: ${arr[@]:start:count}"
+  ],
+  "externalLinks": [
+    {
+      "label": "GNU Bash Manual — Arrays",
+      "url": "https://www.gnu.org/software/bash/manual/bash.html#Arrays"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "larr-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "How do you get the number of elements in an array named arr?",
+      "options": ["${arr.length}", "${#arr[@]}", "len(arr)", "${arr[#]}"],
+      "answer": "${#arr[@]}",
+      "explanation": "The # prefix means 'length of'. [@] expands all indices. This is the standard Bash idiom."
+    },
+    {
+      "id": "larr-ex-02",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Complete the loop to print every element of array 'fruits'.",
+      "code": "for item in ___; do\n  echo $item\ndone",
+      "answer": "\"${fruits[@]}\"",
+      "explanation": "[@] expands all elements as separate words. Quoting prevents word splitting if elements contain spaces."
+    },
+    {
+      "id": "larr-ex-03",
+      "type": "code",
+      "difficulty": "intermediate",
+      "prompt": "Declare an array of three numbers (10, 20, 30), then write a loop that prints each number multiplied by 2.",
+      "hint": "Use $(( item * 2 )) for arithmetic.",
+      "solution": "nums=(10 20 30)\nfor n in \"${nums[@]}\"; do\n  echo $(( n * 2 ))\ndone"
+    }
+  ]
+}

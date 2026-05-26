@@ -1,0 +1,14 @@
+{
+  "id": "bash-scripting",
+  "title": "Bash Scripting",
+  "description": "Core Bash scripting concepts for automation and system administration.",
+  "topics": [
+    { "id": "io-redirection",  "title": "I/O Redirection" },
+    { "id": "file-tests",      "title": "File Tests" },
+    { "id": "arrays",          "title": "Arrays" },
+    { "id": "case-statements", "title": "Case Statements" },
+    { "id": "functions",       "title": "Functions" },
+    { "id": "regex",           "title": "Regular Expressions" },
+    { "id": "awk",             "title": "AWK" }
+  ]
+}

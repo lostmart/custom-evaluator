@@ -1,0 +1,49 @@
+{
+  "id": "case-statements",
+  "courseId": "bash-scripting",
+  "title": "Case Statements",
+  "summary": "The case...esac construct provides multi-branch pattern matching in Bash, similar to switch/case in other languages. It is cleaner than long if/elif chains when testing a single variable against multiple patterns.",
+  "keyPoints": [
+    "Opens with: case $variable in",
+    "Each branch: pattern) commands ;;",
+    "Multiple patterns per branch: a|b) commands ;;",
+    "Glob patterns allowed: *.txt) commands ;;",
+    "Default/catch-all: *) commands ;;",
+    "Closes with: esac (case spelled backwards)",
+    ";; terminates a branch — like break in C switch"
+  ],
+  "externalLinks": [
+    {
+      "label": "GNU Bash Manual — Conditional Constructs",
+      "url": "https://www.gnu.org/software/bash/manual/bash.html#Conditional-Constructs"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "case-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What keyword closes a case block in Bash?",
+      "options": ["fi", "done", "esac", "end"],
+      "answer": "esac",
+      "explanation": "esac is 'case' reversed — a Bash convention also used in other POSIX shells."
+    },
+    {
+      "id": "case-ex-02",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Complete the case branch that matches either 'yes' or 'y' and echoes 'Confirmed'.",
+      "code": "case $answer in\n  ___ ) echo 'Confirmed' ;;\nesac",
+      "answer": "yes|y",
+      "explanation": "The | character separates alternative patterns within a single branch."
+    },
+    {
+      "id": "case-ex-03",
+      "type": "code",
+      "difficulty": "intermediate",
+      "prompt": "Write a case statement that takes $1 (start/stop/restart) and echoes the corresponding action, with a default branch that echoes 'Unknown command'.",
+      "hint": "Use *) as the catch-all last branch.",
+      "solution": "case $1 in\n  start)   echo 'Starting service' ;;\n  stop)    echo 'Stopping service' ;;\n  restart) echo 'Restarting service' ;;\n  *)       echo 'Unknown command' ;;\nesac"
+    }
+  ]
+}

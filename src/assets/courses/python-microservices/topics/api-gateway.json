@@ -1,0 +1,64 @@
+{
+  "id": "api-gateway",
+  "courseId": "python-microservices",
+  "title": "API Gateway",
+  "summary": "An API gateway is the single entry point for all client requests. It receives incoming HTTP traffic, inspects the path, and forwards requests to the appropriate downstream service. Clients never talk to individual services directly — all traffic flows through the gateway.",
+  "keyPoints": [
+    "Single entry point — clients only need to know one address",
+    "Routes requests based on URL path prefix (e.g. /v1/users → user-service)",
+    "Returns 404 for routes it does not recognise",
+    "Returns 503 if a downstream service is unreachable",
+    "Does not contain business logic — it only routes and proxies",
+    "In GameHub, the gateway listens on port 8000",
+    "Can handle cross-cutting concerns: auth headers, rate limiting, logging"
+  ],
+  "externalLinks": [
+    {
+      "label": "Martin Fowler — API Gateway",
+      "url": "https://martinfowler.com/articles/microservices.html#ProductsNotProjects"
+    },
+    {
+      "label": "AWS — API Gateway pattern",
+      "url": "https://docs.aws.amazon.com/whitepapers/latest/microservices-on-aws/api-gateway.html"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "gw-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "On which port does the GameHub gateway listen, and what is its role?",
+      "options": [
+        "Port 8000 — single entry point that forwards all client requests to the correct downstream service",
+        "Port 8001 — user-service endpoint",
+        "Port 8080 — load balancer for all services",
+        "Port 8000 — runs business logic for all services"
+      ],
+      "answer": "Port 8000 — single entry point that forwards all client requests to the correct downstream service",
+      "explanation": "The gateway owns port 8000. Its only job is routing — downstream services run on other ports that are not exposed to clients."
+    },
+    {
+      "id": "gw-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "A request arrives at the gateway for /v1/unknown. What HTTP status should it return?",
+      "options": ["404", "400", "503", "200 with an empty body"],
+      "answer": "404",
+      "explanation": "404 Not Found is correct when no route matches. 400 is for malformed requests. 503 is for unreachable upstream services."
+    },
+    {
+      "id": "gw-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "A request is forwarded to user-service but the service is not running. What HTTP status should the gateway return to the client?",
+      "options": [
+        "503 Service Unavailable",
+        "404 Not Found",
+        "500 Internal Server Error",
+        "200 with a null body"
+      ],
+      "answer": "503 Service Unavailable",
+      "explanation": "503 communicates that the gateway knows where to route the request but the upstream service is unavailable. 500 would suggest the gateway itself has a bug."
+    }
+  ]
+}

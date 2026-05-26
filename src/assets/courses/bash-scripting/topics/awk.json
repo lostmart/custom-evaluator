@@ -1,0 +1,54 @@
+{
+  "id": "awk",
+  "courseId": "bash-scripting",
+  "title": "AWK",
+  "summary": "AWK is a line-oriented text processing tool built into every Unix system. It splits each input line into fields, making it ideal for processing structured text like CSVs, log files, and command output. AWK programs consist of pattern-action pairs.",
+  "keyPoints": [
+    "FS: field separator variable (default: whitespace)",
+    "$1, $2, ...: individual fields on the current line",
+    "$0: the entire current line",
+    "NF: number of fields on the current line",
+    "NR: current line number",
+    "BEGIN { }: runs before any input is read",
+    "END { }: runs after all input is processed",
+    "Set FS on command line: awk -F: for colon-separated input"
+  ],
+  "externalLinks": [
+    {
+      "label": "GNU AWK Manual",
+      "url": "https://www.gnu.org/software/gawk/manual/gawk.html"
+    },
+    {
+      "label": "AWK one-liners explained",
+      "url": "https://catonmat.net/awk-one-liners-explained-part-one"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "awk-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which AWK variable defines the field separator?",
+      "options": ["FS", "SEP", "DELIM", "IFS"],
+      "answer": "FS",
+      "explanation": "FS is AWK's field separator. IFS is a similar concept in Bash itself, not in AWK."
+    },
+    {
+      "id": "awk-ex-02",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Complete the AWK command to print only the third field of each line from file data.txt.",
+      "code": "awk '{ print ___ }' data.txt",
+      "answer": "$3",
+      "explanation": "$1 is the first field, $2 the second, $3 the third. $0 is the whole line."
+    },
+    {
+      "id": "awk-ex-03",
+      "type": "code",
+      "difficulty": "intermediate",
+      "prompt": "Write an AWK command that reads /etc/passwd (colon-separated), and prints the username (field 1) and shell (field 7) for each user.",
+      "hint": "Use -F: to set the field separator to colon.",
+      "solution": "awk -F: '{ print $1, $7 }' /etc/passwd"
+    }
+  ]
+}

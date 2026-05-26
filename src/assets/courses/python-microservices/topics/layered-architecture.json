@@ -1,0 +1,63 @@
+{
+  "id": "layered-architecture",
+  "courseId": "python-microservices",
+  "title": "Layered Architecture",
+  "summary": "Each GameHub service follows a four-layer structure: routes handle HTTP, services contain business logic, repositories handle raw database queries, and schemas define Pydantic DTOs for validation and serialisation. Keeping these layers separate makes each one independently testable and replaceable.",
+  "keyPoints": [
+    "routes/: FastAPI path operations — HTTP routing and request validation only",
+    "services/: business logic and orchestration — calls repositories and other services",
+    "repository/: raw database queries via SQLAlchemy — no business logic",
+    "schemas/: Pydantic models that define request/response shapes (DTOs)",
+    "models/: SQLAlchemy ORM table definitions — map Python classes to DB tables",
+    "Data flows inward: routes → services → repository → database",
+    "ilike() is the SQLAlchemy method for case-insensitive partial string matching"
+  ],
+  "externalLinks": [
+    {
+      "label": "FastAPI — Bigger Applications",
+      "url": "https://fastapi.tiangolo.com/tutorial/bigger-applications/"
+    },
+    {
+      "label": "SQLAlchemy — ORM Querying",
+      "url": "https://docs.sqlalchemy.org/en/20/orm/queryguide/index.html"
+    },
+    {
+      "label": "Pydantic — Models",
+      "url": "https://docs.pydantic.dev/latest/concepts/models/"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "la-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "In the GameHub layered architecture, what is the sole responsibility of the repository layer?",
+      "options": [
+        "Raw database queries — no business logic",
+        "HTTP routing and request validation",
+        "Business logic and orchestration",
+        "Pydantic schema definitions"
+      ],
+      "answer": "Raw database queries — no business logic",
+      "explanation": "The repository layer is a thin data-access wrapper. Business decisions belong in the service layer, keeping database code isolated and easy to swap."
+    },
+    {
+      "id": "la-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which layer holds the Pydantic DTOs that define what the API sends and receives?",
+      "options": ["schemas", "models", "repository", "routes"],
+      "answer": "schemas",
+      "explanation": "schemas/ contains Pydantic BaseModel subclasses used for request bodies and response serialisation. models/ contains SQLAlchemy ORM table definitions."
+    },
+    {
+      "id": "la-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Which SQLAlchemy operator performs a case-insensitive partial match for the /v1/games/search?q=<term> endpoint?",
+      "options": ["ilike", "like", "contains", "match"],
+      "answer": "ilike",
+      "explanation": "ilike is the case-insensitive variant of like. Combined with %term% it matches any row where the column contains the search term regardless of case."
+    }
+  ]
+}

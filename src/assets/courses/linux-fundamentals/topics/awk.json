@@ -1,0 +1,54 @@
+{
+  "id": "awk",
+  "courseId": "linux-fundamentals",
+  "title": "AWK",
+  "summary": "AWK processes text files line by line, splitting each line into fields. It is ideal for extracting columns from structured output, computing totals, and filtering records — all without writing a full script.",
+  "keyPoints": [
+    "$1, $2, ...: fields on the current line (split by FS)",
+    "$0: the full current line",
+    "NR: current record (line) number",
+    "NF: number of fields on the current line",
+    "FS: field separator (default whitespace); set with -F or in BEGIN",
+    "BEGIN { }: executed before reading input",
+    "END { }: executed after all input is read",
+    "Pattern before { }: only run action when pattern matches"
+  ],
+  "externalLinks": [
+    {
+      "label": "GNU AWK Manual",
+      "url": "https://www.gnu.org/software/gawk/manual/gawk.html"
+    },
+    {
+      "label": "Linux man-pages — awk(1p)",
+      "url": "https://man7.org/linux/man-pages/man1/awk.1p.html"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "lawk-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "In AWK, which variable refers to the second field of a line?",
+      "options": ["$1", "$2", "F2", "field[2]"],
+      "answer": "$2",
+      "explanation": "Fields are numbered from 1. $1 is the first field, $2 the second, $NF is the last."
+    },
+    {
+      "id": "lawk-ex-02",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Complete the AWK command to print only lines where the first field equals 'ERROR'.",
+      "code": "awk '___ == \"ERROR\" { print }' app.log",
+      "answer": "$1",
+      "explanation": "$1 refers to the first whitespace-delimited field on each line."
+    },
+    {
+      "id": "lawk-ex-03",
+      "type": "code",
+      "difficulty": "intermediate",
+      "prompt": "Write an AWK command that sums the values in the third column of numbers.txt and prints the total at the end.",
+      "hint": "Accumulate in a variable in the main block, print in END.",
+      "solution": "awk '{ sum += $3 } END { print sum }' numbers.txt"
+    }
+  ]
+}

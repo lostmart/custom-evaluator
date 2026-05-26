@@ -1,0 +1,64 @@
+{
+  "id": "database-migrations",
+  "courseId": "python-microservices",
+  "title": "Database Migrations",
+  "summary": "Alembic is the database migration tool used with SQLAlchemy. Migrations are versioned scripts that evolve the database schema over time — adding columns, creating tables, dropping indexes — without losing existing data. Each service manages its own migrations independently.",
+  "keyPoints": [
+    "alembic upgrade head: applies all pending migrations to bring the DB to the latest version",
+    "alembic downgrade -1: reverts the most recent migration",
+    "alembic revision --autogenerate: generates a new migration file from ORM model changes",
+    "Migration files live in alembic/versions/ and are committed to version control",
+    "Each migration has an up_revision and a down_revision forming a chain",
+    "Migrations must be run on first deploy and after any schema change",
+    "Never edit a migration that has already been applied to a production database"
+  ],
+  "externalLinks": [
+    {
+      "label": "Alembic — Official Documentation",
+      "url": "https://alembic.sqlalchemy.org/en/latest/"
+    },
+    {
+      "label": "Alembic — Tutorial",
+      "url": "https://alembic.sqlalchemy.org/en/latest/tutorial.html"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "db-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What does running 'alembic upgrade head' do in a GameHub service?",
+      "options": [
+        "Applies all pending database migrations up to the latest version",
+        "Starts the FastAPI development server",
+        "Runs the pytest test suite",
+        "Generates a new SQLAlchemy model file"
+      ],
+      "answer": "Applies all pending database migrations up to the latest version",
+      "explanation": "'head' refers to the latest migration in the version chain. All unapplied migrations between the current DB state and head are executed in order."
+    },
+    {
+      "id": "db-ex-02",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Complete the Alembic command to auto-generate a new migration file after adding a column to an ORM model.",
+      "code": "alembic revision ___ -m \"add column to users\"",
+      "answer": "--autogenerate",
+      "explanation": "--autogenerate compares your ORM models to the current database schema and generates the diff as a migration script."
+    },
+    {
+      "id": "db-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "You need to undo the last migration in development. Which command do you run?",
+      "options": [
+        "alembic downgrade -1",
+        "alembic rollback head",
+        "alembic revert last",
+        "alembic upgrade -1"
+      ],
+      "answer": "alembic downgrade -1",
+      "explanation": "downgrade moves the schema back; -1 means one step back from the current version. You can also target a specific revision ID."
+    }
+  ]
+}

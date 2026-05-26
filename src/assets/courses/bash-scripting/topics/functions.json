@@ -1,0 +1,54 @@
+{
+  "id": "functions",
+  "courseId": "bash-scripting",
+  "title": "Functions",
+  "summary": "Bash functions group reusable commands under a name. Arguments are passed positionally ($1, $2, ...) just like script arguments. Variables are global by default — use 'local' to limit scope. Functions do not return values; they use exit codes or echo output for results.",
+  "keyPoints": [
+    "Definition: name() { commands; } — no arguments in the signature",
+    "Arguments accessed as $1, $2, ... inside the function",
+    "$# is the count of arguments passed to the function",
+    "local keyword restricts a variable to the function's scope",
+    "return N sets the exit code (0 = success, 1–255 = error)",
+    "To return a string, echo it and capture with $(fn)",
+    "shift removes $1 and shifts remaining arguments down by one"
+  ],
+  "externalLinks": [
+    {
+      "label": "GNU Bash Manual — Shell Functions",
+      "url": "https://www.gnu.org/software/bash/manual/bash.html#Shell-Functions"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "fn-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which keyword restricts a variable's scope to the current function?",
+      "options": ["local", "private", "var", "scope"],
+      "answer": "local",
+      "explanation": "Without 'local', variables set inside a function are global and persist after the function returns."
+    },
+    {
+      "id": "fn-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What does the 'shift' command do to script arguments?",
+      "options": [
+        "Removes $1 and shifts remaining arguments down",
+        "Adds a new argument at the start",
+        "Reverses the argument order",
+        "Clears all arguments"
+      ],
+      "answer": "Removes $1 and shifts remaining arguments down",
+      "explanation": "After shift, the old $2 becomes $1, $3 becomes $2, and so on. $# decreases by 1."
+    },
+    {
+      "id": "fn-ex-03",
+      "type": "code",
+      "difficulty": "intermediate",
+      "prompt": "Write a function called 'greet' that takes a name as $1 and echoes 'Hello, <name>!'. Call it with 'Alice'.",
+      "hint": "Use local to store the argument, then echo the message.",
+      "solution": "greet() {\n  local name=$1\n  echo \"Hello, $name!\"\n}\ngreet Alice"
+    }
+  ]
+}

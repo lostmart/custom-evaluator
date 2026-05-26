@@ -1,0 +1,13 @@
+{
+  "id": "python-microservices",
+  "title": "Python Microservices",
+  "description": "Building and deploying microservices with Python, FastAPI, and message queues.",
+  "topics": [
+    { "id": "bounded-context",       "title": "Bounded Contexts & Data Ownership" },
+    { "id": "service-communication", "title": "Service Communication" },
+    { "id": "api-gateway",           "title": "API Gateway" },
+    { "id": "layered-architecture",  "title": "Layered Architecture" },
+    { "id": "database-migrations",   "title": "Database Migrations" },
+    { "id": "resilience",            "title": "Resilience & Error Handling" }
+  ]
+}

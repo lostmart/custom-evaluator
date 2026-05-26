@@ -1,0 +1,64 @@
+{
+  "id": "resilience",
+  "courseId": "python-microservices",
+  "title": "Resilience & Error Handling",
+  "summary": "In a distributed system, any network call can fail. Resilient services handle failures gracefully — retrying transient errors, returning partial responses when enrichment fails, and avoiding cascading failures that take down the whole system.",
+  "keyPoints": [
+    "tenacity: Python library for retry logic with configurable backoff strategies",
+    "Transient failures (network blip) should be retried; permanent failures (404) should not",
+    "Cascading failure: a slow dependency blocks the caller, which blocks its caller, etc.",
+    "Graceful degradation: return a partial response rather than failing entirely",
+    "Validation vs enrichment: validation failure should block the request; enrichment failure should not",
+    "Circuit breaker pattern: stop calling a failing service temporarily to give it time to recover",
+    "Timeouts on all outbound HTTP calls — never wait indefinitely"
+  ],
+  "externalLinks": [
+    {
+      "label": "tenacity — Python retry library",
+      "url": "https://tenacity.readthedocs.io/en/latest/"
+    },
+    {
+      "label": "Martin Fowler — Circuit Breaker",
+      "url": "https://martinfowler.com/bliki/CircuitBreaker.html"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "res-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which Python library is used to add retry logic to inter-service HTTP calls?",
+      "options": ["tenacity", "retry", "backoff", "httpx"],
+      "answer": "tenacity",
+      "explanation": "tenacity provides decorators like @retry with configurable stop conditions, wait strategies (fixed, exponential), and retry predicates."
+    },
+    {
+      "id": "res-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "When activity-service creates an activity, it calls game-service to enrich the response. What happens when game-service is unreachable?",
+      "options": [
+        "The activity is saved anyway and the response includes \"game\": null",
+        "The request fails with a 503 error",
+        "The activity is saved but no response is returned to the client",
+        "The request is retried up to 3 times before failing"
+      ],
+      "answer": "The activity is saved anyway and the response includes \"game\": null",
+      "explanation": "Enrichment is optional — the core operation (saving the activity) succeeds regardless. Returning null for the enriched field signals the client that the data was unavailable."
+    },
+    {
+      "id": "res-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "What is the key difference between a validation call and an enrichment call in terms of failure handling?",
+      "options": [
+        "Validation failure blocks the request; enrichment failure returns a partial response",
+        "Both should always cause a 503 to be returned to the client",
+        "Enrichment failure blocks the request; validation failure is ignored",
+        "There is no difference — both are optional"
+      ],
+      "answer": "Validation failure blocks the request; enrichment failure returns a partial response",
+      "explanation": "Validation ensures required data is correct — without it the operation cannot proceed safely. Enrichment adds optional detail — losing it degrades the response but does not invalidate the operation."
+    }
+  ]
+}

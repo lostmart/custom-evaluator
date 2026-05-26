@@ -1,0 +1,53 @@
+{
+  "id": "conditionals",
+  "courseId": "linux-fundamentals",
+  "title": "Conditionals",
+  "summary": "Bash conditionals use if/elif/else/fi and test expressions inside [ ] or [[ ]]. The double-bracket [[ ]] form is Bash-specific but safer and more powerful — it handles empty variables gracefully and supports regex with =~.",
+  "keyPoints": [
+    "if [[ condition ]]; then ... elif ... else ... fi",
+    "-e: path exists, -f: regular file, -d: directory, -x: executable",
+    "-z: string is empty, -n: string is non-empty",
+    "String equality: [[ $a == $b ]], inequality: [[ $a != $b ]]",
+    "Numeric comparisons: -eq, -ne, -lt, -le, -gt, -ge",
+    "&& (AND) and || (OR) combine conditions inside [[ ]]",
+    "Prefer [[ ]] over [ ] in Bash — avoids word splitting and quoting pitfalls"
+  ],
+  "externalLinks": [
+    {
+      "label": "GNU Bash Manual — Conditional Constructs",
+      "url": "https://www.gnu.org/software/bash/manual/bash.html#Conditional-Constructs"
+    },
+    {
+      "label": "GNU Bash Manual — Bash Conditional Expressions",
+      "url": "https://www.gnu.org/software/bash/manual/bash.html#Bash-Conditional-Expressions"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "cond-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which flag inside [ ] checks if a file or directory exists?",
+      "options": ["-f", "-e", "-x", "-d"],
+      "answer": "-e",
+      "explanation": "-e is true for any existing path. -f is true only for regular files (not directories)."
+    },
+    {
+      "id": "cond-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which operator represents logical AND between two conditions inside [[ ]]?",
+      "options": ["&", "&&", "AND", "-a"],
+      "answer": "&&",
+      "explanation": "Inside [[ ]], use && and ||. The -a and -o operators work in [ ] but are deprecated and error-prone."
+    },
+    {
+      "id": "cond-ex-03",
+      "type": "code",
+      "difficulty": "intermediate",
+      "prompt": "Write a script snippet that checks if a file passed as $1 exists AND is executable, and prints an appropriate message for each case.",
+      "hint": "Use [[ -e ... && -x ... ]].",
+      "solution": "if [[ -e \"$1\" && -x \"$1\" ]]; then\n  echo \"$1 exists and is executable\"\nelse\n  echo \"$1 does not exist or is not executable\"\nfi"
+    }
+  ]
+}

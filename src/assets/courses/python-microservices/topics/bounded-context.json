@@ -1,0 +1,69 @@
+{
+  "id": "bounded-context",
+  "courseId": "python-microservices",
+  "title": "Bounded Contexts & Data Ownership",
+  "summary": "A bounded context is the boundary within which a microservice has exclusive ownership of its data and logic. No other service may access its database directly — all communication goes through the service's API. This is the foundational rule of microservice design and comes from Domain-Driven Design (DDD).",
+  "keyPoints": [
+    "Each service owns its data exclusively — no shared databases",
+    "Other services must query data through the owning service's API",
+    "Bounded contexts map to real business domains (users, games, activity)",
+    "Polyglot persistence: each service can use a different database type",
+    "Polyglot programming: each service can use a different language or framework",
+    "Conway's Law: system architecture tends to mirror the team communication structure",
+    "Splitting services along domain boundaries reduces inter-team coupling"
+  ],
+  "externalLinks": [
+    {
+      "label": "Martin Fowler — Bounded Context",
+      "url": "https://martinfowler.com/bliki/BoundedContext.html"
+    },
+    {
+      "label": "Martin Fowler — Microservices",
+      "url": "https://martinfowler.com/articles/microservices.html"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "bc-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "In a microservices architecture, which rule defines a bounded context?",
+      "options": [
+        "A service owns its data exclusively — no other service can touch its database directly",
+        "A service shares its database with at most one other service",
+        "A service is limited to a single HTTP endpoint",
+        "A service must be deployed on its own server"
+      ],
+      "answer": "A service owns its data exclusively — no other service can touch its database directly",
+      "explanation": "Shared databases create tight coupling — a schema change in one service can silently break another. Exclusive ownership enforces clear contracts."
+    },
+    {
+      "id": "bc-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Conway's Law states that a system's architecture tends to mirror what?",
+      "options": [
+        "The communication structure of the organisation that built it",
+        "The programming language chosen for each service",
+        "The number of developers on the team",
+        "The deployment frequency of the system"
+      ],
+      "answer": "The communication structure of the organisation that built it",
+      "explanation": "Teams tend to build systems that reflect how they communicate. Acknowledging this helps you design team structures that produce the architecture you want."
+    },
+    {
+      "id": "bc-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Why does a notification-service written in Node.js fit correctly in a Python microservices architecture?",
+      "options": [
+        "Microservices allow each service to use the best technology for its job — language choice is a per-service decision",
+        "Python cannot send emails or push notifications",
+        "Node.js services are always faster than Python services",
+        "The course required at least one non-Python service"
+      ],
+      "answer": "Microservices allow each service to use the best technology for its job — language choice is a per-service decision",
+      "explanation": "Each service is independently deployed and communicates over HTTP or a message queue, so internal implementation details — including language — don't affect other services."
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "id": "arrays",
+  "courseId": "bash-scripting",
+  "title": "Arrays",
+  "summary": "Bash supports indexed arrays (numeric keys, zero-based) and associative arrays (string keys). They are the primary way to store collections of values in a script without resorting to external tools.",
+  "keyPoints": [
+    "Indexed array: arr=(a b c) or declare -a arr",
+    "Associative array: declare -A map",
+    "Access one element: ${arr[0]}",
+    "All elements: ${arr[@]}",
+    "Number of elements: ${#arr[@]}",
+    "Append: arr+=(new_item)",
+    "Slice: ${arr[@]:start:length}",
+    "Iterate: for item in \"${arr[@]}\"; do ... done"
+  ],
+  "externalLinks": [
+    {
+      "label": "GNU Bash Manual — Arrays",
+      "url": "https://www.gnu.org/software/bash/manual/bash.html#Arrays"
+    },
+    {
+      "label": "BashGuide — Arrays",
+      "url": "https://mywiki.wooledge.org/BashGuide/Arrays"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "arr-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "How do you get the number of elements in an array named arr?",
+      "options": ["${arr.length}", "${#arr[@]}", "len(arr)", "${arr[#]}"],
+      "answer": "${#arr[@]}",
+      "explanation": "The # prefix inside ${ } means 'length of'. [@] expands all indices."
+    },
+    {
+      "id": "arr-ex-02",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Complete the line to append the value 'purple' to an existing array called colors.",
+      "code": "colors+=( ___ )",
+      "answer": "purple",
+      "explanation": "+= with parentheses appends one or more elements to an indexed array."
+    },
+    {
+      "id": "arr-ex-03",
+      "type": "code",
+      "difficulty": "intermediate",
+      "prompt": "Declare an associative array called 'capitals' mapping 'France' to 'Paris' and 'Japan' to 'Tokyo'. Then print each key and value on one line.",
+      "hint": "Use declare -A, then loop over ${!capitals[@]} to get keys.",
+      "solution": "declare -A capitals\ncapitals[France]=Paris\ncapitals[Japan]=Tokyo\nfor country in \"${!capitals[@]}\"; do\n  echo \"$country: ${capitals[$country]}\"\ndone"
+    }
+  ]
+}

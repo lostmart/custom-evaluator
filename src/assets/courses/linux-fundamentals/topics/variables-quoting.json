@@ -1,0 +1,55 @@
+{
+  "id": "variables-quoting",
+  "courseId": "linux-fundamentals",
+  "title": "Variables & Quoting",
+  "summary": "Variables in Bash store strings and are referenced with $. Quoting controls whether the shell expands variables and interprets special characters. Getting quoting wrong is one of the most common sources of bugs in shell scripts.",
+  "keyPoints": [
+    "Assign without spaces: VAR=value (spaces around = cause errors)",
+    "Double quotes \"\" allow variable and command expansion",
+    "Single quotes '' treat everything literally — no expansion at all",
+    "$VAR or ${VAR} dereferences a variable",
+    "Command substitution: VAR=$(command) stores the command's output",
+    "$1, $2, ...: positional arguments passed to the script",
+    "$#: number of arguments, $@: all arguments as separate words, $*: all as one string",
+    "Always double-quote variables: \"$VAR\" to prevent word splitting"
+  ],
+  "externalLinks": [
+    {
+      "label": "GNU Bash Manual — Quoting",
+      "url": "https://www.gnu.org/software/bash/manual/bash.html#Quoting"
+    },
+    {
+      "label": "GNU Bash Manual — Special Parameters",
+      "url": "https://www.gnu.org/software/bash/manual/bash.html#Special-Parameters"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "vq-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which quotes allow variable expansion inside a string?",
+      "options": ["Single quotes ''", "Double quotes \"\"", "Backticks ``", "Brackets []"],
+      "answer": "Double quotes \"\"",
+      "explanation": "Single quotes suppress all expansion. Double quotes allow $VAR and $(cmd) but prevent word splitting."
+    },
+    {
+      "id": "vq-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which special variable holds all arguments passed to a script as a single string?",
+      "options": ["$@", "$*", "$#", "$1"],
+      "answer": "$*",
+      "explanation": "$* expands all positional parameters as a single word. $@ expands them as separate quoted words."
+    },
+    {
+      "id": "vq-ex-03",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Complete the line to store the output of 'date' in a variable called TODAY.",
+      "code": "TODAY=___",
+      "answer": "$(date)",
+      "explanation": "$() runs the command in a subshell and substitutes its output. Backticks `` are an older equivalent."
+    }
+  ]
+}

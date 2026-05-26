@@ -1,0 +1,53 @@
+{
+  "id": "sed",
+  "courseId": "linux-fundamentals",
+  "title": "sed",
+  "summary": "sed (stream editor) processes text line-by-line, applying editing commands. It is most commonly used for search-and-replace operations in scripts, without opening a text editor. sed reads from files or stdin and writes to stdout by default.",
+  "keyPoints": [
+    "s/pattern/replacement/: substitute first match on each line",
+    "s/pattern/replacement/g: substitute all matches on each line (global flag)",
+    "s/pattern/replacement/i: case-insensitive match",
+    "-i: edit file in place (modifies the actual file)",
+    "-n suppresses default output; use with p flag to print only matching lines",
+    "d: delete matching lines",
+    "Patterns are Basic Regular Expressions (BRE) by default; use -E for ERE"
+  ],
+  "externalLinks": [
+    {
+      "label": "GNU sed Manual",
+      "url": "https://www.gnu.org/software/sed/manual/sed.html"
+    },
+    {
+      "label": "Linux man-pages — sed(1)",
+      "url": "https://man7.org/linux/man-pages/man1/sed.1.html"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "sed-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which sed command replaces the first occurrence of 'foo' with 'bar' on each line?",
+      "options": ["sed 's/foo/bar/'", "sed 'r/foo/bar/'", "sed '/foo/bar/'", "sed 'foo->bar'"],
+      "answer": "sed 's/foo/bar/'",
+      "explanation": "The s command syntax is s/pattern/replacement/flags. Without the g flag only the first match per line is replaced."
+    },
+    {
+      "id": "sed-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What flag makes sed replace all occurrences in a line, not just the first?",
+      "options": ["a", "g", "i", "x"],
+      "answer": "g",
+      "explanation": "g stands for global. Without it, sed stops after the first match on each line."
+    },
+    {
+      "id": "sed-ex-03",
+      "type": "code",
+      "difficulty": "intermediate",
+      "prompt": "Write a sed command that replaces every occurrence of 'localhost' with '127.0.0.1' in config.txt and saves the result back to the same file.",
+      "hint": "Use the -i flag for in-place editing and g for all occurrences.",
+      "solution": "sed -i 's/localhost/127.0.0.1/g' config.txt"
+    }
+  ]
+}

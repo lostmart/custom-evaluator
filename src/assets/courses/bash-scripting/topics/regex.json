@@ -1,0 +1,53 @@
+{
+  "id": "regex",
+  "courseId": "bash-scripting",
+  "title": "Regular Expressions",
+  "summary": "Bash supports regex matching natively inside [[ ]] using the =~ operator. Matches are stored in the BASH_REMATCH array. This avoids piping to grep for simple pattern checks in scripts.",
+  "keyPoints": [
+    "=~ tests a string against an ERE (Extended Regular Expression) inside [[ ]]",
+    "Do NOT quote the pattern — quoting forces literal string matching",
+    "BASH_REMATCH[0] holds the full match; [1], [2], ... hold capture groups",
+    "^ anchors to start of string, $ to end",
+    "[0-9]+ matches one or more digits",
+    "[[:alpha:]] matches any alphabetic character (POSIX class)",
+    "Works only in [[ ]] — not in single-bracket [ ] tests"
+  ],
+  "externalLinks": [
+    {
+      "label": "GNU Bash Manual — Pattern Matching",
+      "url": "https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching"
+    },
+    {
+      "label": "GNU Bash Manual — Conditional Constructs ([[ ]])",
+      "url": "https://www.gnu.org/software/bash/manual/bash.html#Conditional-Constructs"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "re-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which operator tests a string against a regex pattern in Bash?",
+      "options": ["==", "=~", "~=", "match"],
+      "answer": "=~",
+      "explanation": "=~ is the regex match operator, available only inside [[ ]]. == does glob matching, not regex."
+    },
+    {
+      "id": "re-ex-02",
+      "type": "fill-in",
+      "difficulty": "intermediate",
+      "prompt": "Complete the condition to check if variable 'phone' consists entirely of digits.",
+      "code": "if [[ $phone ___ ^[0-9]+$ ]]; then",
+      "answer": "=~",
+      "explanation": "^[0-9]+$ anchors the pattern to the full string — ^ at start, $ at end, [0-9]+ one or more digits."
+    },
+    {
+      "id": "re-ex-03",
+      "type": "code",
+      "difficulty": "intermediate",
+      "prompt": "Write a snippet that checks if a string stored in $email contains an @ symbol using =~, and prints 'valid format' or 'invalid format'.",
+      "hint": "The pattern just needs to match @ anywhere in the string.",
+      "solution": "if [[ $email =~ @ ]]; then\n  echo 'valid format'\nelse\n  echo 'invalid format'\nfi"
+    }
+  ]
+}

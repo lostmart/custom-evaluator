@@ -1,0 +1,49 @@
+{
+  "id": "loops",
+  "courseId": "linux-fundamentals",
+  "title": "Loops",
+  "summary": "Bash has three loop constructs: for (iterate over a list), while (repeat while a condition is true), and until (repeat until a condition becomes true). All use do...done to wrap the body.",
+  "keyPoints": [
+    "for item in list; do ... done — iterates over space-separated values",
+    "for (( i=0; i<10; i++ )); do ... done — C-style numeric loop",
+    "while [[ condition ]]; do ... done — runs while condition is true",
+    "while true; do ... done — infinite loop, exit with break",
+    "until [[ condition ]]; do ... done — runs until condition becomes true",
+    "break exits the loop immediately",
+    "continue skips to the next iteration"
+  ],
+  "externalLinks": [
+    {
+      "label": "GNU Bash Manual — Looping Constructs",
+      "url": "https://www.gnu.org/software/bash/manual/bash.html#Looping-Constructs"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "loop-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What keyword starts the body of a while loop in Bash?",
+      "options": ["then", "do", "begin", "start"],
+      "answer": "do",
+      "explanation": "Both while and for use do...done. Only if/elif/else uses then...fi."
+    },
+    {
+      "id": "loop-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which condition creates an infinite while loop in Bash?",
+      "options": ["while forever", "while true", "while 1==1", "loop always"],
+      "answer": "while true",
+      "explanation": "'true' is a built-in command that always exits with code 0 (success), so the while condition never fails."
+    },
+    {
+      "id": "loop-ex-03",
+      "type": "code",
+      "difficulty": "intermediate",
+      "prompt": "Write a for loop that prints the numbers 1 to 5, one per line.",
+      "hint": "Use brace expansion {1..5} or a C-style loop.",
+      "solution": "for i in {1..5}; do\n  echo $i\ndone"
+    }
+  ]
+}

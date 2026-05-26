@@ -1,0 +1,16 @@
+{
+  "id": "linux-fundamentals",
+  "title": "Linux Fundamentals",
+  "description": "Essential Linux commands, file system navigation, and shell scripting basics.",
+  "topics": [
+    { "id": "file-management",   "title": "File Management" },
+    { "id": "io-redirection",    "title": "I/O Redirection" },
+    { "id": "variables-quoting", "title": "Variables & Quoting" },
+    { "id": "conditionals",      "title": "Conditionals" },
+    { "id": "loops",             "title": "Loops" },
+    { "id": "functions",         "title": "Functions" },
+    { "id": "sed",               "title": "sed" },
+    { "id": "awk",               "title": "AWK" },
+    { "id": "arrays",            "title": "Arrays" }
+  ]
+}

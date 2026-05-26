@@ -1,0 +1,53 @@
+{
+  "id": "functions",
+  "courseId": "linux-fundamentals",
+  "title": "Functions",
+  "summary": "Functions in Bash let you name and reuse blocks of commands. Unlike most languages, the function signature has no parameter list — arguments are passed positionally and accessed as $1, $2, etc., exactly like script arguments.",
+  "keyPoints": [
+    "Two equivalent definition forms: name() { ... } and function name { ... }",
+    "Arguments accessed as $1, $2, $3 inside the function body",
+    "local varname restricts a variable to the function's scope",
+    "return N sets the function's exit code (0–255); not a return value",
+    "To return a string, echo it and call as result=$(fn arg)",
+    "Functions must be defined before they are called in the script"
+  ],
+  "externalLinks": [
+    {
+      "label": "GNU Bash Manual — Shell Functions",
+      "url": "https://www.gnu.org/software/bash/manual/bash.html#Shell-Functions"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "lfn-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which of these correctly defines a function named 'greet' in Bash?",
+      "options": [
+        "function: greet { ... }",
+        "def greet() { ... }",
+        "greet() { ... }",
+        "greet => { ... }"
+      ],
+      "answer": "greet() { ... }",
+      "explanation": "greet() { } is the POSIX-compatible syntax. 'function greet { }' is also valid Bash. The others are invalid."
+    },
+    {
+      "id": "lfn-ex-02",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Complete the line to call function 'say_hello' and capture its echoed output into variable MSG.",
+      "code": "MSG=___",
+      "answer": "$(say_hello)",
+      "explanation": "$() runs say_hello in a subshell and substitutes whatever it echoes as the assigned value."
+    },
+    {
+      "id": "lfn-ex-03",
+      "type": "code",
+      "difficulty": "intermediate",
+      "prompt": "Write a function 'add' that takes two numbers as $1 and $2 and echoes their sum. Then call it and store the result.",
+      "hint": "Use $(( )) for arithmetic.",
+      "solution": "add() {\n  echo $(( $1 + $2 ))\n}\nresult=$(add 3 5)\necho $result"
+    }
+  ]
+}

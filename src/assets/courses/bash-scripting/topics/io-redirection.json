@@ -1,0 +1,53 @@
+{
+  "id": "io-redirection",
+  "courseId": "bash-scripting",
+  "title": "I/O Redirection",
+  "summary": "Bash provides operators to redirect the standard streams — stdin (0), stdout (1), and stderr (2) — to files or other commands. This lets you control where output goes and where input comes from without changing the program itself.",
+  "keyPoints": [
+    "> overwrites a file with stdout",
+    ">> appends stdout to a file",
+    "< passes a file's contents as stdin",
+    "2> redirects stderr to a file",
+    "2>&1 merges stderr into stdout",
+    "/dev/null discards output silently",
+    "| pipes stdout of one command into stdin of another"
+  ],
+  "externalLinks": [
+    {
+      "label": "GNU Bash Manual — Redirections",
+      "url": "https://www.gnu.org/software/bash/manual/bash.html#Redirections"
+    },
+    {
+      "label": "Linux man-pages — bash(1)",
+      "url": "https://man7.org/linux/man-pages/man1/bash.1.html"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "io-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which operator appends stdout to a file without overwriting it?",
+      "options": [">", ">>", "=>", "+>"],
+      "answer": ">>",
+      "explanation": "> overwrites. >> opens the file in append mode so existing content is preserved."
+    },
+    {
+      "id": "io-ex-02",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Complete the command to redirect stderr to a file called errors.log.",
+      "code": "./script.sh ___ errors.log",
+      "answer": "2>",
+      "explanation": "File descriptor 2 is stderr. 2> redirects it just like > redirects stdout."
+    },
+    {
+      "id": "io-ex-03",
+      "type": "code",
+      "difficulty": "intermediate",
+      "prompt": "Write a one-liner that runs 'ls /fakepath', discards any error output, and appends the stdout to a file called out.txt.",
+      "hint": "Use 2>/dev/null to discard stderr and >> to append stdout.",
+      "solution": "ls /fakepath 2>/dev/null >> out.txt"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "id": "service-communication",
+  "courseId": "python-microservices",
+  "title": "Service Communication",
+  "summary": "Services communicate either synchronously (direct HTTP/REST calls that block until a response arrives) or asynchronously (events published to a message queue that the consumer processes independently). Choosing the right pattern for each interaction is critical to building a resilient system.",
+  "keyPoints": [
+    "Synchronous (REST): caller blocks, waits for a response — tight coupling, simpler to reason about",
+    "Asynchronous (message queue): caller publishes an event and continues — decoupled, resilient",
+    "On a service map, solid arrows = sync calls, dashed arrows = async/event-driven",
+    "Use sync when you need an immediate response (e.g. validating a user exists)",
+    "Use async when the downstream operation is non-critical or can be delayed (e.g. logging, notifications)",
+    "Latency compounds in sync chains: gateway → A → B → C adds each hop's latency",
+    "A slow async consumer does not block the producer"
+  ],
+  "externalLinks": [
+    {
+      "label": "Martin Fowler — Event-Driven Architecture",
+      "url": "https://martinfowler.com/articles/201701-event-driven.html"
+    },
+    {
+      "label": "Martin Fowler — Microservices: Communication",
+      "url": "https://martinfowler.com/articles/microservices.html#CommunicationMechanismsForMicroservices"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "sc-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "On a GameHub service map, what does a dashed arrow between two services represent?",
+      "options": [
+        "Asynchronous communication (event/message queue)",
+        "Synchronous REST call",
+        "A shared database connection",
+        "An optional/unused link"
+      ],
+      "answer": "Asynchronous communication (event/message queue)",
+      "explanation": "By convention, solid arrows show blocking HTTP calls; dashed arrows show fire-and-forget events sent through a queue."
+    },
+    {
+      "id": "sc-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Why is it better to publish activity events to logging-service via a message queue rather than a direct REST call?",
+      "options": [
+        "A slow or down logging-service would block and fail every activity creation if the call were synchronous",
+        "REST calls cannot carry the required payload size",
+        "Async is always faster than sync regardless of context",
+        "The gateway cannot route to logging-service"
+      ],
+      "answer": "A slow or down logging-service would block and fail every activity creation if the call were synchronous",
+      "explanation": "Logging is non-critical. Coupling it synchronously means a logging outage brings down activity creation — a disproportionate consequence."
+    },
+    {
+      "id": "sc-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Three services are chained synchronously: gateway → activity-service → user-service. If user-service takes 3 seconds to respond, what does the client experience?",
+      "options": [
+        "The client waits at least 3 seconds — latency compounds across the entire chain",
+        "The gateway times out immediately and returns 200",
+        "Only activity-service is affected; the client sees no delay",
+        "The chain runs in parallel so the client waits only 1 second"
+      ],
+      "answer": "The client waits at least 3 seconds — latency compounds across the entire chain",
+      "explanation": "In a synchronous chain, each hop adds its latency. The client must wait for all hops to complete before receiving a response."
+    }
+  ]
+}
