@@ -1,11 +1,18 @@
 "use client"
 
+import Link from "next/link"
 import { useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
 import { useTest } from "@/context/TestContext"
 import { useUser } from "@/context/UserContext"
 import { track } from "@/lib/track"
 import Nav from "@/components/ui/Nav"
+
+const STUDY_LINKS: Record<string, { courseId: string; label: string }> = {
+	set1: { courseId: "bash-scripting", label: "Bash Scripting" },
+	set2: { courseId: "linux-fundamentals", label: "Linux Fundamentals" },
+	set3: { courseId: "python-microservices", label: "Python Microservices" },
+}
 
 function getDiagnosticMessage(score: number, total: number): string {
 	const pct = score / total
@@ -19,8 +26,10 @@ export default function ScorePage() {
 	const { test, setTest } = useTest()
 	const { user, setUser } = useUser()
 	const router = useRouter()
-	const { points, totalQuestions } = test
+	const { points, totalQuestions, questionSet } = test
 	const pct = totalQuestions > 0 ? Math.round((points / totalQuestions) * 100) : 0
+	const errors = totalQuestions - points
+	const studyLink = questionSet ? STUDY_LINKS[questionSet] ?? null : null
 
 	const tracked = useRef(false)
 	useEffect(() => {
@@ -56,6 +65,11 @@ export default function ScorePage() {
 						<span className="text-sm text-zinc-500 font-mono">
 							{points} / {totalQuestions} correct
 						</span>
+						{errors > 0 && (
+							<span className="text-sm text-red-400 font-mono">
+								{errors} incorrect
+							</span>
+						)}
 					</div>
 
 					<div className="h-px w-full bg-zinc-100" />
@@ -63,6 +77,19 @@ export default function ScorePage() {
 					<p className="text-sm text-zinc-600 text-center leading-relaxed max-w-sm">
 						{getDiagnosticMessage(points, totalQuestions)}
 					</p>
+
+					{studyLink && errors > 0 && (
+						<Link
+							href={`/study/${studyLink.courseId}`}
+							className="flex items-center justify-between w-full px-4 py-3 border border-zinc-200 rounded-sm hover:border-zinc-300 hover:bg-zinc-50 transition-colors group"
+						>
+							<div className="flex flex-col gap-0.5">
+								<span className="text-sm font-medium text-secondary">Review {studyLink.label}</span>
+								<span className="text-xs text-zinc-400">Study materials and practice exercises</span>
+							</div>
+							<span className="text-zinc-300 group-hover:text-zinc-500 transition-colors">→</span>
+						</Link>
+					)}
 				</div>
 
 				<div className="flex flex-col items-center gap-3">
