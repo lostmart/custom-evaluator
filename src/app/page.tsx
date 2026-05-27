@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useUser } from "@/context/UserContext";
@@ -44,7 +45,7 @@ export default function Home() {
     }
   }, []);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!email.endsWith("@epita.fr")) {
       setError("Only @epita.fr email addresses are allowed.");
@@ -52,6 +53,13 @@ export default function Home() {
     }
     if (!selectedSet) return;
     setError("");
+
+    await fetch("/api/auth/student", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email }),
+    });
+
     setUser({ name, email, hasStarted: true });
     setTest({ questionSet: selectedSet });
     track({ email, name, event: "started", detail: selectedSet });
@@ -75,6 +83,19 @@ export default function Home() {
         </header>
 
         <div className="h-px bg-zinc-100" />
+
+        {user.email && (
+          <Link
+            href="/study"
+            className="flex items-center justify-between px-4 py-3 border border-zinc-200 rounded-sm hover:border-zinc-300 hover:bg-zinc-50 transition-colors group"
+          >
+            <div className="flex flex-col gap-0.5">
+              <span className="text-sm font-medium text-secondary">Study Materials</span>
+              <span className="text-xs text-zinc-400">Review topics and practice exercises</span>
+            </div>
+            <span className="text-zinc-300 group-hover:text-zinc-500 transition-colors">→</span>
+          </Link>
+        )}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <label className="flex flex-col gap-1.5">

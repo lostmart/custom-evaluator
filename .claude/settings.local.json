@@ -26,7 +26,8 @@
       "Read(//c/Users/$CM7100-M9DP4O11CIGV/Documents/code/custom-evaluator//**)",
       "Bash(grep -E \"\\\\.\\(json|ts|tsx|md\\)$|^[^/]*$\")",
       "Bash(cat src/scripts/*)",
-      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d.get\\(''''version''''\\)\\)\")"
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d.get\\(''''version''''\\)\\)\")",
+      "Bash(Test-Path \"C:\\\\Users\\\\$CM7100-M9DP4O11CIGV\\\\Documents\\\\code\\\\custom-evaluator\\\\src\\\\proxy.ts\" 2>/dev/null || echo \"does not exist\")"
     ]
   }
 }
