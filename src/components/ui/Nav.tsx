@@ -15,15 +15,10 @@ export default function Nav({ title }: NavProps) {
       <div className="max-w-3xl mx-auto flex items-center justify-between w-full">
         <Link href="/" className="text-sm font-medium text-secondary hover:opacity-70 transition">{title}</Link>
         <div className="flex items-center gap-4">
-          {user.name && user.email && (
-            <div className="flex flex-col items-end">
-              <span className="text-xs font-medium text-secondary">
-                {user.name}
-              </span>
-              <span className="text-xs text-zinc-400 font-mono">
-                {user.email}
-              </span>
-            </div>
+          {user.email && (
+            <span className="text-xs text-zinc-400 font-mono">
+              {user.email}
+            </span>
           )}
         </div>
       </div>

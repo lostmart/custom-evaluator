@@ -2,7 +2,6 @@ type TrackEvent = "started" | "question_answered" | "completed"
 
 type TrackPayload = {
   email: string
-  name: string
   event: TrackEvent
   detail: string
 }

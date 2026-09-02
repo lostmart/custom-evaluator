@@ -8,10 +8,10 @@ import { useUser } from "@/context/UserContext"
 import { track } from "@/lib/track"
 import Nav from "@/components/ui/Nav"
 
-const STUDY_LINKS: Record<string, { courseId: string; label: string }> = {
-	set1: { courseId: "bash-scripting", label: "Bash Scripting" },
-	set2: { courseId: "linux-fundamentals", label: "Linux Fundamentals" },
-	set3: { courseId: "python-microservices", label: "Python Microservices" },
+const COURSE_LABELS: Record<string, string> = {
+	"bash-scripting": "Bash Scripting",
+	"linux-fundamentals": "Linux Fundamentals",
+	"python-microservices": "Python Microservices",
 }
 
 function getDiagnosticMessage(score: number, total: number): string {
@@ -29,13 +29,13 @@ export default function ScorePage() {
 	const { points, totalQuestions, questionSet } = test
 	const pct = totalQuestions > 0 ? Math.round((points / totalQuestions) * 100) : 0
 	const errors = totalQuestions - points
-	const studyLink = questionSet ? STUDY_LINKS[questionSet] ?? null : null
+	const courseLabel = questionSet ? COURSE_LABELS[questionSet] ?? null : null
 
 	const tracked = useRef(false)
 	useEffect(() => {
 		if (totalQuestions > 0 && !tracked.current) {
 			tracked.current = true
-			track({ email: user.email, name: user.name, event: "completed", detail: `${points}/${totalQuestions} correct` })
+			track({ email: user.email, event: "completed", detail: `${points}/${totalQuestions} correct` })
 		}
 	}, [])
 
@@ -55,7 +55,7 @@ export default function ScorePage() {
 						Assessment complete
 					</span>
 					<h1 className="text-3xl font-semibold text-secondary">
-						{user.name ? `Nice work, ${user.name.split(" ")[0]}.` : "Nice work."}
+						Nice work.
 					</h1>
 				</div>
 
@@ -78,13 +78,13 @@ export default function ScorePage() {
 						{getDiagnosticMessage(points, totalQuestions)}
 					</p>
 
-					{studyLink && errors > 0 && (
+					{courseLabel && errors > 0 && (
 						<Link
-							href={`/study/${studyLink.courseId}`}
+							href={`/${questionSet}/study`}
 							className="flex items-center justify-between w-full px-4 py-3 border border-zinc-200 rounded-sm hover:border-zinc-300 hover:bg-zinc-50 transition-colors group"
 						>
 							<div className="flex flex-col gap-0.5">
-								<span className="text-sm font-medium text-secondary">Review {studyLink.label}</span>
+								<span className="text-sm font-medium text-secondary">Review {courseLabel}</span>
 								<span className="text-xs text-zinc-400">Study materials and practice exercises</span>
 							</div>
 							<span className="text-zinc-300 group-hover:text-zinc-500 transition-colors">→</span>

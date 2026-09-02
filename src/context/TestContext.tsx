@@ -7,7 +7,7 @@ type TestState = {
   totalQuestions: number;
   points: number;
   cancelled: boolean;
-  questionSet: "set1" | "set2" | "set3" | null;
+  questionSet: string | null;
 };
 
 type TestContextValue = {

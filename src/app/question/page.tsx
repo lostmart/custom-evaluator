@@ -31,7 +31,7 @@ export default function QuestionPage() {
 	const router = useRouter()
 	const current = test.currentQuestion
 
-	const pool = test.questionSet === "set2" ? set2 : test.questionSet === "set3" ? set3 : set1
+	const pool = test.questionSet === "linux-fundamentals" ? set2 : test.questionSet === "python-microservices" ? set3 : set1
 	const [shuffled] = useState(() => shuffle(pool).slice(0, 20))
 	const total = shuffled.length
 
@@ -56,7 +56,7 @@ export default function QuestionPage() {
 		setShowModal(false)
 		setHasConfirmedOnce(true)
 		setSelected(null)
-		track({ email: user.email, name: user.name, event: "question_answered", detail: `${newPoints} correct so far` })
+		track({ email: user.email, event: "question_answered", detail: `${newPoints} correct so far` })
 
 		if (nextQuestion >= total) {
 			setTest({ points: newPoints, currentQuestion: nextQuestion })

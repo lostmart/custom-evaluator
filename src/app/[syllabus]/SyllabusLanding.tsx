@@ -1,13 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useUser } from "@/context/UserContext";
+import { useTest } from "@/context/TestContext";
 
-export default function Home() {
+export function SyllabusLanding({
+  syllabus,
+  courseTitle,
+}: {
+  syllabus: string;
+  courseTitle: string;
+}) {
   const { user, setUser } = useUser();
+  const { setTest } = useTest();
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (user.hasStarted) {
+      setTest({ cancelled: true });
+      router.replace("/cancelled");
+    }
+  }, []);
+
+  if (!user.hydrated) return null;
 
   async function handleIdentify(e: React.FormEvent) {
     e.preventDefault();
@@ -38,7 +58,7 @@ export default function Home() {
             EPITA — BSc Computer Science
           </span>
           <h1 className="text-3xl font-semibold text-secondary">
-            Diagnostic Assessment
+            {courseTitle}
           </h1>
           <p className="text-sm text-zinc-500 leading-relaxed">
             This is a calibration exercise — not a grade. Answer honestly so we
@@ -48,23 +68,43 @@ export default function Home() {
 
         <div className="h-px bg-zinc-100" />
 
-        {user.hydrated && user.email ? (
-          <div className="flex flex-col gap-3">
+        {user.email ? (
+          <div className="flex flex-col gap-4">
             <p className="text-xs font-mono text-zinc-400">{user.email}</p>
-            <p className="text-sm text-zinc-500 leading-relaxed">
-              You&apos;re identified. Open the link shared by your instructor to
-              access your assessment or study materials.
-            </p>
-            <p className="text-xs text-zinc-400">
-              You can only submit once. Make sure your email is correct before
-              starting.
-            </p>
-            <button
-              onClick={() => setUser({ email: "" })}
-              className="self-start text-xs text-zinc-400 hover:text-zinc-600 underline underline-offset-2 transition"
-            >
-              Not you? Log out
-            </button>
+            <div className="flex flex-col gap-3">
+              <Link
+                href={`/${syllabus}/study`}
+                className="flex items-center justify-between px-4 py-4 border border-zinc-200 rounded-sm hover:border-zinc-300 hover:bg-zinc-50 transition-colors group"
+              >
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-sm font-medium text-secondary">
+                    Study Materials
+                  </span>
+                  <span className="text-xs text-zinc-400">
+                    Review topics and practice exercises
+                  </span>
+                </div>
+                <span className="text-zinc-300 group-hover:text-zinc-500 transition-colors">
+                  →
+                </span>
+              </Link>
+              <Link
+                href={`/${syllabus}/quiz`}
+                className="flex items-center justify-between px-4 py-4 bg-primary/5 border border-primary/20 rounded-sm hover:bg-primary/10 transition-colors group"
+              >
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-sm font-medium text-primary">
+                    Start Assessment
+                  </span>
+                  <span className="text-xs text-zinc-400">
+                    20 questions — you can only submit once
+                  </span>
+                </div>
+                <span className="text-primary/40 group-hover:text-primary transition-colors">
+                  →
+                </span>
+              </Link>
+            </div>
           </div>
         ) : (
           <form onSubmit={handleIdentify} className="flex flex-col gap-4">
