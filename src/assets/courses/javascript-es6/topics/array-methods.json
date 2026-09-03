@@ -1,0 +1,103 @@
+{
+  "id": "array-methods",
+  "courseId": "javascript-es6",
+  "title": "Array Methods",
+  "summary": "Four array methods are used constantly in React: map transforms every element into something new (always same length); filter keeps elements that pass a test (shorter or equal length); find returns the first match or undefined; some returns a boolean. All four return a new array or value — none mutate the original. They can be chained. map is used to render lists of components; filter is used for genre filters and removing watchlist items; find and some are used for lookups.",
+  "keyPoints": [
+    "map — transforms every element, returns new array of the same length",
+    "filter — keeps elements where the callback returns true, returns shorter/equal array",
+    "find — returns the FIRST matching element, or undefined if none match",
+    "some — returns true if AT LEAST ONE element matches, otherwise false",
+    "None of these mutate the original array",
+    "Methods can be chained: movies.filter(...).map(...).sort()",
+    "In JSX: {movies.map(m => <MovieCard key={m.id} ... />)}",
+    "Remove from watchlist: prev.filter(m => m.id !== id)",
+    "Check if in watchlist: watchlist.some(m => m.id === movie.id)"
+  ],
+  "externalLinks": [
+    {
+      "label": "MDN — Array.prototype.map",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map"
+    },
+    {
+      "label": "MDN — Array.prototype.filter",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "am-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Given:\nconst movies = [\n  { title: 'Inception', rating: 8.8 },\n  { title: 'Tenet', rating: 7.3 }\n]\n\nWhat does movies.map(m => m.title) return?",
+      "options": [
+        "['Inception', 'Tenet']",
+        "{ title: 'Inception' }",
+        "The first movie object",
+        "true"
+      ],
+      "answer": "['Inception', 'Tenet']",
+      "explanation": "map transforms every element using the callback and returns a new array of the same length. Here each movie object is transformed into just its title string."
+    },
+    {
+      "id": "am-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which method would you use to keep only movies rated 8.0 or above?",
+      "options": ["map", "filter", "find", "some"],
+      "answer": "filter",
+      "explanation": "filter keeps elements where the callback returns true. movies.filter(m => m.rating >= 8.0) returns a new array with only high-rated movies."
+    },
+    {
+      "id": "am-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which method returns the first movie titled 'Parasite', or undefined if not found?",
+      "options": ["filter", "map", "find", "some"],
+      "answer": "find",
+      "explanation": "find returns the first element that satisfies the callback. If no element matches, it returns undefined (not an empty array)."
+    },
+    {
+      "id": "am-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "You want to check if a movie is already in the watchlist by id. Which expression is correct?",
+      "options": [
+        "watchlist.find(m => m.id === movie.id) === true",
+        "watchlist.filter(m => m.id === movie.id).length",
+        "watchlist.some(m => m.id === movie.id)",
+        "watchlist.map(m => m.id).includes === movie.id"
+      ],
+      "answer": "watchlist.some(m => m.id === movie.id)",
+      "explanation": "some returns true as soon as any element matches — it is the correct semantic and most efficient method for an existence check."
+    },
+    {
+      "id": "am-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Given the movies array, which expression produces the titles of all Sci-Fi movies rated above 8.0?",
+      "options": [
+        "movies.map(m => m.genre === 'Sci-Fi' && m.rating > 8.0)",
+        "movies.filter(m => m.genre === 'Sci-Fi' && m.rating > 8.0).map(m => m.title)",
+        "movies.find(m => m.genre === 'Sci-Fi').map(m => m.title)",
+        "movies.some(m => m.genre === 'Sci-Fi').filter(m => m.rating > 8.0)"
+      ],
+      "answer": "movies.filter(m => m.genre === 'Sci-Fi' && m.rating > 8.0).map(m => m.title)",
+      "explanation": "filter narrows the array to matching movies, then map extracts just the titles. find returns a single object (not chainable with map), and some returns a boolean."
+    },
+    {
+      "id": "am-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Does Array.sort() mutate the original array?",
+      "options": [
+        "No — it returns a new sorted array",
+        "Yes — it sorts in place and returns the same array reference",
+        "It depends on the comparator function",
+        "Only in strict mode"
+      ],
+      "answer": "Yes — it sorts in place and returns the same array reference",
+      "explanation": "Unlike map, filter, and find, sort() mutates the original array. To sort immutably: [...movies].sort((a, b) => b.rating - a.rating)"
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "id": "destructuring",
+  "courseId": "javascript-es6",
+  "title": "Destructuring",
+  "summary": "Destructuring is syntax for unpacking values from arrays or properties from objects into individual variables. It appears in every React component (props), every hook call (useState, useEffect return values), and every API response. Object destructuring matches by property name; array destructuring matches by position. You can rename variables, provide default values, nest destructuring, and skip elements.",
+  "keyPoints": [
+    "Object destructuring: const { title, year } = movie — matches by property name",
+    "Array destructuring: const [first, second] = arr — matches by position",
+    "Rename while destructuring: const { title: movieTitle } = movie",
+    "Default values: const { tagline = 'No tagline' } = movie",
+    "Nested destructuring: const { director: { name } } = movie — director is NOT extracted as a variable",
+    "Skip array elements: const [first, , third] = arr",
+    "Collect the rest: const [head, ...tail] = arr",
+    "Destructure in function parameters: function Card({ title, rating }) {}",
+    "useState returns a two-element array: const [count, setCount] = useState(0)"
+  ],
+  "externalLinks": [
+    {
+      "label": "MDN — Destructuring assignment",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "ds-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Given:\nconst movie = { title: 'Inception', year: 2010, rating: 8.8 }\n\nWhich line correctly destructures title and year in one statement?",
+      "options": [
+        "const { title, year } = movie",
+        "const [ title, year ] = movie",
+        "const title, year = movie",
+        "const { movie.title, movie.year } = movie"
+      ],
+      "answer": "const { title, year } = movie",
+      "explanation": "Object destructuring uses {} and matches by property name. Array destructuring uses [] and matches by position — objects are not arrays."
+    },
+    {
+      "id": "ds-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What is the value of name after this destructuring?\n\nconst movie = { title: 'Dune', director: { name: 'Denis Villeneuve' } }\nconst { director: { name } } = movie",
+      "options": [
+        "'Denis Villeneuve'",
+        "{ name: 'Denis Villeneuve' }",
+        "undefined",
+        "A syntax error"
+      ],
+      "answer": "'Denis Villeneuve'",
+      "explanation": "Nested destructuring goes into director and extracts name. Note: director is NOT declared as a variable here — only name is."
+    },
+    {
+      "id": "ds-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Given:\nconst genres = ['Action', 'Sci-Fi', 'Thriller']\n\nHow do you skip 'Sci-Fi' and get only 'Action' and 'Thriller'?",
+      "options": [
+        "const [first, , third] = genres",
+        "const [first, third] = genres",
+        "const { 0: first, 2: third } = genres",
+        "const [first, skip, third] = genres"
+      ],
+      "answer": "const [first, , third] = genres",
+      "explanation": "An empty slot (consecutive commas with nothing between) skips that position in array destructuring."
+    },
+    {
+      "id": "ds-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "A React component is called as <MovieCard title=\"Inception\" rating={8.8} />. Which function signature correctly destructures the props?",
+      "options": [
+        "function MovieCard(props.title, props.rating) {}",
+        "function MovieCard({ title, rating }) {}",
+        "function MovieCard([title, rating]) {}",
+        "function MovieCard(title, rating) {}"
+      ],
+      "answer": "function MovieCard({ title, rating }) {}",
+      "explanation": "React passes all props as a single object. Destructuring in the parameter list is the idiomatic way to pull out individual props."
+    },
+    {
+      "id": "ds-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Given:\nconst movie = { title: 'Unknown' }\nconst { title: movieTitle, tagline = 'No tagline' } = movie\n\nWhat are the values of movieTitle and tagline?",
+      "options": [
+        "movieTitle = 'Unknown', tagline = 'No tagline'",
+        "movieTitle = undefined, tagline = 'No tagline'",
+        "movieTitle = 'Unknown', tagline = undefined",
+        "A syntax error"
+      ],
+      "answer": "movieTitle = 'Unknown', tagline = 'No tagline'",
+      "explanation": "title is renamed to movieTitle and gets the value 'Unknown'. tagline does not exist on movie, so it falls back to the default 'No tagline'."
+    },
+    {
+      "id": "ds-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "const [count, setCount] = useState(0)\n\nWhy is array destructuring used here instead of object destructuring?",
+      "options": [
+        "useState returns an array, so you use [] to destructure it",
+        "Object destructuring does not work with hooks",
+        "Arrays are faster to destructure",
+        "React requires [] syntax for all hooks"
+      ],
+      "answer": "useState returns an array, so you use [] to destructure it",
+      "explanation": "useState returns [currentValue, setter]. Because it's an array, you destructure with []. The advantage is you can name the variables whatever you like — count and setCount are your choice."
+    }
+  ]
+}

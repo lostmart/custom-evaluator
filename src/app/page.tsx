@@ -12,7 +12,7 @@ export default function Home() {
   async function handleIdentify(e: React.FormEvent) {
     e.preventDefault();
     if (!email.endsWith("@epita.fr")) {
-      setError("Only @epita.fr email addresses are allowed.");
+      setError("Wrong email address.");
       return;
     }
     setError("");
@@ -35,14 +35,14 @@ export default function Home() {
       <main className="w-full max-w-xl flex flex-col gap-8 bg-white rounded-sm shadow-sm px-12 py-16">
         <header className="flex flex-col gap-2">
           <span className="text-xs font-mono uppercase tracking-widest text-tertiary">
-            EPITA — BSc Computer Science
+            EPITA : BSC Learning Tool
           </span>
-          <h1 className="text-3xl font-semibold text-secondary">
-            Diagnostic Assessment
-          </h1>
+          <h1 className="text-3xl font-semibold text-secondary">Welcome</h1>
           <p className="text-sm text-zinc-500 leading-relaxed">
-            This is a calibration exercise — not a grade. Answer honestly so we
-            can tailor the program to where you actually are.
+            Use this tool to study and take assessments. Once you're logged in,
+            you can go through the study materials as many times as you want.
+            When you're ready, you can take the assessment. You can only submit
+            once!
           </p>
         </header>
 
@@ -93,9 +93,24 @@ export default function Home() {
               className="mt-2 bg-primary text-white text-sm font-medium px-6 py-3 hover:opacity-90 active:opacity-80 transition disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {loading && (
-                <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24" fill="none">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                <svg
+                  className="animate-spin h-4 w-4 text-white"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                  />
                 </svg>
               )}
               {loading ? "Checking…" : "Continue →"}

@@ -1,9 +1,10 @@
 type CodeEditorProps = {
 	filename: string
 	defaultValue?: string
+	onChange?: (value: string) => void
 }
 
-export default function CodeEditor({ filename, defaultValue = "" }: CodeEditorProps) {
+export default function CodeEditor({ filename, defaultValue = "", onChange }: CodeEditorProps) {
 	return (
 		<div className="rounded-sm overflow-hidden border border-zinc-200">
 			{/* Titlebar */}
@@ -27,6 +28,7 @@ export default function CodeEditor({ filename, defaultValue = "" }: CodeEditorPr
 				className="w-full bg-secondary text-zinc-200 font-mono text-sm leading-relaxed p-4 resize-none outline-none min-h-44 placeholder:text-zinc-600"
 				defaultValue={defaultValue}
 				spellCheck={false}
+				onChange={onChange ? (e) => onChange(e.target.value) : undefined}
 			/>
 		</div>
 	)

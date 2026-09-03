@@ -1,0 +1,81 @@
+{
+  "id": "const-let",
+  "courseId": "javascript-es6",
+  "title": "const and let",
+  "summary": "ES6 replaced var with two block-scoped declarations. const binds a name to a value that cannot be reassigned — it does not mean the value itself is immutable (objects and arrays can still be mutated). let allows reassignment. Both are block-scoped, meaning they only exist within the nearest pair of curly braces. var is function-scoped and hoisted, which causes subtle bugs; avoid it.",
+  "keyPoints": [
+    "const cannot be reassigned after declaration — use it by default",
+    "let can be reassigned — use it only when you know you need to",
+    "Both const and let are block-scoped (limited to the {} they are declared in)",
+    "var is function-scoped and hoisted — avoid it entirely",
+    "const on an object does not prevent mutating the object's properties",
+    "Accessing a let or const before its declaration throws a ReferenceError (temporal dead zone)"
+  ],
+  "externalLinks": [
+    {
+      "label": "MDN — const",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const"
+    },
+    {
+      "label": "MDN — let",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "cl-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which declaration should you use by default for most variables in modern JavaScript?",
+      "options": ["var", "let", "const", "function"],
+      "answer": "const",
+      "explanation": "const prevents accidental reassignment and signals to readers that the binding is stable. Switch to let only when you actually need to reassign."
+    },
+    {
+      "id": "cl-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What is the scope of a variable declared with let inside an if block?",
+      "options": [
+        "The entire function",
+        "The entire file",
+        "Only the if block",
+        "Global"
+      ],
+      "answer": "Only the if block",
+      "explanation": "let and const are block-scoped. A block is any pair of {}. The variable ceases to exist once execution leaves that block."
+    },
+    {
+      "id": "cl-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Given: const movie = { title: 'Inception' }. Which of the following throws an error?",
+      "options": [
+        "movie.title = 'Dune'",
+        "movie.year = 2010",
+        "movie = { title: 'Dune' }",
+        "console.log(movie.title)"
+      ],
+      "answer": "movie = { title: 'Dune' }",
+      "explanation": "const prevents reassigning the variable binding. You cannot point movie at a new object. However, you can still mutate the object's properties."
+    },
+    {
+      "id": "cl-ex-04",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Rewrite this using const and let where appropriate:",
+      "code": "var title = 'Inception'\nvar rating = 8.8\nvar isWatched = false\n// later:\nisWatched = true",
+      "answer": "const title = 'Inception'\nconst rating = 8.8\nlet isWatched = false\nisWatched = true",
+      "explanation": "title and rating are never reassigned, so they use const. isWatched is reassigned later, so it uses let."
+    },
+    {
+      "id": "cl-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "What does this code log?\n\nvar x = 1\nif (true) {\n  var x = 2\n}\nconsole.log(x)",
+      "options": ["1", "2", "undefined", "ReferenceError"],
+      "answer": "2",
+      "explanation": "var is function-scoped, not block-scoped. The second var x = 2 overwrites the first x. This is one of the main reasons var was replaced."
+    }
+  ]
+}

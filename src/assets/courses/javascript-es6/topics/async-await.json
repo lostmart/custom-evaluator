@@ -1,0 +1,108 @@
+{
+  "id": "async-await",
+  "courseId": "javascript-es6",
+  "title": "Promises and async/await",
+  "summary": "JavaScript is single-threaded. Network requests, timers, and file reads are asynchronous — they complete in the future. Promises represent an eventual value. async/await is syntactic sugar over Promises that makes async code read like synchronous code. A function marked async always returns a Promise. await pauses the async function until the Promise resolves. Errors are caught with try/catch. fetch is the standard browser API for HTTP requests; always check res.ok before parsing.",
+  "keyPoints": [
+    "A Promise is a value that will be available in the future (pending → fulfilled or rejected)",
+    ".then() chains work: fetch(url).then(r => r.json()).then(data => ...).catch(err => ...)",
+    "async functions always return a Promise",
+    "await pauses the async function until the Promise settles — the calling code continues",
+    "await can only be used inside an async function",
+    "Errors (rejected Promises) are caught with try/catch inside async functions",
+    "fetch(url) returns a Promise<Response> — call res.json() to parse the body",
+    "Always check res.ok — fetch does not throw on HTTP errors like 404 or 500",
+    "In React, data fetching goes inside useEffect"
+  ],
+  "externalLinks": [
+    {
+      "label": "MDN — async function",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function"
+    },
+    {
+      "label": "MDN — Fetch API",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "aa-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which keyword makes a function asynchronous and causes it to return a Promise?",
+      "options": ["await", "async", "promise", "defer"],
+      "answer": "async",
+      "explanation": "The async keyword before a function declaration or expression causes it to implicitly return a Promise. await can only be used inside an async function."
+    },
+    {
+      "id": "aa-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What does await do?\n\nconst res = await fetch(url)",
+      "options": [
+        "Runs the fetch in a background thread",
+        "Pauses the async function until the fetch Promise resolves, then assigns the result",
+        "Calls fetch synchronously",
+        "Wraps the result in another Promise"
+      ],
+      "answer": "Pauses the async function until the fetch Promise resolves, then assigns the result",
+      "explanation": "await suspends the execution of the current async function until the Promise settles. Other code continues to run; the async function resumes when the Promise resolves."
+    },
+    {
+      "id": "aa-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "fetch() does NOT throw an error for HTTP 404 or 500 responses. How do you detect these errors?",
+      "options": [
+        "Wrap fetch in try/catch",
+        "Check res.status manually",
+        "Check res.ok — it is false for non-2xx status codes",
+        "fetch always throws for error status codes"
+      ],
+      "answer": "Check res.ok — it is false for non-2xx status codes",
+      "explanation": "res.ok is true for status 200–299. For a 404 or 500, fetch resolves normally (no throw) but res.ok is false. You should throw manually: if (!res.ok) throw new Error(`HTTP ${res.status}`)"
+    },
+    {
+      "id": "aa-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Which async function correctly fetches a URL, checks for errors, and returns parsed JSON?",
+      "options": [
+        "async function load(url) {\n  const res = fetch(url)\n  return res.json()\n}",
+        "async function load(url) {\n  const res = await fetch(url)\n  if (!res.ok) throw new Error(res.status)\n  return await res.json()\n}",
+        "function load(url) {\n  const res = await fetch(url)\n  return res.json()\n}",
+        "async function load(url) {\n  return fetch(url).json()\n}"
+      ],
+      "answer": "async function load(url) {\n  const res = await fetch(url)\n  if (!res.ok) throw new Error(res.status)\n  return await res.json()\n}",
+      "explanation": "You must await fetch(). You must check res.ok before calling res.json(). The function must be async to use await. fetch(url).json() does not work — you need to await the response first."
+    },
+    {
+      "id": "aa-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Where should you place a try/catch when using async/await?",
+      "options": [
+        "Around the async keyword",
+        "Around every await expression individually",
+        "Around the block of awaits where you want to handle errors from any of them",
+        "try/catch does not work with async/await"
+      ],
+      "answer": "Around the block of awaits where you want to handle errors from any of them",
+      "explanation": "A single try/catch block can cover multiple await calls. If any of them rejects, the catch block runs. You can also have individual try/catch blocks if you need fine-grained error handling."
+    },
+    {
+      "id": "aa-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Rewrite using async/await:\n\nfetch(url)\n  .then(res => res.json())\n  .then(data => console.log(data))\n  .catch(err => console.error(err))\n\nWhich rewrite is correct?",
+      "options": [
+        "const data = fetch(url).json(); console.log(data)",
+        "async function load() {\n  try {\n    const res = await fetch(url)\n    const data = await res.json()\n    console.log(data)\n  } catch (err) {\n    console.error(err)\n  }\n}",
+        "async function load() {\n  const res = fetch(url)\n  const data = res.json()\n  console.log(data)\n}",
+        "function load() {\n  await fetch(url).then(r => r.json()).then(d => console.log(d))\n}"
+      ],
+      "answer": "async function load() {\n  try {\n    const res = await fetch(url)\n    const data = await res.json()\n    console.log(data)\n  } catch (err) {\n    console.error(err)\n  }\n}",
+      "explanation": "Each Promise must be awaited separately. The function must be async. try/catch replaces .catch(). The other options forget to await, or use await outside an async function."
+    }
+  ]
+}

@@ -11,8 +11,18 @@
     "description": "Essential Linux commands and file system navigation."
   },
   {
+    "id": "front-end-frameworks",
+    "title": "Front-End Frameworks",
+    "description": "EPITA S5 · Build a full React SPA — ES6+, components, state, routing, and global state."
+  },
+  {
     "id": "python-microservices",
     "title": "Python Microservices",
     "description": "Building and deploying microservices with Python."
+  },
+  {
+    "id": "javascript-es6",
+    "title": "JavaScript ES6+",
+    "description": "Modern JavaScript syntax used throughout React: arrow functions, destructuring, spread/rest, modules, array methods, async/await, and more."
   }
 ]

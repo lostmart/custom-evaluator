@@ -1,0 +1,112 @@
+{
+  "id": "optional-chaining",
+  "courseId": "javascript-es6",
+  "title": "Optional Chaining and Nullish Coalescing",
+  "summary": "Optional chaining (?.) safely accesses nested properties or calls methods without throwing if an intermediate value is null or undefined — it short-circuits and returns undefined instead. Nullish coalescing (??) provides a fallback value only when the left side is null or undefined. It is stricter than || which also falls back for 0, '', and false — this matters when 0 is a valid value (e.g. a movie rating of 0).",
+  "keyPoints": [
+    "movie?.director?.name — returns undefined if movie or director is null/undefined, no throw",
+    "movie?.getGenres?.() — optional method call",
+    "movie?.cast?.[0] — optional array index access",
+    "?? provides a fallback only for null or undefined",
+    "|| provides a fallback for any falsy value: null, undefined, 0, '', false",
+    "Use ?? for ratings and counts where 0 is valid data",
+    "Use || only when you want to fall back on all falsy values",
+    "Can combine both: movie?.poster_path ?? '/placeholder.jpg'"
+  ],
+  "externalLinks": [
+    {
+      "label": "MDN — Optional chaining (?.)",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining"
+    },
+    {
+      "label": "MDN — Nullish coalescing operator (??)",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "oc-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Given:\nconst movie = { title: 'Unknown' }  // no director field\n\nWhat does movie.director?.name return?",
+      "options": [
+        "Throws a TypeError",
+        "undefined",
+        "null",
+        "'Unknown'"
+      ],
+      "answer": "undefined",
+      "explanation": "movie.director is undefined. The ?. operator short-circuits and returns undefined without throwing. Without ?., movie.director.name would throw TypeError: Cannot read properties of undefined."
+    },
+    {
+      "id": "oc-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What is the difference between ?? and || when used as a fallback operator?",
+      "options": [
+        "They are identical",
+        "?? only falls back for null/undefined; || falls back for any falsy value (0, '', false, null, undefined)",
+        "|| only falls back for null/undefined; ?? falls back for any falsy value",
+        "?? throws for falsy values; || does not"
+      ],
+      "answer": "?? only falls back for null/undefined; || falls back for any falsy value (0, '', false, null, undefined)",
+      "explanation": "This distinction matters: rating || 'N/A' would replace a rating of 0 with 'N/A', which is wrong. rating ?? 'N/A' keeps 0 because 0 is not null or undefined."
+    },
+    {
+      "id": "oc-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Given vote_average = 0, which expression correctly displays the rating without replacing 0 with a fallback?",
+      "options": [
+        "vote_average || 'N/A'",
+        "vote_average ?? 'N/A'",
+        "vote_average && 'N/A'",
+        "vote_average ? vote_average : 'N/A'"
+      ],
+      "answer": "vote_average ?? 'N/A'",
+      "explanation": "?? only triggers on null or undefined. 0 is a valid rating, not a missing value — ?? keeps it. || treats 0 as falsy and would incorrectly replace it with 'N/A'."
+    },
+    {
+      "id": "oc-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Given:\nconst movie2 = { title: 'Unknown' }  // no cast field\n\nHow do you safely get the name of the first cast member, with 'Unknown cast' as a fallback?",
+      "options": [
+        "movie2.cast[0].name || 'Unknown cast'",
+        "movie2?.cast[0]?.name ?? 'Unknown cast'",
+        "movie2?.cast?.[0]?.name ?? 'Unknown cast'",
+        "movie2.cast?.name ?? 'Unknown cast'"
+      ],
+      "answer": "movie2?.cast?.[0]?.name ?? 'Unknown cast'",
+      "explanation": "Each step that could be null/undefined needs its own ?.: movie2?, then cast?, then [0]?, then name. Without ?. on cast, accessing [0] on undefined would still throw."
+    },
+    {
+      "id": "oc-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "A TMDB movie has poster_path: null. Which expression returns the correct placeholder URL?",
+      "options": [
+        "movie.poster_path || '/placeholder.jpg'",
+        "movie.poster_path ?? '/placeholder.jpg'",
+        "movie?.poster_path ?? '/placeholder.jpg'",
+        "Both B and C"
+      ],
+      "answer": "Both B and C",
+      "explanation": "null triggers both || and ??. Since poster_path is directly on movie (movie itself exists), both B and C work. C adds optional chaining for safety if movie itself might be null. In practice, if movie is guaranteed to exist, B and C are equivalent here."
+    },
+    {
+      "id": "oc-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "When is optional chaining (?.) especially important when working with the TMDB API?",
+      "options": [
+        "When calling methods on numbers",
+        "When accessing nested fields that may be null or absent in the API response",
+        "When destructuring arrays",
+        "When using async/await"
+      ],
+      "answer": "When accessing nested fields that may be null or absent in the API response",
+      "explanation": "TMDB API responses regularly have nullable fields: poster_path, backdrop_path, belongs_to_collection, tagline. Optional chaining lets you access them safely without defensive if-checks at every level."
+    }
+  ]
+}

@@ -69,6 +69,21 @@ import pmDatabaseMigrations from "@/assets/courses/python-microservices/topics/d
 import pmResilience from "@/assets/courses/python-microservices/topics/resilience.json";
 import pmMeta from "@/assets/courses/python-microservices/meta.json";
 
+// ── front-end-frameworks ──────────────────────────────────────────────────────
+import fefMeta from "@/assets/courses/front-end-frameworks/meta.json";
+
+// ── javascript-es6 ────────────────────────────────────────────────────────────
+import jsConstLet from "@/assets/courses/javascript-es6/topics/const-let.json";
+import jsArrowFunctions from "@/assets/courses/javascript-es6/topics/arrow-functions.json";
+import jsDestructuring from "@/assets/courses/javascript-es6/topics/destructuring.json";
+import jsTemplateLiterals from "@/assets/courses/javascript-es6/topics/template-literals.json";
+import jsSpreadRest from "@/assets/courses/javascript-es6/topics/spread-rest.json";
+import jsModules from "@/assets/courses/javascript-es6/topics/modules.json";
+import jsArrayMethods from "@/assets/courses/javascript-es6/topics/array-methods.json";
+import jsAsyncAwait from "@/assets/courses/javascript-es6/topics/async-await.json";
+import jsOptionalChaining from "@/assets/courses/javascript-es6/topics/optional-chaining.json";
+import jsMeta from "@/assets/courses/javascript-es6/meta.json";
+
 // ── registry ──────────────────────────────────────────────────────────────────
 
 function toMap(topics: Topic[]): Record<string, Topic> {
@@ -111,6 +126,34 @@ export const courses: Record<string, CourseData> = {
       pmLayeredArchitecture,
       pmDatabaseMigrations,
       pmResilience,
+    ] as Topic[]),
+  },
+  "front-end-frameworks": {
+    ...fefMeta,
+    topicsMap: toMap([
+      jsConstLet,
+      jsArrowFunctions,
+      jsDestructuring,
+      jsTemplateLiterals,
+      jsSpreadRest,
+      jsModules,
+      jsArrayMethods,
+      jsAsyncAwait,
+      jsOptionalChaining,
+    ] as Topic[]),
+  },
+  "javascript-es6": {
+    ...jsMeta,
+    topicsMap: toMap([
+      jsConstLet,
+      jsArrowFunctions,
+      jsDestructuring,
+      jsTemplateLiterals,
+      jsSpreadRest,
+      jsModules,
+      jsArrayMethods,
+      jsAsyncAwait,
+      jsOptionalChaining,
     ] as Topic[]),
   },
 };

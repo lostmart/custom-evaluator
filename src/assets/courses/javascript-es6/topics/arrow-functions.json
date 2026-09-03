@@ -1,0 +1,93 @@
+{
+  "id": "arrow-functions",
+  "courseId": "javascript-es6",
+  "title": "Arrow Functions",
+  "summary": "Arrow functions are a compact syntax for writing functions. The key difference from regular functions is that they do not have their own 'this' binding — they inherit 'this' from the surrounding scope. This makes them ideal for callbacks. The concise body form (no curly braces) implicitly returns the single expression. Returning an object literal from a concise body requires wrapping the object in parentheses to avoid ambiguity with a function body.",
+  "keyPoints": [
+    "Syntax: const fn = (params) => expression  OR  const fn = (params) => { statements }",
+    "Concise body (no {}) implicitly returns the expression — no return keyword needed",
+    "Single parameter: parentheses around the parameter are optional",
+    "Zero parameters: empty parentheses () are required",
+    "Returning an object literal from concise body: wrap in () to avoid syntax confusion",
+    "Arrow functions do not have their own 'this' — they inherit from the enclosing scope",
+    "Cannot be used as constructors (no new keyword)"
+  ],
+  "externalLinks": [
+    {
+      "label": "MDN — Arrow function expressions",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "af-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which of these is a valid concise-body arrow function that returns title + ' (' + year + ')'?",
+      "options": [
+        "const fmt = (title, year) => { title + ' (' + year + ')' }",
+        "const fmt = (title, year) => title + ' (' + year + ')'",
+        "const fmt = title, year => title + ' (' + year + ')'",
+        "const fmt = (title, year) -> title + ' (' + year + ')'"
+      ],
+      "answer": "const fmt = (title, year) => title + ' (' + year + ')'",
+      "explanation": "With two or more parameters you need parentheses. The concise body has no {}, so the expression is implicitly returned. The -> syntax does not exist in JavaScript."
+    },
+    {
+      "id": "af-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What does this function return?\n\nconst toSummary = movie => { title: movie.title }",
+      "options": [
+        "{ title: movie.title }",
+        "undefined",
+        "movie.title",
+        "A syntax error"
+      ],
+      "answer": "undefined",
+      "explanation": "JavaScript interprets the {} as a function body, not an object literal. The label 'title:' is a statement label, and movie.title is evaluated but not returned. The function returns undefined. Fix: wrap in parentheses: movie => ({ title: movie.title })"
+    },
+    {
+      "id": "af-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Convert to an arrow function with a concise body:\n\nfunction double(n) {\n  return n * 2\n}",
+      "options": [
+        "const double = n => n * 2",
+        "const double = (n) { return n * 2 }",
+        "const double => n => n * 2",
+        "arrow double(n) => n * 2"
+      ],
+      "answer": "const double = n => n * 2",
+      "explanation": "Single parameter needs no parentheses. The concise body implicitly returns the expression, so no return keyword is needed."
+    },
+    {
+      "id": "af-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Which correctly converts this function to an arrow function that returns an object?\n\nfunction toCard(movie) {\n  return { title: movie.title, rating: movie.rating }\n}",
+      "options": [
+        "const toCard = movie => { title: movie.title, rating: movie.rating }",
+        "const toCard = movie => ({ title: movie.title, rating: movie.rating })",
+        "const toCard = movie => return { title: movie.title, rating: movie.rating }",
+        "const toCard = (movie) { return { title: movie.title, rating: movie.rating } }"
+      ],
+      "answer": "const toCard = movie => ({ title: movie.title, rating: movie.rating })",
+      "explanation": "Object literals in a concise body must be wrapped in () so JavaScript knows {} is an object, not a function body."
+    },
+    {
+      "id": "af-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "In React, an event handler is written as:\n\n<button onClick={() => setWatched(true)}>Mark</button>\n\nWhy is an arrow function used here instead of setWatched(true) directly?",
+      "options": [
+        "Arrow functions are faster",
+        "setWatched(true) would be called immediately on render, not on click",
+        "onClick only accepts arrow functions",
+        "Arrow functions automatically bind the event object"
+      ],
+      "answer": "setWatched(true) would be called immediately on render, not on click",
+      "explanation": "onClick expects a function reference. Writing onClick={setWatched(true)} calls setWatched immediately during render. Wrapping it in () => setWatched(true) defers the call until the click event fires."
+    }
+  ]
+}

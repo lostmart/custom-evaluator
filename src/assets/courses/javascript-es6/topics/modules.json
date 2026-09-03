@@ -1,0 +1,93 @@
+{
+  "id": "modules",
+  "courseId": "javascript-es6",
+  "title": "ES Modules",
+  "summary": "ES modules split code across files. Each file is its own module with its own scope. Values must be explicitly exported to be used in other files, and explicitly imported. There are two export styles: named exports (a file can have many) and a default export (a file can have at most one). React projects use one component per file with a default export for the component and named exports for helpers or constants.",
+  "keyPoints": [
+    "Named export: export const x = ...  or  export function fn() {}",
+    "Named import: import { x, fn } from './file'",
+    "Default export: export default MyComponent  (one per file)",
+    "Default import: import MyComponent from './MyComponent'  (name is up to the importer)",
+    "Both in one line: import React, { useState } from 'react'",
+    "Rename a named import: import { formatTitle as format } from './utils'",
+    "Avoid import * as — it prevents tree shaking",
+    "Convention: one React component per file, default exported; helpers named-exported"
+  ],
+  "externalLinks": [
+    {
+      "label": "MDN — import",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import"
+    },
+    {
+      "label": "MDN — export",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "mod-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "A file movies.js contains:\n\nexport const API_KEY = 'abc'\nexport function formatTitle(t, y) { return `${t} (${y})` }\n\nHow do you import both in another file?",
+      "options": [
+        "import API_KEY, formatTitle from './movies.js'",
+        "import { API_KEY, formatTitle } from './movies.js'",
+        "import * from './movies.js'",
+        "require('./movies.js')"
+      ],
+      "answer": "import { API_KEY, formatTitle } from './movies.js'",
+      "explanation": "Both are named exports, so they are imported with curly braces {}. Without braces you would be importing the default export (which does not exist in this file)."
+    },
+    {
+      "id": "mod-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "MovieCard.jsx contains:\n\nexport default function MovieCard({ title }) { ... }\n\nHow do you import it in App.jsx?",
+      "options": [
+        "import { MovieCard } from './MovieCard'",
+        "import MovieCard from './MovieCard'",
+        "import default MovieCard from './MovieCard'",
+        "import MovieCard = require('./MovieCard')"
+      ],
+      "answer": "import MovieCard from './MovieCard'",
+      "explanation": "Default exports are imported without curly braces. The name you use (MovieCard) is your choice — it does not have to match the exported name."
+    },
+    {
+      "id": "mod-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "How many default exports can one file have?",
+      "options": ["Unlimited", "Two", "One", "Zero"],
+      "answer": "One",
+      "explanation": "A file can have at most one default export. It can have any number of named exports."
+    },
+    {
+      "id": "mod-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "You want to import useState and useEffect from React. Which import is correct?",
+      "options": [
+        "import React.useState, React.useEffect from 'react'",
+        "import { useState, useEffect } from 'react'",
+        "import useState, useEffect from 'react'",
+        "import [useState, useEffect] from 'react'"
+      ],
+      "answer": "import { useState, useEffect } from 'react'",
+      "explanation": "useState and useEffect are named exports from the react package. Use {} for named imports. Multiple named imports are comma-separated."
+    },
+    {
+      "id": "mod-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "A file utils.js has:\n\nexport function formatTitle(t, y) {}\nexport default []\n\nIn main.js, you want to import both the default export as movies AND formatTitle. Which is correct?",
+      "options": [
+        "import movies, { formatTitle } from './utils'",
+        "import { movies, formatTitle } from './utils'",
+        "import movies from './utils'; import { formatTitle } from './utils'",
+        "Both A and C are correct"
+      ],
+      "answer": "Both A and C are correct",
+      "explanation": "You can combine a default import and named imports in one statement (A), or use two separate import statements (C). Both produce the same result."
+    }
+  ]
+}

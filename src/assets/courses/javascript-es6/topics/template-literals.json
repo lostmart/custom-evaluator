@@ -1,0 +1,72 @@
+{
+  "id": "template-literals",
+  "courseId": "javascript-es6",
+  "title": "Template Literals",
+  "summary": "Template literals use backticks (`) instead of quotes. They support embedded expressions via ${} and span multiple lines without escape sequences. Any JavaScript expression — including ternaries and function calls — can appear inside ${}. They are used throughout React for dynamic class names, URL construction, and formatted strings.",
+  "keyPoints": [
+    "Use backticks ` ` instead of single or double quotes",
+    "Embed any expression with ${expression}",
+    "Multi-line strings work natively — no \\n needed",
+    "Any expression works inside ${}: arithmetic, ternaries, function calls",
+    "Tagged templates allow custom processing (advanced use case)"
+  ],
+  "externalLinks": [
+    {
+      "label": "MDN — Template literals",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "tl-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which template literal produces: 'Inception (2010)'?",
+      "options": [
+        "`${title} (${year})`",
+        "'${title} (${year})'",
+        "`{title} ({year})`",
+        "`$title ($year)`"
+      ],
+      "answer": "`${title} (${year})`",
+      "explanation": "Template literals use backticks and embed expressions with ${}. Single or double quote strings do not interpolate variables."
+    },
+    {
+      "id": "tl-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Given rating = 8.8, what does this produce?\n\n`Rating is ${rating >= 8.5 ? 'excellent' : 'good'}`",
+      "options": [
+        "'Rating is excellent'",
+        "'Rating is good'",
+        "'Rating is ${rating >= 8.5 ? excellent : good}'",
+        "A syntax error"
+      ],
+      "answer": "'Rating is excellent'",
+      "explanation": "Any JavaScript expression works inside ${}. The ternary evaluates to 'excellent' because 8.8 >= 8.5 is true."
+    },
+    {
+      "id": "tl-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which is an advantage of template literals over string concatenation?",
+      "options": [
+        "They are faster at runtime",
+        "They support multi-line strings and embedded expressions without + and quotes",
+        "They automatically escape HTML",
+        "They only work with const variables"
+      ],
+      "answer": "They support multi-line strings and embedded expressions without + and quotes",
+      "explanation": "Template literals eliminate the need for + concatenation and allow line breaks directly in the string, making complex strings much more readable."
+    },
+    {
+      "id": "tl-ex-04",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Rewrite using a template literal:",
+      "code": "'Movie: ' + title + ' — Rating: ' + rating + '/10'",
+      "answer": "`Movie: ${title} — Rating: ${rating}/10`",
+      "explanation": "Replace the concatenation with a single template literal. Embed the variables directly with ${}."
+    }
+  ]
+}
