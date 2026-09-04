@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import type { CourseData, Exercise, Topic } from "@/lib/courses";
 import CodeEditor from "@/components/question/CodeEditor";
 import { useUser } from "@/context/UserContext";
-import { track } from "@/lib/track";
 
 // ── Progress hook ─────────────────────────────────────────────────────────────
 
@@ -320,6 +319,8 @@ export function StudyClient({ course }: { course: CourseData }) {
   const { completed, toggle } = useStudyProgress(course.id);
   const { user } = useUser();
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const activeTopic = activeId ? course.topicsMap[activeId] : null;
 
@@ -335,12 +336,32 @@ export function StudyClient({ course }: { course: CourseData }) {
     return { done, total: topic.exercises.length };
   }
 
-  function handleSubmit() {
-    track({
+  async function handleSubmit() {
+    if (!allDone || submitting || submitted) return;
+    setSubmitting(true);
+
+    const payload = {
+      courseId: course.id,
+      sheetName: course.id,
+      submittedAt: new Date().toISOString(),
       email: user.email,
-      event: "completed",
-      detail: `study:${course.id} — ${completed.size}/${totalExercises} exercises`,
-    });
+      courseTitle: course.title,
+    };
+
+    const res = await fetch("/api/study-submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    }).catch(() => null);
+
+    setSubmitting(false);
+
+    const json = await res?.json().catch(() => null);
+    if (!res?.ok || json?.ok === false) {
+      setSubmitError(json?.error ?? "Submission failed. Try again.");
+      return;
+    }
+
     setSubmitted(true);
   }
 
@@ -429,30 +450,38 @@ export function StudyClient({ course }: { course: CourseData }) {
         )}
 
         {/* Submit banner */}
-        {allDone && (
-          <div className="bg-white rounded-sm shadow-sm px-10 py-6 flex items-center justify-between gap-6">
-            <div className="flex flex-col gap-0.5">
-              <p className="text-sm font-medium text-zinc-800">
-                All exercises completed
-              </p>
-              <p className="text-xs text-zinc-400">
-                Send your progress to your instructor.
-              </p>
-            </div>
-            {submitted ? (
-              <span className="text-xs font-mono text-emerald-600">
-                ✓ Sent
-              </span>
-            ) : (
+        <div className="bg-white rounded-sm shadow-sm px-10 py-6 flex items-center justify-between gap-6">
+          <div className="flex flex-col gap-0.5">
+            <p className="text-sm font-medium text-zinc-800">
+              {allDone ? "All exercises completed" : `${completed.size} / ${totalExercises} exercises completed`}
+            </p>
+            <p className="text-xs text-zinc-400">
+              {allDone ? "Send your progress to your instructor." : "Complete all exercises to submit."}
+            </p>
+          </div>
+          {submitted ? (
+            <span className="text-xs font-mono text-emerald-600">
+              ✓ Sent
+            </span>
+          ) : (
+            <div className="flex flex-col items-end gap-1 shrink-0">
               <button
                 onClick={handleSubmit}
-                className="text-sm px-5 py-2.5 bg-primary text-white rounded-sm hover:opacity-90 transition-opacity font-medium shrink-0"
+                disabled={!allDone || submitting}
+                className={`text-sm px-5 py-2.5 rounded-sm font-medium transition-opacity ${
+                  allDone && !submitting
+                    ? "bg-primary text-white hover:opacity-90"
+                    : "bg-zinc-100 text-zinc-400 cursor-not-allowed"
+                }`}
               >
-                Submit progress →
+                {submitting ? "Sending…" : "Submit progress →"}
               </button>
-            )}
-          </div>
-        )}
+              {submitError && (
+                <p className="text-xs text-red-500">{submitError}</p>
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

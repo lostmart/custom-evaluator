@@ -65,29 +65,29 @@
       "id": "sr-ex-04",
       "type": "multiple-choice",
       "difficulty": "intermediate",
-      "prompt": "In a React watchlist, you want to remove a movie with a given id. Which state update is correct?",
+      "prompt": "Given:\nconst watchlist = [\n  { id: 1, title: 'Inception' },\n  { id: 2, title: 'Dune' },\n  { id: 3, title: 'Tenet' }\n]\n\nWhich expression creates a new array without the movie with id 2, without mutating the original?",
       "options": [
-        "setWatchlist(watchlist.splice(index, 1))",
-        "setWatchlist(prev => prev.filter(m => m.id !== id))",
-        "setWatchlist(prev => { prev.pop(); return prev })",
+        "watchlist.splice(1, 1)",
+        "watchlist.filter(m => m.id !== 2)",
+        "delete watchlist[1]",
         "watchlist.length = watchlist.length - 1"
       ],
-      "answer": "setWatchlist(prev => prev.filter(m => m.id !== id))",
-      "explanation": "filter returns a new array without the item — no mutation. The functional form of the setter (prev =>) ensures you are working with the latest state. Never mutate the state array directly."
+      "answer": "watchlist.filter(m => m.id !== 2)",
+      "explanation": "filter returns a new array containing only elements where the callback returns true. splice and delete mutate the original array. Reducing length also mutates and doesn't target a specific item by id."
     },
     {
       "id": "sr-ex-05",
       "type": "multiple-choice",
       "difficulty": "intermediate",
-      "prompt": "Which correctly marks a movie as watched in React state without mutating?\n\nconst [movie, setMovie] = useState({ title: 'Dune', isWatched: false })",
+      "prompt": "Given:\nconst movie = { title: 'Dune', isWatched: false, rating: 8.0 }\n\nWhich creates a new object with isWatched set to true, without mutating the original?",
       "options": [
         "movie.isWatched = true",
-        "setMovie({ isWatched: true })",
-        "setMovie(prev => ({ ...prev, isWatched: true }))",
-        "setMovie(prev => prev.isWatched = true)"
+        "Object.assign(movie, { isWatched: true })",
+        "const updated = { ...movie, isWatched: true }",
+        "movie['isWatched'] = true"
       ],
-      "answer": "setMovie(prev => ({ ...prev, isWatched: true }))",
-      "explanation": "Spread copies all existing properties into a new object, then isWatched: true overrides the old value. This is the immutable update pattern React requires."
+      "answer": "const updated = { ...movie, isWatched: true }",
+      "explanation": "Spread copies all existing properties into a new object, then isWatched: true overrides the old value. Options A, B, and D all mutate the original movie object directly."
     }
   ]
 }

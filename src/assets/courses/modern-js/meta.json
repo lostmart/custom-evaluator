@@ -1,0 +1,19 @@
+{
+  "id": "modern-js",
+  "title": "Modern JavaScript",
+  "description": "EPITA S5 · 2627_BSI_CS_S05_PROG_FEF · Build a full React SPA from scratch — component model, state, side effects, routing, and global state.",
+  "topics": [
+    { "id": "const-let", "title": "S1 — const and let" },
+    { "id": "arrow-functions", "title": "S1 — Arrow Functions" },
+    { "id": "destructuring", "title": "S1 — Destructuring" },
+    { "id": "template-literals", "title": "S1 — Template Literals" },
+    { "id": "spread-rest", "title": "S1 — Spread and Rest" },
+    { "id": "modules", "title": "S1 — ES Modules" },
+    { "id": "array-methods", "title": "S1 — Array Methods" },
+    { "id": "async-await", "title": "S1 — Promises and async/await" },
+    {
+      "id": "optional-chaining",
+      "title": "S1 — Optional Chaining and Nullish Coalescing"
+    }
+  ]
+}

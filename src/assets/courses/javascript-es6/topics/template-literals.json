@@ -2,7 +2,7 @@
   "id": "template-literals",
   "courseId": "javascript-es6",
   "title": "Template Literals",
-  "summary": "Template literals use backticks (`) instead of quotes. They support embedded expressions via ${} and span multiple lines without escape sequences. Any JavaScript expression — including ternaries and function calls — can appear inside ${}. They are used throughout React for dynamic class names, URL construction, and formatted strings.",
+  "summary": "Template literals use backticks (`) instead of quotes. They support embedded expressions via ${} and span multiple lines without escape sequences. Any JavaScript expression — including ternaries and function calls — can appear inside ${}. They are useful for URL construction, formatted strings, and any situation where string concatenation would otherwise be needed.",
   "keyPoints": [
     "Use backticks ` ` instead of single or double quotes",
     "Embed any expression with ${expression}",

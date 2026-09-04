@@ -79,15 +79,15 @@
       "id": "af-ex-05",
       "type": "multiple-choice",
       "difficulty": "intermediate",
-      "prompt": "In React, an event handler is written as:\n\n<button onClick={() => setWatched(true)}>Mark</button>\n\nWhy is an arrow function used here instead of setWatched(true) directly?",
+      "prompt": "Given:\nconst ratings = [8.8, 7.3, 9.1, 6.5]\n\nWhich expression uses an arrow function to return only ratings above 8.0?",
       "options": [
-        "Arrow functions are faster",
-        "setWatched(true) would be called immediately on render, not on click",
-        "onClick only accepts arrow functions",
-        "Arrow functions automatically bind the event object"
+        "ratings.filter(r => { r > 8.0 })",
+        "ratings.filter(r => r > 8.0)",
+        "ratings.filter((r) { return r > 8.0 })",
+        "ratings.filter(r -> r > 8.0)"
       ],
-      "answer": "setWatched(true) would be called immediately on render, not on click",
-      "explanation": "onClick expects a function reference. Writing onClick={setWatched(true)} calls setWatched immediately during render. Wrapping it in () => setWatched(true) defers the call until the click event fires."
+      "answer": "ratings.filter(r => r > 8.0)",
+      "explanation": "The concise body arrow function implicitly returns the expression. The version with {} needs an explicit return keyword. The -> syntax does not exist in JavaScript."
     }
   ]
 }

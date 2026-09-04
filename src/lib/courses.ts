@@ -69,8 +69,8 @@ import pmDatabaseMigrations from "@/assets/courses/python-microservices/topics/d
 import pmResilience from "@/assets/courses/python-microservices/topics/resilience.json";
 import pmMeta from "@/assets/courses/python-microservices/meta.json";
 
-// ── front-end-frameworks ──────────────────────────────────────────────────────
-import fefMeta from "@/assets/courses/front-end-frameworks/meta.json";
+// ── modern-js ─────────────────────────────────────────────────────────────────
+import fefMeta from "@/assets/courses/modern-js/meta.json";
 
 // ── javascript-es6 ────────────────────────────────────────────────────────────
 import jsConstLet from "@/assets/courses/javascript-es6/topics/const-let.json";
@@ -128,7 +128,7 @@ export const courses: Record<string, CourseData> = {
       pmResilience,
     ] as Topic[]),
   },
-  "front-end-frameworks": {
+  "modern-js": {
     ...fefMeta,
     topicsMap: toMap([
       jsConstLet,

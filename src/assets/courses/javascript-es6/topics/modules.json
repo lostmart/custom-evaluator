@@ -42,15 +42,15 @@
       "id": "mod-ex-02",
       "type": "multiple-choice",
       "difficulty": "beginner",
-      "prompt": "MovieCard.jsx contains:\n\nexport default function MovieCard({ title }) { ... }\n\nHow do you import it in App.jsx?",
+      "prompt": "movies.js contains:\n\nexport default function formatMovie(title, year) {\n  return `${title} (${year})`\n}\n\nHow do you import it in main.js?",
       "options": [
-        "import { MovieCard } from './MovieCard'",
-        "import MovieCard from './MovieCard'",
-        "import default MovieCard from './MovieCard'",
-        "import MovieCard = require('./MovieCard')"
+        "import { formatMovie } from './movies'",
+        "import formatMovie from './movies'",
+        "import default formatMovie from './movies'",
+        "import formatMovie = require('./movies')"
       ],
-      "answer": "import MovieCard from './MovieCard'",
-      "explanation": "Default exports are imported without curly braces. The name you use (MovieCard) is your choice — it does not have to match the exported name."
+      "answer": "import formatMovie from './movies'",
+      "explanation": "Default exports are imported without curly braces. The name you use locally is your choice — it doesn't have to match the exported function name."
     },
     {
       "id": "mod-ex-03",
@@ -65,15 +65,15 @@
       "id": "mod-ex-04",
       "type": "multiple-choice",
       "difficulty": "beginner",
-      "prompt": "You want to import useState and useEffect from React. Which import is correct?",
+      "prompt": "utils.js contains:\n\nexport function add(a, b) { return a + b }\nexport function multiply(a, b) { return a * b }\n\nHow do you import both in main.js?",
       "options": [
-        "import React.useState, React.useEffect from 'react'",
-        "import { useState, useEffect } from 'react'",
-        "import useState, useEffect from 'react'",
-        "import [useState, useEffect] from 'react'"
+        "import add, multiply from './utils'",
+        "import { add, multiply } from './utils'",
+        "import [add, multiply] from './utils'",
+        "import * from './utils'"
       ],
-      "answer": "import { useState, useEffect } from 'react'",
-      "explanation": "useState and useEffect are named exports from the react package. Use {} for named imports. Multiple named imports are comma-separated."
+      "answer": "import { add, multiply } from './utils'",
+      "explanation": "Both are named exports, so they are imported with curly braces {}. Multiple named imports are comma-separated. Without braces you would be trying to import a default export, which doesn't exist here."
     },
     {
       "id": "mod-ex-05",
