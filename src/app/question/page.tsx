@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useTest } from "@/context/TestContext"
 import { useUser } from "@/context/UserContext"
@@ -16,6 +16,8 @@ import Nav from "@/components/ui/Nav"
 import ProgressBar from "@/components/ui/ProgressBar"
 import Prompt from "@/components/ui/Prompt"
 
+const TIMER_DURATION = 25
+
 function shuffle<T>(arr: T[]): T[] {
 	const a = [...arr]
 	for (let i = a.length - 1; i > 0; i--) {
@@ -23,6 +25,38 @@ function shuffle<T>(arr: T[]): T[] {
 		[a[i], a[j]] = [a[j], a[i]]
 	}
 	return a
+}
+
+function CircularTimer({ timeLeft }: { timeLeft: number }) {
+	const radius = 20
+	const circumference = 2 * Math.PI * radius
+	const dashoffset = circumference * (1 - timeLeft / TIMER_DURATION)
+	const color =
+		timeLeft > 15 ? "#10b981" : timeLeft > 8 ? "#f59e0b" : "#ef4444"
+
+	return (
+		<div className="relative w-12 h-12 sm:w-14 sm:h-14 shrink-0">
+			<svg className="w-full h-full -rotate-90" viewBox="0 0 48 48">
+				<circle cx="24" cy="24" r={radius} fill="none" stroke="#e5e7eb" strokeWidth="4" />
+				<circle
+					cx="24" cy="24" r={radius}
+					fill="none"
+					stroke={color}
+					strokeWidth="4"
+					strokeDasharray={circumference}
+					strokeDashoffset={dashoffset}
+					strokeLinecap="round"
+					style={{ transition: "stroke-dashoffset 1s linear, stroke 0.5s" }}
+				/>
+			</svg>
+			<span
+				className="absolute inset-0 flex items-center justify-center text-xs sm:text-sm font-mono font-bold"
+				style={{ color }}
+			>
+				{timeLeft}
+			</span>
+		</div>
+	)
 }
 
 export default function QuestionPage() {
@@ -38,10 +72,21 @@ export default function QuestionPage() {
 	const [selected, setSelected] = useState<string | null>(null)
 	const [showModal, setShowModal] = useState(false)
 	const [hasConfirmedOnce, setHasConfirmedOnce] = useState(false)
+	const [timeLeft, setTimeLeft] = useState(TIMER_DURATION)
+
+	// Keep a stable ref to handleSubmit so the timer effect never goes stale
+	const submitRef = useRef<() => void>(() => {})
 
 	useEffect(() => {
 		setTest({ totalQuestions: total })
 	}, [])
+
+	// Reset timer and selection on each new question
+	useEffect(() => {
+		setTimeLeft(TIMER_DURATION)
+		setSelected(null)
+		setShowModal(false)
+	}, [current])
 
 	const question = shuffled[current]
 	if (!question) return null
@@ -66,6 +111,9 @@ export default function QuestionPage() {
 		}
 	}
 
+	// Keep ref current on every render
+	submitRef.current = handleSubmit
+
 	function handleSubmitClick() {
 		if (hasConfirmedOnce) {
 			handleSubmit()
@@ -73,6 +121,16 @@ export default function QuestionPage() {
 			setShowModal(true)
 		}
 	}
+
+	// Countdown tick — auto-submits at 0
+	useEffect(() => {
+		if (timeLeft <= 0) {
+			submitRef.current()
+			return
+		}
+		const id = setTimeout(() => setTimeLeft((t) => t - 1), 1000)
+		return () => clearTimeout(id)
+	}, [timeLeft])
 
 	return (
 		<Guard>
@@ -89,17 +147,20 @@ export default function QuestionPage() {
 					onCancel={() => setShowModal(false)}
 				/>
 
-				<main className="flex flex-col gap-6 px-8 py-8 w-full max-w-2xl mx-auto">
-					<div className="flex flex-col gap-1">
-						<span className="text-xs font-mono uppercase tracking-widest text-tertiary">
-							{question.title}
-						</span>
-						<h1 className="text-2xl font-semibold text-secondary">
-							Question {current + 1} of {total}
-						</h1>
+				<main className="flex flex-col gap-6 px-4 sm:px-8 py-8 w-full max-w-2xl mx-auto">
+					<div className="flex items-center justify-between gap-4">
+						<div className="flex flex-col gap-1 min-w-0">
+							<span className="text-xs font-mono uppercase tracking-widest text-tertiary truncate">
+								{question.title}
+							</span>
+							<h1 className="text-xl sm:text-2xl font-semibold text-secondary">
+								Question {current + 1} of {total}
+							</h1>
+						</div>
+						<CircularTimer timeLeft={timeLeft} />
 					</div>
 
-					<div className="bg-white rounded-sm shadow-sm flex flex-col gap-5 p-6">
+					<div className="bg-white rounded-sm shadow-sm flex flex-col gap-5 p-4 sm:p-6">
 						<Badge label="Multiple Choice" color="primary" />
 						<Prompt title={question.question} />
 						<MultipleChoice

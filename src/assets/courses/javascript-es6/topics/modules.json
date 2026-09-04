@@ -2,16 +2,16 @@
   "id": "modules",
   "courseId": "javascript-es6",
   "title": "ES Modules",
-  "summary": "ES modules split code across files. Each file is its own module with its own scope. Values must be explicitly exported to be used in other files, and explicitly imported. There are two export styles: named exports (a file can have many) and a default export (a file can have at most one). React projects use one component per file with a default export for the component and named exports for helpers or constants.",
+  "summary": "ES modules split code across files. Each file is its own module with its own scope. Values must be explicitly exported to be used in other files, and explicitly imported. There are two export styles: named exports (a file can have many) and a default export (a file can have at most one). The convention is to default-export the main value of a file and named-export secondary utilities.",
   "keyPoints": [
     "Named export: export const x = ...  or  export function fn() {}",
     "Named import: import { x, fn } from './file'",
-    "Default export: export default MyComponent  (one per file)",
-    "Default import: import MyComponent from './MyComponent'  (name is up to the importer)",
-    "Both in one line: import React, { useState } from 'react'",
+    "Default export: export default value  (one per file)",
+    "Default import: import myName from './file'  (name is up to the importer)",
+    "Mix default and named in one line: import main, { helper } from './file'",
     "Rename a named import: import { formatTitle as format } from './utils'",
     "Avoid import * as — it prevents tree shaking",
-    "Convention: one React component per file, default exported; helpers named-exported"
+    "Convention: default-export the main value of a module; named-export secondary helpers"
   ],
   "externalLinks": [
     {

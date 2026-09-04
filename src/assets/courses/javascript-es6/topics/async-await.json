@@ -11,8 +11,7 @@
     "await can only be used inside an async function",
     "Errors (rejected Promises) are caught with try/catch inside async functions",
     "fetch(url) returns a Promise<Response> — call res.json() to parse the body",
-    "Always check res.ok — fetch does not throw on HTTP errors like 404 or 500",
-    "In React, data fetching goes inside useEffect"
+    "Always check res.ok — fetch does not throw on HTTP errors like 404 or 500"
   ],
   "externalLinks": [
     {

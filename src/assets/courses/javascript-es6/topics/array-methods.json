@@ -2,7 +2,7 @@
   "id": "array-methods",
   "courseId": "javascript-es6",
   "title": "Array Methods",
-  "summary": "Four array methods are used constantly in React: map transforms every element into something new (always same length); filter keeps elements that pass a test (shorter or equal length); find returns the first match or undefined; some returns a boolean. All four return a new array or value — none mutate the original. They can be chained. map is used to render lists of components; filter is used for genre filters and removing watchlist items; find and some are used for lookups.",
+  "summary": "Four higher-order array methods cover most data transformation needs: map transforms every element into something new (always same length); filter keeps elements that pass a test (shorter or equal length); find returns the first match or undefined; some returns a boolean. All four return a new array or value — none mutate the original. They can be chained for concise data pipelines.",
   "keyPoints": [
     "map — transforms every element, returns new array of the same length",
     "filter — keeps elements where the callback returns true, returns shorter/equal array",
@@ -10,9 +10,8 @@
     "some — returns true if AT LEAST ONE element matches, otherwise false",
     "None of these mutate the original array",
     "Methods can be chained: movies.filter(...).map(...).sort()",
-    "In JSX: {movies.map(m => <MovieCard key={m.id} ... />)}",
-    "Remove from watchlist: prev.filter(m => m.id !== id)",
-    "Check if in watchlist: watchlist.some(m => m.id === movie.id)"
+    "Remove by id: items.filter(m => m.id !== id)",
+    "Existence check: items.some(m => m.id === target.id)"
   ],
   "externalLinks": [
     {

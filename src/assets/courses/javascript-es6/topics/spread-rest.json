@@ -2,16 +2,16 @@
   "id": "spread-rest",
   "courseId": "javascript-es6",
   "title": "Spread and Rest",
-  "summary": "The spread operator (...) expands an array or object into its individual elements. The rest parameter (...) collects multiple values into a single array. Both use the same ... syntax but in opposite directions: spread expands, rest collects. In React, spread is essential for immutable state updates — you always return a new array or object rather than mutating the existing one.",
+  "summary": "The spread operator (...) expands an array or object into its individual elements. The rest parameter (...) collects multiple values into a single array. Both use the same ... syntax but in opposite directions: spread expands, rest collects. Spread is the standard way to create modified copies of arrays and objects without mutating the originals.",
   "keyPoints": [
     "Spread arrays: [...arr1, ...arr2] — creates a new combined array",
-    "Add to end: [...watchlist, newMovie]  |  Add to front: [newMovie, ...watchlist]",
+    "Add to end: [...items, newItem]  |  Add to front: [newItem, ...items]",
     "Spread objects: { ...obj, newProp: value } — creates a new object with merged properties",
     "Later keys overwrite earlier ones: { ...movie, year: 2011 } overrides year",
     "Rest in parameters: function fn(first, ...rest) — rest collects remaining args into an array",
     "Rest in destructuring: const [head, ...tail] = arr",
     "Spread is SHALLOW — nested objects are still shared by reference",
-    "In React: setWatchlist(prev => [...prev, newMovie])  — never mutate state directly"
+    "Always use spread to produce a new array or object instead of mutating the original"
   ],
   "externalLinks": [
     {
@@ -36,7 +36,7 @@
         "watchlist.concat = ['Tenet']"
       ],
       "answer": "[...watchlist, 'Tenet']",
-      "explanation": "Spread creates a new array containing all elements of watchlist followed by 'Tenet'. push mutates the original array, which is never acceptable for React state."
+      "explanation": "Spread creates a new array containing all elements of watchlist followed by 'Tenet'. push mutates the original array — always use spread when you need to produce a modified copy."
     },
     {
       "id": "sr-ex-02",
