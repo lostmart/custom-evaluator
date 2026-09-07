@@ -107,6 +107,48 @@
       ],
       "answer": "When accessing nested fields that may be null or absent in the API response",
       "explanation": "TMDB API responses regularly have nullable fields: poster_path, backdrop_path, belongs_to_collection, tagline. Optional chaining lets you access them safely without defensive if-checks at every level."
+    },
+    {
+      "id": "oc-ex-07",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Given:\nconst movie2 = { title: 'Unknown Film', tagline: '' }\n\nWhich expression returns 'No tagline' when tagline is an empty string?",
+      "options": [
+        "movie2.tagline ?? 'No tagline'",
+        "movie2.tagline || 'No tagline'",
+        "movie2?.tagline ?? 'No tagline'",
+        "movie2.tagline === undefined ? 'No tagline' : movie2.tagline"
+      ],
+      "answer": "movie2.tagline || 'No tagline'",
+      "explanation": "|| falls back for any falsy value, including an empty string ''. ?? only falls back for null or undefined — it would return '' unchanged because '' is not null or undefined."
+    },
+    {
+      "id": "oc-ex-08",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Given:\nconst movie2 = { title: 'Unknown Film' }  // no cast field\n\nWhat does movie2.cast?.[0]?.name return?",
+      "options": [
+        "Throws a TypeError",
+        "undefined",
+        "null",
+        "An empty array"
+      ],
+      "answer": "undefined",
+      "explanation": "movie2.cast is undefined. The ?. before [0] short-circuits and returns undefined without attempting to access index 0 on undefined. The whole chain safely evaluates to undefined."
+    },
+    {
+      "id": "oc-ex-09",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Given:\nconst noPostMovie = { title: 'Obscure Film', poster_path: null }\n\nformatPosterUrl returns the TMDB URL if poster_path is truthy, otherwise a placeholder. What does formatPosterUrl(noPostMovie) return?",
+      "options": [
+        "'https://image.tmdb.org/t/p/w500null'",
+        "'https://placehold.co/500x750?text=No+Image'",
+        "undefined",
+        "null"
+      ],
+      "answer": "'https://placehold.co/500x750?text=No+Image'",
+      "explanation": "null is falsy, so the ternary takes the else branch and returns the placeholder URL. Without the truthiness check, embedding null in the template literal would produce the invalid string 'https://image.tmdb.org/t/p/w500null'."
     }
   ]
 }

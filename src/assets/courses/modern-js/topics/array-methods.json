@@ -97,6 +97,62 @@
       ],
       "answer": "Yes — it sorts in place and returns the same array reference",
       "explanation": "Unlike map, filter, and find, sort() mutates the original array. To sort immutably: [...movies].sort((a, b) => b.rating - a.rating)"
+    },
+    {
+      "id": "am-ex-07",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Given:\nconst titles = ['Inception', 'The Dark Knight', 'Interstellar']\n\nWhat does titles.join(' | ') return?",
+      "options": [
+        "['Inception | The Dark Knight | Interstellar']",
+        "'Inception | The Dark Knight | Interstellar'",
+        "'Inception The Dark Knight Interstellar'",
+        "undefined"
+      ],
+      "answer": "'Inception | The Dark Knight | Interstellar'",
+      "explanation": "join() combines array elements into a single string using the given separator between each element. It returns a string, not an array."
+    },
+    {
+      "id": "am-ex-08",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which comparator function passed to .sort() orders movies by rating from highest to lowest?",
+      "options": [
+        "(a, b) => a.rating - b.rating",
+        "(a, b) => b.rating - a.rating",
+        "(a, b) => a.rating > b.rating",
+        "(a, b) => a.rating"
+      ],
+      "answer": "(a, b) => b.rating - a.rating",
+      "explanation": "When the comparator returns a positive number, b is placed before a. b.rating - a.rating is positive when b has a higher rating, producing descending order. a.rating - b.rating gives ascending order."
+    },
+    {
+      "id": "am-ex-09",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Given the movies array where the highest rating is 9.0, what does this return?\n\nmovies.some(m => m.rating > 9.5)",
+      "options": [
+        "true",
+        "false",
+        "undefined",
+        "The movie with the highest rating"
+      ],
+      "answer": "false",
+      "explanation": "some returns true only if at least one element satisfies the callback. Since no movie exceeds 9.5, it returns false. It never returns a movie object."
+    },
+    {
+      "id": "am-ex-10",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "You want a sorted copy of movies by rating descending while leaving the original array unchanged. Which expression is correct?",
+      "options": [
+        "movies.sort((a, b) => b.rating - a.rating)",
+        "const sorted = [...movies].sort((a, b) => b.rating - a.rating)",
+        "const sorted = movies.copy().sort((a, b) => b.rating - a.rating)",
+        "const sorted = Array.from(movies, m => m.sort())"
+      ],
+      "answer": "const sorted = [...movies].sort((a, b) => b.rating - a.rating)",
+      "explanation": "sort() mutates in place. Spreading movies first creates a shallow copy, so sort operates on the copy while the original remains unchanged. Arrays have no .copy() method."
     }
   ]
 }

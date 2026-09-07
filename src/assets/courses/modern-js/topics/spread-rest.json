@@ -88,6 +88,43 @@
       ],
       "answer": "const updated = { ...movie, isWatched: true }",
       "explanation": "Spread copies all existing properties into a new object, then isWatched: true overrides the old value. Options A, B, and D all mutate the original movie object directly."
+    },
+    {
+      "id": "sr-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Given:\nconst watchlist = ['Inception', 'Interstellar']\nconst newMovies = ['Tenet', 'Oppenheimer']\n\nWhich creates a new flat array containing all four titles without mutating either source?",
+      "options": [
+        "watchlist.push(...newMovies)",
+        "[...watchlist, ...newMovies]",
+        "watchlist.concat = newMovies",
+        "[watchlist, newMovies]"
+      ],
+      "answer": "[...watchlist, ...newMovies]",
+      "explanation": "Spreading both arrays into a new array literal creates a flat combined copy. push mutates the original. concat= is not valid syntax. [watchlist, newMovies] creates a nested array of two arrays, not a flat list."
+    },
+    {
+      "id": "sr-ex-07",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Given:\nconst watchlist = ['Inception', 'Interstellar']\n\nWhich creates a new array with 'Dune' at the beginning, without mutating watchlist?",
+      "options": [
+        "watchlist.unshift('Dune')",
+        "['Dune', ...watchlist]",
+        "[...watchlist, 'Dune']",
+        "watchlist.push('Dune', 0)"
+      ],
+      "answer": "['Dune', ...watchlist]",
+      "explanation": "Place the new item first in the literal, then spread the existing array. unshift mutates. [...watchlist, 'Dune'] adds 'Dune' at the end, not the beginning. push mutates and doesn't insert at index 0."
+    },
+    {
+      "id": "sr-ex-08",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Given:\nconst baseInfo = { title: 'Dune', year: 2021 }\nconst extraInfo = { rating: 8.0, year: 2023 }\nconst merged = { ...baseInfo, ...extraInfo }\n\nWhat is merged.year?",
+      "options": ["2021", "2023", "Both 2021 and 2023", "undefined — duplicate keys are dropped"],
+      "answer": "2023",
+      "explanation": "When two spread objects share a key, the later one wins. extraInfo is spread after baseInfo, so its year: 2023 overwrites year: 2021."
     }
   ]
 }

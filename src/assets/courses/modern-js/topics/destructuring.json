@@ -104,6 +104,62 @@
       ],
       "answer": "const [low, high] = getRange()",
       "explanation": "Array destructuring uses [] and matches by position, not by name. You can choose any variable names — low and high don't need to match anything inside the function."
+    },
+    {
+      "id": "ds-ex-07",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Given:\nconst movie = { title: 'Unknown Film' }  // no tagline property\n\nWhich uses destructuring syntax to provide a default value of 'No tagline available' for tagline?",
+      "options": [
+        "const tagline = movie.tagline ?? 'No tagline available'",
+        "const { tagline = 'No tagline available' } = movie",
+        "const { tagline: 'No tagline available' } = movie",
+        "const { tagline } = movie || 'No tagline available'"
+      ],
+      "answer": "const { tagline = 'No tagline available' } = movie",
+      "explanation": "Destructuring default values use = inside the braces. The default applies when the property is undefined (missing). Option A also works but is not destructuring syntax. Option C is invalid syntax — : renames the variable, not sets a default."
+    },
+    {
+      "id": "ds-ex-08",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Given:\nconst movie = { title: 'Inception', director: { name: 'Christopher Nolan' } }\nconst { director: { name: directorName } } = movie\n\nAfter this statement, which variables are declared?",
+      "options": [
+        "Both director and directorName",
+        "Only directorName",
+        "Only director",
+        "Neither — nested destructuring must be done in separate steps"
+      ],
+      "answer": "Only directorName",
+      "explanation": "In nested destructuring, director is a pattern used to drill into the object — it is NOT declared as a variable. Only directorName is declared and holds the value 'Christopher Nolan'."
+    },
+    {
+      "id": "ds-ex-09",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Given:\nconst genres = ['Action', 'Sci-Fi', 'Thriller']\n\nWhich line destructures the first genre and collects the remaining genres into a new array?",
+      "options": [
+        "const [first, remainingGenres] = genres",
+        "const [first, ...remainingGenres] = genres",
+        "const { first, ...remainingGenres } = genres",
+        "const [first, rest()] = genres"
+      ],
+      "answer": "const [first, ...remainingGenres] = genres",
+      "explanation": "The rest element (...) in array destructuring collects everything after the named positions. Here first = 'Action' and remainingGenres = ['Sci-Fi', 'Thriller']."
+    },
+    {
+      "id": "ds-ex-10",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "You need to swap existing variables a and b without a temporary variable:\nlet a = 'Action'\nlet b = 'Comedy'\n\nWhich expression swaps them correctly?",
+      "options": [
+        "a = b; b = a",
+        "[a, b] = [b, a]",
+        "const [b, a] = [a, b]",
+        "({ a, b } = { b: a, a: b })"
+      ],
+      "answer": "[a, b] = [b, a]",
+      "explanation": "Array destructuring can swap two variables in one line. The right side creates a temporary array [b, a], then the left side assigns those values back. Using const (option C) would declare new variables instead of reassigning the existing ones."
     }
   ]
 }

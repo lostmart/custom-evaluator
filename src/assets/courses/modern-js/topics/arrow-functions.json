@@ -88,6 +88,34 @@
       ],
       "answer": "ratings.filter(r => r > 8.0)",
       "explanation": "The concise body arrow function implicitly returns the expression. The version with {} needs an explicit return keyword. The -> syntax does not exist in JavaScript."
+    },
+    {
+      "id": "af-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which arrow function correctly implements formatTitle so that formatTitle('Inception', 2010) returns 'Inception (2010)'?",
+      "options": [
+        "const formatTitle = (title, year) => { return title + '(' + year + ')' }",
+        "const formatTitle = (title, year) => `${title} (${year})`",
+        "const formatTitle = title, year => `${title} (${year})`",
+        "const formatTitle = (title, year) => { `${title} (${year})` }"
+      ],
+      "answer": "const formatTitle = (title, year) => `${title} (${year})`",
+      "explanation": "Two parameters require parentheses. The concise body (no {}) implicitly returns the template literal, producing the expected string. The last option has {} without a return keyword, so it returns undefined."
+    },
+    {
+      "id": "af-ex-07",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Which correctly converts toSummary to a concise-body arrow function that returns the object { title, rating }?",
+      "options": [
+        "const toSummary = (movie) => { title: movie.title, rating: movie.rating }",
+        "const toSummary = (movie) => ({ title: movie.title, rating: movie.rating })",
+        "const toSummary = movie => return { title: movie.title, rating: movie.rating }",
+        "const toSummary = (movie) => [title: movie.title, rating: movie.rating]"
+      ],
+      "answer": "const toSummary = (movie) => ({ title: movie.title, rating: movie.rating })",
+      "explanation": "Object literals in a concise body must be wrapped in () so JavaScript treats {} as an object, not a function body. Without the parentheses, the function returns undefined."
     }
   ]
 }

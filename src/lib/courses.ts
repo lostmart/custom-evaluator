@@ -71,18 +71,15 @@ import pmMeta from "@/assets/courses/python-microservices/meta.json";
 
 // ── modern-js ─────────────────────────────────────────────────────────────────
 import fefMeta from "@/assets/courses/modern-js/meta.json";
-
-// ── javascript-es6 ────────────────────────────────────────────────────────────
-import jsConstLet from "@/assets/courses/javascript-es6/topics/const-let.json";
-import jsArrowFunctions from "@/assets/courses/javascript-es6/topics/arrow-functions.json";
-import jsDestructuring from "@/assets/courses/javascript-es6/topics/destructuring.json";
-import jsTemplateLiterals from "@/assets/courses/javascript-es6/topics/template-literals.json";
-import jsSpreadRest from "@/assets/courses/javascript-es6/topics/spread-rest.json";
-import jsModules from "@/assets/courses/javascript-es6/topics/modules.json";
-import jsArrayMethods from "@/assets/courses/javascript-es6/topics/array-methods.json";
-import jsAsyncAwait from "@/assets/courses/javascript-es6/topics/async-await.json";
-import jsOptionalChaining from "@/assets/courses/javascript-es6/topics/optional-chaining.json";
-import jsMeta from "@/assets/courses/javascript-es6/meta.json";
+import jsConstLet from "@/assets/courses/modern-js/topics/const-let.json";
+import jsArrowFunctions from "@/assets/courses/modern-js/topics/arrow-functions.json";
+import jsDestructuring from "@/assets/courses/modern-js/topics/destructuring.json";
+import jsTemplateLiterals from "@/assets/courses/modern-js/topics/template-literals.json";
+import jsSpreadRest from "@/assets/courses/modern-js/topics/spread-rest.json";
+import jsModules from "@/assets/courses/modern-js/topics/modules.json";
+import jsArrayMethods from "@/assets/courses/modern-js/topics/array-methods.json";
+import jsAsyncAwait from "@/assets/courses/modern-js/topics/async-await.json";
+import jsOptionalChaining from "@/assets/courses/modern-js/topics/optional-chaining.json";
 
 // ── registry ──────────────────────────────────────────────────────────────────
 
@@ -130,20 +127,6 @@ export const courses: Record<string, CourseData> = {
   },
   "modern-js": {
     ...fefMeta,
-    topicsMap: toMap([
-      jsConstLet,
-      jsArrowFunctions,
-      jsDestructuring,
-      jsTemplateLiterals,
-      jsSpreadRest,
-      jsModules,
-      jsArrayMethods,
-      jsAsyncAwait,
-      jsOptionalChaining,
-    ] as Topic[]),
-  },
-  "javascript-es6": {
-    ...jsMeta,
     topicsMap: toMap([
       jsConstLet,
       jsArrowFunctions,

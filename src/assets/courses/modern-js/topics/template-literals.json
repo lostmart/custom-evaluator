@@ -67,6 +67,34 @@
       "code": "'Movie: ' + title + ' — Rating: ' + rating + '/10'",
       "answer": "`Movie: ${title} — Rating: ${rating}/10`",
       "explanation": "Replace the concatenation with a single template literal. Embed the variables directly with ${}."
+    },
+    {
+      "id": "tl-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Given title = 'Inception' and year = 2010, what does this expression produce?\n\n`Movie: ${title} (${year})`",
+      "options": [
+        "'Movie: title (year)'",
+        "'Movie: Inception (2010)'",
+        "'Movie: ${title} (${year})'",
+        "A syntax error"
+      ],
+      "answer": "'Movie: Inception (2010)'",
+      "explanation": "Template literals interpolate variable values inside ${}. The surrounding text and parentheses are output as-is. Single or double quote strings do not perform interpolation."
+    },
+    {
+      "id": "tl-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "A formatPosterUrl function should return the TMDB URL when poster_path is truthy, or a placeholder otherwise. Which implementation is correct?",
+      "options": [
+        "const formatPosterUrl = (m) => m.poster_path ? `https://image.tmdb.org/t/p/w500${m.poster_path}` : 'https://placehold.co/500x750?text=No+Image'",
+        "const formatPosterUrl = (m) => `https://image.tmdb.org/t/p/w500${m.poster_path || 'placeholder'}`",
+        "const formatPosterUrl = (m) => { `https://image.tmdb.org/t/p/w500${m.poster_path}` }",
+        "const formatPosterUrl = (m) => m.poster_path ?? `https://image.tmdb.org/t/p/w500${m.poster_path}`"
+      ],
+      "answer": "const formatPosterUrl = (m) => m.poster_path ? `https://image.tmdb.org/t/p/w500${m.poster_path}` : 'https://placehold.co/500x750?text=No+Image'",
+      "explanation": "A ternary checks if poster_path is truthy, then builds the full URL. Option B embeds the fallback inside the URL string, producing an invalid address. Option C has {} without return. Option D uses ?? backwards — it would embed the path even when it's null."
     }
   ]
 }
