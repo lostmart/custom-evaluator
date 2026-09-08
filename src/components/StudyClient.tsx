@@ -342,7 +342,7 @@ export function StudyClient({ course }: { course: CourseData }) {
 
     const payload = {
       courseId: course.id,
-      sheetName: course.id,
+      sheetName: `${course.id}-materials`,
       submittedAt: new Date().toISOString(),
       email: user.email,
       courseTitle: course.title,
