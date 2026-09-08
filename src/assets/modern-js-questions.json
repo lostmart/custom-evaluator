@@ -1,0 +1,749 @@
+[
+  {
+    "title": "Promises and async/await",
+    "question": "Which keyword makes a function asynchronous and causes it to return a Promise?",
+    "answer": "async",
+    "type": "multiple",
+    "options": ["await", "async", "promise", "defer"]
+  },
+  {
+    "title": "Promises and async/await",
+    "question": "What does await do?\n\nconst res = await fetch(url)",
+    "answer": "Pauses the async function until the fetch Promise resolves, then assigns the result",
+    "type": "multiple",
+    "options": [
+      "Runs the fetch in a background thread",
+      "Pauses the async function until the fetch Promise resolves, then assigns the result",
+      "Calls fetch synchronously",
+      "Wraps the result in another Promise"
+    ]
+  },
+  {
+    "title": "Promises and async/await",
+    "question": "fetch() does NOT throw an error for HTTP 404 or 500 responses. How do you detect these errors?",
+    "answer": "Check res.ok — it is false for non-2xx status codes",
+    "type": "multiple",
+    "options": [
+      "Wrap fetch in try/catch",
+      "Check res.status manually",
+      "Check res.ok — it is false for non-2xx status codes",
+      "fetch always throws for error status codes"
+    ]
+  },
+  {
+    "title": "Promises and async/await",
+    "question": "Which async function correctly fetches a URL, checks for errors, and returns parsed JSON?",
+    "answer": "async function load(url) {\n  const res = await fetch(url)\n  if (!res.ok) throw new Error(res.status)\n  return await res.json()\n}",
+    "type": "multiple",
+    "options": [
+      "async function load(url) {\n  const res = fetch(url)\n  return res.json()\n}",
+      "async function load(url) {\n  const res = await fetch(url)\n  if (!res.ok) throw new Error(res.status)\n  return await res.json()\n}",
+      "function load(url) {\n  const res = await fetch(url)\n  return res.json()\n}",
+      "async function load(url) {\n  return fetch(url).json()\n}"
+    ]
+  },
+  {
+    "title": "Promises and async/await",
+    "question": "Where should you place a try/catch when using async/await?",
+    "answer": "Around the block of awaits where you want to handle errors from any of them",
+    "type": "multiple",
+    "options": [
+      "Around the async keyword",
+      "Around every await expression individually",
+      "Around the block of awaits where you want to handle errors from any of them",
+      "try/catch does not work with async/await"
+    ]
+  },
+  {
+    "title": "Promises and async/await",
+    "question": "Rewrite using async/await:\n\nfetch(url)\n  .then(res => res.json())\n  .then(data => console.log(data))\n  .catch(err => console.error(err))\n\nWhich rewrite is correct?",
+    "answer": "async function load() {\n  try {\n    const res = await fetch(url)\n    const data = await res.json()\n    console.log(data)\n  } catch (err) {\n    console.error(err)\n  }\n}",
+    "type": "multiple",
+    "options": [
+      "const data = fetch(url).json(); console.log(data)",
+      "async function load() {\n  try {\n    const res = await fetch(url)\n    const data = await res.json()\n    console.log(data)\n  } catch (err) {\n    console.error(err)\n  }\n}",
+      "async function load() {\n  const res = fetch(url)\n  const data = res.json()\n  console.log(data)\n}",
+      "function load() {\n  await fetch(url).then(r => r.json()).then(d => console.log(d))\n}"
+    ]
+  },
+  {
+    "title": "ES Modules",
+    "question": "A file movies.js contains:\n\nexport const API_KEY = 'abc'\nexport function formatTitle(t, y) { return `${t} (${y})` }\n\nHow do you import both in another file?",
+    "answer": "import { API_KEY, formatTitle } from './movies.js'",
+    "type": "multiple",
+    "options": [
+      "import API_KEY, formatTitle from './movies.js'",
+      "import { API_KEY, formatTitle } from './movies.js'",
+      "import * from './movies.js'",
+      "require('./movies.js')"
+    ]
+  },
+  {
+    "title": "ES Modules",
+    "question": "movies.js contains:\n\nexport default function formatMovie(title, year) {\n  return `${title} (${year})`\n}\n\nHow do you import it in main.js?",
+    "answer": "import formatMovie from './movies'",
+    "type": "multiple",
+    "options": [
+      "import { formatMovie } from './movies'",
+      "import formatMovie from './movies'",
+      "import default formatMovie from './movies'",
+      "import formatMovie = require('./movies')"
+    ]
+  },
+  {
+    "title": "ES Modules",
+    "question": "How many default exports can one file have?",
+    "answer": "One",
+    "type": "multiple",
+    "options": ["Unlimited", "Two", "One", "Zero"]
+  },
+  {
+    "title": "ES Modules",
+    "question": "utils.js contains:\n\nexport function add(a, b) { return a + b }\nexport function multiply(a, b) { return a * b }\n\nHow do you import both in main.js?",
+    "answer": "import { add, multiply } from './utils'",
+    "type": "multiple",
+    "options": [
+      "import add, multiply from './utils'",
+      "import { add, multiply } from './utils'",
+      "import [add, multiply] from './utils'",
+      "import * from './utils'"
+    ]
+  },
+  {
+    "title": "ES Modules",
+    "question": "A file utils.js has:\n\nexport function formatTitle(t, y) {}\nexport default []\n\nIn main.js, you want to import both the default export as movies AND formatTitle. Which is correct?",
+    "answer": "Both A and C are correct",
+    "type": "multiple",
+    "options": [
+      "import movies, { formatTitle } from './utils'",
+      "import { movies, formatTitle } from './utils'",
+      "import movies from './utils'; import { formatTitle } from './utils'",
+      "Both A and C are correct"
+    ]
+  },
+  {
+    "title": "const and let",
+    "question": "Which declaration should you use by default for most variables in modern JavaScript?",
+    "answer": "const",
+    "type": "multiple",
+    "options": ["var", "let", "const", "function"]
+  },
+  {
+    "title": "const and let",
+    "question": "What is the scope of a variable declared with let inside an if block?",
+    "answer": "Only the if block",
+    "type": "multiple",
+    "options": [
+      "The entire function",
+      "The entire file",
+      "Only the if block",
+      "Global"
+    ]
+  },
+  {
+    "title": "const and let",
+    "question": "Given: const movie = { title: 'Inception' }. Which of the following throws an error?",
+    "answer": "movie = { title: 'Dune' }",
+    "type": "multiple",
+    "options": [
+      "movie.title = 'Dune'",
+      "movie.year = 2010",
+      "movie = { title: 'Dune' }",
+      "console.log(movie.title)"
+    ]
+  },
+  {
+    "title": "const and let",
+    "question": "What does this code log?\n\nvar x = 1\nif (true) {\n  var x = 2\n}\nconsole.log(x)",
+    "answer": "2",
+    "type": "multiple",
+    "options": ["1", "2", "undefined", "ReferenceError"]
+  },
+  {
+    "title": "const and let",
+    "question": "Consider this block:\n\nlet movieTitle = 'Inception'\nconst releaseYear = 2010\nlet isWatched = false\nlet rating = 8.8\n// later:\nisWatched = true\nrating = 8.8 + 0.2\nmovieTitle = 'Interstellar'\n\nWhich variable is correctly declared with const?",
+    "answer": "releaseYear",
+    "type": "multiple",
+    "options": ["movieTitle", "releaseYear", "isWatched", "rating"]
+  },
+  {
+    "title": "const and let",
+    "question": "Given:\nconst movieTitle = 'Inception'\n\nWhat happens when you later write:\nmovieTitle = 'Interstellar'",
+    "answer": "A TypeError is thrown — const bindings cannot be reassigned",
+    "type": "multiple",
+    "options": [
+      "movieTitle is updated to 'Interstellar'",
+      "A TypeError is thrown — const bindings cannot be reassigned",
+      "A ReferenceError is thrown",
+      "JavaScript silently ignores the reassignment"
+    ]
+  },
+  {
+    "title": "Arrow Functions",
+    "question": "Which of these is a valid concise-body arrow function that returns title + ' (' + year + ')'?",
+    "answer": "const fmt = (title, year) => title + ' (' + year + ')'",
+    "type": "multiple",
+    "options": [
+      "const fmt = (title, year) => { title + ' (' + year + ')' }",
+      "const fmt = (title, year) => title + ' (' + year + ')'",
+      "const fmt = title, year => title + ' (' + year + ')'",
+      "const fmt = (title, year) -> title + ' (' + year + ')'"
+    ]
+  },
+  {
+    "title": "Arrow Functions",
+    "question": "What does this function return?\n\nconst toSummary = movie => { title: movie.title }",
+    "answer": "undefined",
+    "type": "multiple",
+    "options": [
+      "{ title: movie.title }",
+      "undefined",
+      "movie.title",
+      "A syntax error"
+    ]
+  },
+  {
+    "title": "Arrow Functions",
+    "question": "Convert to an arrow function with a concise body:\n\nfunction double(n) {\n  return n * 2\n}",
+    "answer": "const double = n => n * 2",
+    "type": "multiple",
+    "options": [
+      "const double = n => n * 2",
+      "const double = (n) { return n * 2 }",
+      "const double => n => n * 2",
+      "arrow double(n) => n * 2"
+    ]
+  },
+  {
+    "title": "Arrow Functions",
+    "question": "Which correctly converts this function to an arrow function that returns an object?\n\nfunction toCard(movie) {\n  return { title: movie.title, rating: movie.rating }\n}",
+    "answer": "const toCard = movie => ({ title: movie.title, rating: movie.rating })",
+    "type": "multiple",
+    "options": [
+      "const toCard = movie => { title: movie.title, rating: movie.rating }",
+      "const toCard = movie => ({ title: movie.title, rating: movie.rating })",
+      "const toCard = movie => return { title: movie.title, rating: movie.rating }",
+      "const toCard = (movie) { return { title: movie.title, rating: movie.rating } }"
+    ]
+  },
+  {
+    "title": "Arrow Functions",
+    "question": "Given:\nconst ratings = [8.8, 7.3, 9.1, 6.5]\n\nWhich expression uses an arrow function to return only ratings above 8.0?",
+    "answer": "ratings.filter(r => r > 8.0)",
+    "type": "multiple",
+    "options": [
+      "ratings.filter(r => { r > 8.0 })",
+      "ratings.filter(r => r > 8.0)",
+      "ratings.filter((r) { return r > 8.0 })",
+      "ratings.filter(r -> r > 8.0)"
+    ]
+  },
+  {
+    "title": "Arrow Functions",
+    "question": "Which arrow function correctly implements formatTitle so that formatTitle('Inception', 2010) returns 'Inception (2010)'?",
+    "answer": "const formatTitle = (title, year) => `${title} (${year})`",
+    "type": "multiple",
+    "options": [
+      "const formatTitle = (title, year) => { return title + '(' + year + ')' }",
+      "const formatTitle = (title, year) => `${title} (${year})`",
+      "const formatTitle = title, year => `${title} (${year})`",
+      "const formatTitle = (title, year) => { `${title} (${year})` }"
+    ]
+  },
+  {
+    "title": "Arrow Functions",
+    "question": "Which correctly converts toSummary to a concise-body arrow function that returns the object { title, rating }?",
+    "answer": "const toSummary = (movie) => ({ title: movie.title, rating: movie.rating })",
+    "type": "multiple",
+    "options": [
+      "const toSummary = (movie) => { title: movie.title, rating: movie.rating }",
+      "const toSummary = (movie) => ({ title: movie.title, rating: movie.rating })",
+      "const toSummary = movie => return { title: movie.title, rating: movie.rating }",
+      "const toSummary = (movie) => [title: movie.title, rating: movie.rating]"
+    ]
+  },
+  {
+    "title": "Template Literals",
+    "question": "Which template literal produces: 'Inception (2010)'?",
+    "answer": "`${title} (${year})`",
+    "type": "multiple",
+    "options": [
+      "`${title} (${year})`",
+      "'${title} (${year})'",
+      "`{title} ({year})`",
+      "`$title ($year)`"
+    ]
+  },
+  {
+    "title": "Template Literals",
+    "question": "Given rating = 8.8, what does this produce?\n\n`Rating is ${rating >= 8.5 ? 'excellent' : 'good'}`",
+    "answer": "'Rating is excellent'",
+    "type": "multiple",
+    "options": [
+      "'Rating is excellent'",
+      "'Rating is good'",
+      "'Rating is ${rating >= 8.5 ? excellent : good}'",
+      "A syntax error"
+    ]
+  },
+  {
+    "title": "Template Literals",
+    "question": "Which is an advantage of template literals over string concatenation?",
+    "answer": "They support multi-line strings and embedded expressions without + and quotes",
+    "type": "multiple",
+    "options": [
+      "They are faster at runtime",
+      "They support multi-line strings and embedded expressions without + and quotes",
+      "They automatically escape HTML",
+      "They only work with const variables"
+    ]
+  },
+  {
+    "title": "Template Literals",
+    "question": "Given title = 'Inception' and year = 2010, what does this expression produce?\n\n`Movie: ${title} (${year})`",
+    "answer": "'Movie: Inception (2010)'",
+    "type": "multiple",
+    "options": [
+      "'Movie: title (year)'",
+      "'Movie: Inception (2010)'",
+      "'Movie: ${title} (${year})'",
+      "A syntax error"
+    ]
+  },
+  {
+    "title": "Template Literals",
+    "question": "A formatPosterUrl function should return the TMDB URL when poster_path is truthy, or a placeholder otherwise. Which implementation is correct?",
+    "answer": "const formatPosterUrl = (m) => m.poster_path ? `https://image.tmdb.org/t/p/w500${m.poster_path}` : 'https://placehold.co/500x750?text=No+Image'",
+    "type": "multiple",
+    "options": [
+      "const formatPosterUrl = (m) => m.poster_path ? `https://image.tmdb.org/t/p/w500${m.poster_path}` : 'https://placehold.co/500x750?text=No+Image'",
+      "const formatPosterUrl = (m) => `https://image.tmdb.org/t/p/w500${m.poster_path || 'placeholder'}`",
+      "const formatPosterUrl = (m) => { `https://image.tmdb.org/t/p/w500${m.poster_path}` }",
+      "const formatPosterUrl = (m) => m.poster_path ?? `https://image.tmdb.org/t/p/w500${m.poster_path}`"
+    ]
+  },
+  {
+    "title": "Destructuring",
+    "question": "Given:\nconst movie = { title: 'Inception', year: 2010, rating: 8.8 }\n\nWhich line correctly destructures title and year in one statement?",
+    "answer": "const { title, year } = movie",
+    "type": "multiple",
+    "options": [
+      "const { title, year } = movie",
+      "const [ title, year ] = movie",
+      "const title, year = movie",
+      "const { movie.title, movie.year } = movie"
+    ]
+  },
+  {
+    "title": "Destructuring",
+    "question": "What is the value of name after this destructuring?\n\nconst movie = { title: 'Dune', director: { name: 'Denis Villeneuve' } }\nconst { director: { name } } = movie",
+    "answer": "'Denis Villeneuve'",
+    "type": "multiple",
+    "options": [
+      "'Denis Villeneuve'",
+      "{ name: 'Denis Villeneuve' }",
+      "undefined",
+      "A syntax error"
+    ]
+  },
+  {
+    "title": "Destructuring",
+    "question": "Given:\nconst genres = ['Action', 'Sci-Fi', 'Thriller']\n\nHow do you skip 'Sci-Fi' and get only 'Action' and 'Thriller'?",
+    "answer": "const [first, , third] = genres",
+    "type": "multiple",
+    "options": [
+      "const [first, , third] = genres",
+      "const [first, third] = genres",
+      "const { 0: first, 2: third } = genres",
+      "const [first, skip, third] = genres"
+    ]
+  },
+  {
+    "title": "Destructuring",
+    "question": "A function receives a single movie object with title and rating properties. Which signature correctly destructures those properties from the parameter?",
+    "answer": "function display({ title, rating }) {}",
+    "type": "multiple",
+    "options": [
+      "function display(movie.title, movie.rating) {}",
+      "function display({ title, rating }) {}",
+      "function display([title, rating]) {}",
+      "function display(title, rating) {}"
+    ]
+  },
+  {
+    "title": "Destructuring",
+    "question": "Given:\nconst movie = { title: 'Unknown' }\nconst { title: movieTitle, tagline = 'No tagline' } = movie\n\nWhat are the values of movieTitle and tagline?",
+    "answer": "movieTitle = 'Unknown', tagline = 'No tagline'",
+    "type": "multiple",
+    "options": [
+      "movieTitle = 'Unknown', tagline = 'No tagline'",
+      "movieTitle = undefined, tagline = 'No tagline'",
+      "movieTitle = 'Unknown', tagline = undefined",
+      "A syntax error"
+    ]
+  },
+  {
+    "title": "Destructuring",
+    "question": "A function getRange() returns a two-element array: [min, max]. How do you destructure it into variables named low and high?",
+    "answer": "const [low, high] = getRange()",
+    "type": "multiple",
+    "options": [
+      "const { low, high } = getRange()",
+      "const [low, high] = getRange()",
+      "const low, high = getRange()",
+      "const [min: low, max: high] = getRange()"
+    ]
+  },
+  {
+    "title": "Destructuring",
+    "question": "Given:\nconst movie = { title: 'Unknown Film' }  // no tagline property\n\nWhich uses destructuring syntax to provide a default value of 'No tagline available' for tagline?",
+    "answer": "const { tagline = 'No tagline available' } = movie",
+    "type": "multiple",
+    "options": [
+      "const tagline = movie.tagline ?? 'No tagline available'",
+      "const { tagline = 'No tagline available' } = movie",
+      "const { tagline: 'No tagline available' } = movie",
+      "const { tagline } = movie || 'No tagline available'"
+    ]
+  },
+  {
+    "title": "Destructuring",
+    "question": "Given:\nconst movie = { title: 'Inception', director: { name: 'Christopher Nolan' } }\nconst { director: { name: directorName } } = movie\n\nAfter this statement, which variables are declared?",
+    "answer": "Only directorName",
+    "type": "multiple",
+    "options": [
+      "Both director and directorName",
+      "Only directorName",
+      "Only director",
+      "Neither — nested destructuring must be done in separate steps"
+    ]
+  },
+  {
+    "title": "Destructuring",
+    "question": "Given:\nconst genres = ['Action', 'Sci-Fi', 'Thriller']\n\nWhich line destructures the first genre and collects the remaining genres into a new array?",
+    "answer": "const [first, ...remainingGenres] = genres",
+    "type": "multiple",
+    "options": [
+      "const [first, remainingGenres] = genres",
+      "const [first, ...remainingGenres] = genres",
+      "const { first, ...remainingGenres } = genres",
+      "const [first, rest()] = genres"
+    ]
+  },
+  {
+    "title": "Destructuring",
+    "question": "You need to swap existing variables a and b without a temporary variable:\nlet a = 'Action'\nlet b = 'Comedy'\n\nWhich expression swaps them correctly?",
+    "answer": "[a, b] = [b, a]",
+    "type": "multiple",
+    "options": [
+      "a = b; b = a",
+      "[a, b] = [b, a]",
+      "const [b, a] = [a, b]",
+      "({ a, b } = { b: a, a: b })"
+    ]
+  },
+  {
+    "title": "Spread and Rest",
+    "question": "Given:\nconst watchlist = ['Inception', 'Dune']\n\nWhich expression creates a NEW array with 'Tenet' added at the end, without mutating watchlist?",
+    "answer": "[...watchlist, 'Tenet']",
+    "type": "multiple",
+    "options": [
+      "watchlist.push('Tenet')",
+      "[...watchlist, 'Tenet']",
+      "watchlist + ['Tenet']",
+      "watchlist.concat = ['Tenet']"
+    ]
+  },
+  {
+    "title": "Spread and Rest",
+    "question": "Given:\nconst movie = { title: 'Inception', year: 2010 }\nconst updated = { ...movie, year: 2011 }\n\nWhat is updated.year?",
+    "answer": "2011",
+    "type": "multiple",
+    "options": ["2010", "2011", "undefined", "Both 2010 and 2011"]
+  },
+  {
+    "title": "Spread and Rest",
+    "question": "What does the rest parameter do in this function?\n\nfunction logMovies(first, ...rest) {}",
+    "answer": "rest collects all arguments after the first into an array",
+    "type": "multiple",
+    "options": [
+      "rest holds the first argument",
+      "rest collects all arguments after the first into an array",
+      "rest makes the remaining parameters optional",
+      "rest spreads the arguments into individual variables"
+    ]
+  },
+  {
+    "title": "Spread and Rest",
+    "question": "Given:\nconst watchlist = [\n  { id: 1, title: 'Inception' },\n  { id: 2, title: 'Dune' },\n  { id: 3, title: 'Tenet' }\n]\n\nWhich expression creates a new array without the movie with id 2, without mutating the original?",
+    "answer": "watchlist.filter(m => m.id !== 2)",
+    "type": "multiple",
+    "options": [
+      "watchlist.splice(1, 1)",
+      "watchlist.filter(m => m.id !== 2)",
+      "delete watchlist[1]",
+      "watchlist.length = watchlist.length - 1"
+    ]
+  },
+  {
+    "title": "Spread and Rest",
+    "question": "Given:\nconst movie = { title: 'Dune', isWatched: false, rating: 8.0 }\n\nWhich creates a new object with isWatched set to true, without mutating the original?",
+    "answer": "const updated = { ...movie, isWatched: true }",
+    "type": "multiple",
+    "options": [
+      "movie.isWatched = true",
+      "Object.assign(movie, { isWatched: true })",
+      "const updated = { ...movie, isWatched: true }",
+      "movie['isWatched'] = true"
+    ]
+  },
+  {
+    "title": "Spread and Rest",
+    "question": "Given:\nconst watchlist = ['Inception', 'Interstellar']\nconst newMovies = ['Tenet', 'Oppenheimer']\n\nWhich creates a new flat array containing all four titles without mutating either source?",
+    "answer": "[...watchlist, ...newMovies]",
+    "type": "multiple",
+    "options": [
+      "watchlist.push(...newMovies)",
+      "[...watchlist, ...newMovies]",
+      "watchlist.concat = newMovies",
+      "[watchlist, newMovies]"
+    ]
+  },
+  {
+    "title": "Spread and Rest",
+    "question": "Given:\nconst watchlist = ['Inception', 'Interstellar']\n\nWhich creates a new array with 'Dune' at the beginning, without mutating watchlist?",
+    "answer": "['Dune', ...watchlist]",
+    "type": "multiple",
+    "options": [
+      "watchlist.unshift('Dune')",
+      "['Dune', ...watchlist]",
+      "[...watchlist, 'Dune']",
+      "watchlist.push('Dune', 0)"
+    ]
+  },
+  {
+    "title": "Spread and Rest",
+    "question": "Given:\nconst baseInfo = { title: 'Dune', year: 2021 }\nconst extraInfo = { rating: 8.0, year: 2023 }\nconst merged = { ...baseInfo, ...extraInfo }\n\nWhat is merged.year?",
+    "answer": "2023",
+    "type": "multiple",
+    "options": ["2021", "2023", "Both 2021 and 2023", "undefined — duplicate keys are dropped"]
+  },
+  {
+    "title": "Array Methods",
+    "question": "Given:\nconst movies = [\n  { title: 'Inception', rating: 8.8 },\n  { title: 'Tenet', rating: 7.3 }\n]\n\nWhat does movies.map(m => m.title) return?",
+    "answer": "['Inception', 'Tenet']",
+    "type": "multiple",
+    "options": [
+      "['Inception', 'Tenet']",
+      "{ title: 'Inception' }",
+      "The first movie object",
+      "true"
+    ]
+  },
+  {
+    "title": "Array Methods",
+    "question": "Which method would you use to keep only movies rated 8.0 or above?",
+    "answer": "filter",
+    "type": "multiple",
+    "options": ["map", "filter", "find", "some"]
+  },
+  {
+    "title": "Array Methods",
+    "question": "Which method returns the first movie titled 'Parasite', or undefined if not found?",
+    "answer": "find",
+    "type": "multiple",
+    "options": ["filter", "map", "find", "some"]
+  },
+  {
+    "title": "Array Methods",
+    "question": "You want to check if a movie is already in the watchlist by id. Which expression is correct?",
+    "answer": "watchlist.some(m => m.id === movie.id)",
+    "type": "multiple",
+    "options": [
+      "watchlist.find(m => m.id === movie.id) === true",
+      "watchlist.filter(m => m.id === movie.id).length",
+      "watchlist.some(m => m.id === movie.id)",
+      "watchlist.map(m => m.id).includes === movie.id"
+    ]
+  },
+  {
+    "title": "Array Methods",
+    "question": "Given the movies array, which expression produces the titles of all Sci-Fi movies rated above 8.0?",
+    "answer": "movies.filter(m => m.genre === 'Sci-Fi' && m.rating > 8.0).map(m => m.title)",
+    "type": "multiple",
+    "options": [
+      "movies.map(m => m.genre === 'Sci-Fi' && m.rating > 8.0)",
+      "movies.filter(m => m.genre === 'Sci-Fi' && m.rating > 8.0).map(m => m.title)",
+      "movies.find(m => m.genre === 'Sci-Fi').map(m => m.title)",
+      "movies.some(m => m.genre === 'Sci-Fi').filter(m => m.rating > 8.0)"
+    ]
+  },
+  {
+    "title": "Array Methods",
+    "question": "Does Array.sort() mutate the original array?",
+    "answer": "Yes — it sorts in place and returns the same array reference",
+    "type": "multiple",
+    "options": [
+      "No — it returns a new sorted array",
+      "Yes — it sorts in place and returns the same array reference",
+      "It depends on the comparator function",
+      "Only in strict mode"
+    ]
+  },
+  {
+    "title": "Array Methods",
+    "question": "Given:\nconst titles = ['Inception', 'The Dark Knight', 'Interstellar']\n\nWhat does titles.join(' | ') return?",
+    "answer": "'Inception | The Dark Knight | Interstellar'",
+    "type": "multiple",
+    "options": [
+      "['Inception | The Dark Knight | Interstellar']",
+      "'Inception | The Dark Knight | Interstellar'",
+      "'Inception The Dark Knight Interstellar'",
+      "undefined"
+    ]
+  },
+  {
+    "title": "Array Methods",
+    "question": "Which comparator function passed to .sort() orders movies by rating from highest to lowest?",
+    "answer": "(a, b) => b.rating - a.rating",
+    "type": "multiple",
+    "options": [
+      "(a, b) => a.rating - b.rating",
+      "(a, b) => b.rating - a.rating",
+      "(a, b) => a.rating > b.rating",
+      "(a, b) => a.rating"
+    ]
+  },
+  {
+    "title": "Array Methods",
+    "question": "Given the movies array where the highest rating is 9.0, what does this return?\n\nmovies.some(m => m.rating > 9.5)",
+    "answer": "false",
+    "type": "multiple",
+    "options": [
+      "true",
+      "false",
+      "undefined",
+      "The movie with the highest rating"
+    ]
+  },
+  {
+    "title": "Array Methods",
+    "question": "You want a sorted copy of movies by rating descending while leaving the original array unchanged. Which expression is correct?",
+    "answer": "const sorted = [...movies].sort((a, b) => b.rating - a.rating)",
+    "type": "multiple",
+    "options": [
+      "movies.sort((a, b) => b.rating - a.rating)",
+      "const sorted = [...movies].sort((a, b) => b.rating - a.rating)",
+      "const sorted = movies.copy().sort((a, b) => b.rating - a.rating)",
+      "const sorted = Array.from(movies, m => m.sort())"
+    ]
+  },
+  {
+    "title": "Optional Chaining and Nullish Coalescing",
+    "question": "Given:\nconst movie = { title: 'Unknown' }  // no director field\n\nWhat does movie.director?.name return?",
+    "answer": "undefined",
+    "type": "multiple",
+    "options": [
+      "Throws a TypeError",
+      "undefined",
+      "null",
+      "'Unknown'"
+    ]
+  },
+  {
+    "title": "Optional Chaining and Nullish Coalescing",
+    "question": "What is the difference between ?? and || when used as a fallback operator?",
+    "answer": "?? only falls back for null/undefined; || falls back for any falsy value (0, '', false, null, undefined)",
+    "type": "multiple",
+    "options": [
+      "They are identical",
+      "?? only falls back for null/undefined; || falls back for any falsy value (0, '', false, null, undefined)",
+      "|| only falls back for null/undefined; ?? falls back for any falsy value",
+      "?? throws for falsy values; || does not"
+    ]
+  },
+  {
+    "title": "Optional Chaining and Nullish Coalescing",
+    "question": "Given vote_average = 0, which expression correctly displays the rating without replacing 0 with a fallback?",
+    "answer": "vote_average ?? 'N/A'",
+    "type": "multiple",
+    "options": [
+      "vote_average || 'N/A'",
+      "vote_average ?? 'N/A'",
+      "vote_average && 'N/A'",
+      "vote_average ? vote_average : 'N/A'"
+    ]
+  },
+  {
+    "title": "Optional Chaining and Nullish Coalescing",
+    "question": "Given:\nconst movie2 = { title: 'Unknown' }  // no cast field\n\nHow do you safely get the name of the first cast member, with 'Unknown cast' as a fallback?",
+    "answer": "movie2?.cast?.[0]?.name ?? 'Unknown cast'",
+    "type": "multiple",
+    "options": [
+      "movie2.cast[0].name || 'Unknown cast'",
+      "movie2?.cast[0]?.name ?? 'Unknown cast'",
+      "movie2?.cast?.[0]?.name ?? 'Unknown cast'",
+      "movie2.cast?.name ?? 'Unknown cast'"
+    ]
+  },
+  {
+    "title": "Optional Chaining and Nullish Coalescing",
+    "question": "A TMDB movie has poster_path: null. Which expression returns the correct placeholder URL?",
+    "answer": "Both B and C",
+    "type": "multiple",
+    "options": [
+      "movie.poster_path || '/placeholder.jpg'",
+      "movie.poster_path ?? '/placeholder.jpg'",
+      "movie?.poster_path ?? '/placeholder.jpg'",
+      "Both B and C"
+    ]
+  },
+  {
+    "title": "Optional Chaining and Nullish Coalescing",
+    "question": "When is optional chaining (?.) especially important when working with the TMDB API?",
+    "answer": "When accessing nested fields that may be null or absent in the API response",
+    "type": "multiple",
+    "options": [
+      "When calling methods on numbers",
+      "When accessing nested fields that may be null or absent in the API response",
+      "When destructuring arrays",
+      "When using async/await"
+    ]
+  },
+  {
+    "title": "Optional Chaining and Nullish Coalescing",
+    "question": "Given:\nconst movie2 = { title: 'Unknown Film', tagline: '' }\n\nWhich expression returns 'No tagline' when tagline is an empty string?",
+    "answer": "movie2.tagline || 'No tagline'",
+    "type": "multiple",
+    "options": [
+      "movie2.tagline ?? 'No tagline'",
+      "movie2.tagline || 'No tagline'",
+      "movie2?.tagline ?? 'No tagline'",
+      "movie2.tagline === undefined ? 'No tagline' : movie2.tagline"
+    ]
+  },
+  {
+    "title": "Optional Chaining and Nullish Coalescing",
+    "question": "Given:\nconst movie2 = { title: 'Unknown Film' }  // no cast field\n\nWhat does movie2.cast?.[0]?.name return?",
+    "answer": "undefined",
+    "type": "multiple",
+    "options": [
+      "Throws a TypeError",
+      "undefined",
+      "null",
+      "An empty array"
+    ]
+  },
+  {
+    "title": "Optional Chaining and Nullish Coalescing",
+    "question": "Given:\nconst noPostMovie = { title: 'Obscure Film', poster_path: null }\n\nformatPosterUrl returns the TMDB URL if poster_path is truthy, otherwise a placeholder. What does formatPosterUrl(noPostMovie) return?",
+    "answer": "'https://placehold.co/500x750?text=No+Image'",
+    "type": "multiple",
+    "options": [
+      "'https://image.tmdb.org/t/p/w500null'",
+      "'https://placehold.co/500x750?text=No+Image'",
+      "undefined",
+      "null"
+    ]
+  }
+]

@@ -28,7 +28,8 @@
       "Bash(cat src/scripts/*)",
       "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d.get\\(''''version''''\\)\\)\")",
       "Bash(Test-Path \"C:\\\\Users\\\\$CM7100-M9DP4O11CIGV\\\\Documents\\\\code\\\\custom-evaluator\\\\src\\\\proxy.ts\" 2>/dev/null || echo \"does not exist\")",
-      "Bash(powershell -Command \"Remove-Item 'C:\\\\Users\\\\$CM7100-M9DP4O11CIGV\\\\Documents\\\\code\\\\custom-evaluator\\\\src\\\\app\\\\study\\\\page.tsx', 'C:\\\\Users\\\\$CM7100-M9DP4O11CIGV\\\\Documents\\\\code\\\\custom-evaluator\\\\src\\\\app\\\\study\\\\[courseId]\\\\page.tsx', 'C:\\\\Users\\\\$CM7100-M9DP4O11CIGV\\\\Documents\\\\code\\\\custom-evaluator\\\\src\\\\app\\\\study\\\\[courseId]\\\\StudyClient.tsx'\")"
+      "Bash(powershell -Command \"Remove-Item 'C:\\\\Users\\\\$CM7100-M9DP4O11CIGV\\\\Documents\\\\code\\\\custom-evaluator\\\\src\\\\app\\\\study\\\\page.tsx', 'C:\\\\Users\\\\$CM7100-M9DP4O11CIGV\\\\Documents\\\\code\\\\custom-evaluator\\\\src\\\\app\\\\study\\\\[courseId]\\\\page.tsx', 'C:\\\\Users\\\\$CM7100-M9DP4O11CIGV\\\\Documents\\\\code\\\\custom-evaluator\\\\src\\\\app\\\\study\\\\[courseId]\\\\StudyClient.tsx'\")",
+      "Bash(cp:*)"
     ]
   }
 }
