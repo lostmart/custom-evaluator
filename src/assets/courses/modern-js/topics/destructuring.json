@@ -70,8 +70,8 @@
       "prompt": "A function receives a single movie object with title and rating properties. Which signature correctly destructures those properties from the parameter?",
       "options": [
         "function display(movie.title, movie.rating) {}",
-        "function display({ title, rating }) {}",
         "function display([title, rating]) {}",
+        "function display({ title, rating }) {}",
         "function display(title, rating) {}"
       ],
       "answer": "function display({ title, rating }) {}",
@@ -98,9 +98,9 @@
       "prompt": "A function getRange() returns a two-element array: [min, max]. How do you destructure it into variables named low and high?",
       "options": [
         "const { low, high } = getRange()",
-        "const [low, high] = getRange()",
         "const low, high = getRange()",
-        "const [min: low, max: high] = getRange()"
+        "const [min: low, max: high] = getRange()",
+        "const [low, high] = getRange()"
       ],
       "answer": "const [low, high] = getRange()",
       "explanation": "Array destructuring uses [] and matches by position, not by name. You can choose any variable names — low and high don't need to match anything inside the function."
@@ -112,12 +112,12 @@
       "prompt": "Given:\nconst movie = { title: 'Unknown Film' }  // no tagline property\n\nWhich uses destructuring syntax to provide a default value of 'No tagline available' for tagline?",
       "options": [
         "const tagline = movie.tagline ?? 'No tagline available'",
-        "const { tagline = 'No tagline available' } = movie",
         "const { tagline: 'No tagline available' } = movie",
+        "const { tagline = 'No tagline available' } = movie",
         "const { tagline } = movie || 'No tagline available'"
       ],
       "answer": "const { tagline = 'No tagline available' } = movie",
-      "explanation": "Destructuring default values use = inside the braces. The default applies when the property is undefined (missing). Option A also works but is not destructuring syntax. Option C is invalid syntax — : renames the variable, not sets a default."
+      "explanation": "Destructuring default values use = inside the braces. The default applies when the property is undefined (missing). Option A also works but is not destructuring syntax. Option B is invalid syntax — : renames the variable, not sets a default."
     },
     {
       "id": "ds-ex-08",
@@ -140,9 +140,9 @@
       "prompt": "Given:\nconst genres = ['Action', 'Sci-Fi', 'Thriller']\n\nWhich line destructures the first genre and collects the remaining genres into a new array?",
       "options": [
         "const [first, remainingGenres] = genres",
-        "const [first, ...remainingGenres] = genres",
         "const { first, ...remainingGenres } = genres",
-        "const [first, rest()] = genres"
+        "const [first, rest()] = genres",
+        "const [first, ...remainingGenres] = genres"
       ],
       "answer": "const [first, ...remainingGenres] = genres",
       "explanation": "The rest element (...) in array destructuring collects everything after the named positions. Here first = 'Action' and remainingGenres = ['Sci-Fi', 'Thriller']."

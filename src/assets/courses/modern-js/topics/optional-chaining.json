@@ -31,9 +31,9 @@
       "prompt": "Given:\nconst movie = { title: 'Unknown' }  // no director field\n\nWhat does movie.director?.name return?",
       "options": [
         "Throws a TypeError",
-        "undefined",
         "null",
-        "'Unknown'"
+        "'Unknown'",
+        "undefined"
       ],
       "answer": "undefined",
       "explanation": "movie.director is undefined. The ?. operator short-circuits and returns undefined without throwing. Without ?., movie.director.name would throw TypeError: Cannot read properties of undefined."
@@ -44,8 +44,8 @@
       "difficulty": "beginner",
       "prompt": "What is the difference between ?? and || when used as a fallback operator?",
       "options": [
-        "They are identical",
         "?? only falls back for null/undefined; || falls back for any falsy value (0, '', false, null, undefined)",
+        "They are identical",
         "|| only falls back for null/undefined; ?? falls back for any falsy value",
         "?? throws for falsy values; || does not"
       ],
@@ -59,8 +59,8 @@
       "prompt": "Given vote_average = 0, which expression correctly displays the rating without replacing 0 with a fallback?",
       "options": [
         "vote_average || 'N/A'",
-        "vote_average ?? 'N/A'",
         "vote_average && 'N/A'",
+        "vote_average ?? 'N/A'",
         "vote_average ? vote_average : 'N/A'"
       ],
       "answer": "vote_average ?? 'N/A'",
@@ -101,9 +101,9 @@
       "prompt": "When is optional chaining (?.) especially important when working with the TMDB API?",
       "options": [
         "When calling methods on numbers",
-        "When accessing nested fields that may be null or absent in the API response",
         "When destructuring arrays",
-        "When using async/await"
+        "When using async/await",
+        "When accessing nested fields that may be null or absent in the API response"
       ],
       "answer": "When accessing nested fields that may be null or absent in the API response",
       "explanation": "TMDB API responses regularly have nullable fields: poster_path, backdrop_path, belongs_to_collection, tagline. Optional chaining lets you access them safely without defensive if-checks at every level."
@@ -114,8 +114,8 @@
       "difficulty": "beginner",
       "prompt": "Given:\nconst movie2 = { title: 'Unknown Film', tagline: '' }\n\nWhich expression returns 'No tagline' when tagline is an empty string?",
       "options": [
-        "movie2.tagline ?? 'No tagline'",
         "movie2.tagline || 'No tagline'",
+        "movie2.tagline ?? 'No tagline'",
         "movie2?.tagline ?? 'No tagline'",
         "movie2.tagline === undefined ? 'No tagline' : movie2.tagline"
       ],
@@ -129,8 +129,8 @@
       "prompt": "Given:\nconst movie2 = { title: 'Unknown Film' }  // no cast field\n\nWhat does movie2.cast?.[0]?.name return?",
       "options": [
         "Throws a TypeError",
-        "undefined",
         "null",
+        "undefined",
         "An empty array"
       ],
       "answer": "undefined",
@@ -142,8 +142,8 @@
       "difficulty": "intermediate",
       "prompt": "Given:\nconst noPostMovie = { title: 'Obscure Film', poster_path: null }\n\nformatPosterUrl returns the TMDB URL if poster_path is truthy, otherwise a placeholder. What does formatPosterUrl(noPostMovie) return?",
       "options": [
-        "'https://image.tmdb.org/t/p/w500null'",
         "'https://placehold.co/500x750?text=No+Image'",
+        "'https://image.tmdb.org/t/p/w500null'",
         "undefined",
         "null"
       ],

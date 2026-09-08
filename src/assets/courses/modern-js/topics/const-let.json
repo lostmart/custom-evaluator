@@ -73,7 +73,7 @@
       "type": "multiple-choice",
       "difficulty": "intermediate",
       "prompt": "What does this code log?\n\nvar x = 1\nif (true) {\n  var x = 2\n}\nconsole.log(x)",
-      "options": ["1", "2", "undefined", "ReferenceError"],
+      "options": ["1", "undefined", "ReferenceError", "2"],
       "answer": "2",
       "explanation": "var is function-scoped, not block-scoped. The second var x = 2 overwrites the first x. This is one of the main reasons var was replaced."
     },
@@ -92,8 +92,8 @@
       "difficulty": "beginner",
       "prompt": "Given:\nconst movieTitle = 'Inception'\n\nWhat happens when you later write:\nmovieTitle = 'Interstellar'",
       "options": [
-        "movieTitle is updated to 'Interstellar'",
         "A TypeError is thrown — const bindings cannot be reassigned",
+        "movieTitle is updated to 'Interstellar'",
         "A ReferenceError is thrown",
         "JavaScript silently ignores the reassignment"
       ],

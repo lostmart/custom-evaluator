@@ -31,8 +31,8 @@
       "prompt": "A file movies.js contains:\n\nexport const API_KEY = 'abc'\nexport function formatTitle(t, y) { return `${t} (${y})` }\n\nHow do you import both in another file?",
       "options": [
         "import API_KEY, formatTitle from './movies.js'",
-        "import { API_KEY, formatTitle } from './movies.js'",
         "import * from './movies.js'",
+        "import { API_KEY, formatTitle } from './movies.js'",
         "require('./movies.js')"
       ],
       "answer": "import { API_KEY, formatTitle } from './movies.js'",
@@ -67,8 +67,8 @@
       "difficulty": "beginner",
       "prompt": "utils.js contains:\n\nexport function add(a, b) { return a + b }\nexport function multiply(a, b) { return a * b }\n\nHow do you import both in main.js?",
       "options": [
-        "import add, multiply from './utils'",
         "import { add, multiply } from './utils'",
+        "import add, multiply from './utils'",
         "import [add, multiply] from './utils'",
         "import * from './utils'"
       ],

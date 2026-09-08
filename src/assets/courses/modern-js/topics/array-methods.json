@@ -43,7 +43,7 @@
       "type": "multiple-choice",
       "difficulty": "beginner",
       "prompt": "Which method would you use to keep only movies rated 8.0 or above?",
-      "options": ["map", "filter", "find", "some"],
+      "options": ["map", "find", "some", "filter"],
       "answer": "filter",
       "explanation": "filter keeps elements where the callback returns true. movies.filter(m => m.rating >= 8.0) returns a new array with only high-rated movies."
     },
@@ -77,8 +77,8 @@
       "prompt": "Given the movies array, which expression produces the titles of all Sci-Fi movies rated above 8.0?",
       "options": [
         "movies.map(m => m.genre === 'Sci-Fi' && m.rating > 8.0)",
-        "movies.filter(m => m.genre === 'Sci-Fi' && m.rating > 8.0).map(m => m.title)",
         "movies.find(m => m.genre === 'Sci-Fi').map(m => m.title)",
+        "movies.filter(m => m.genre === 'Sci-Fi' && m.rating > 8.0).map(m => m.title)",
         "movies.some(m => m.genre === 'Sci-Fi').filter(m => m.rating > 8.0)"
       ],
       "answer": "movies.filter(m => m.genre === 'Sci-Fi' && m.rating > 8.0).map(m => m.title)",
@@ -91,9 +91,9 @@
       "prompt": "Does Array.sort() mutate the original array?",
       "options": [
         "No — it returns a new sorted array",
-        "Yes — it sorts in place and returns the same array reference",
         "It depends on the comparator function",
-        "Only in strict mode"
+        "Only in strict mode",
+        "Yes — it sorts in place and returns the same array reference"
       ],
       "answer": "Yes — it sorts in place and returns the same array reference",
       "explanation": "Unlike map, filter, and find, sort() mutates the original array. To sort immutably: [...movies].sort((a, b) => b.rating - a.rating)"
@@ -105,8 +105,8 @@
       "prompt": "Given:\nconst titles = ['Inception', 'The Dark Knight', 'Interstellar']\n\nWhat does titles.join(' | ') return?",
       "options": [
         "['Inception | The Dark Knight | Interstellar']",
-        "'Inception | The Dark Knight | Interstellar'",
         "'Inception The Dark Knight Interstellar'",
+        "'Inception | The Dark Knight | Interstellar'",
         "undefined"
       ],
       "answer": "'Inception | The Dark Knight | Interstellar'",
@@ -133,9 +133,9 @@
       "prompt": "Given the movies array where the highest rating is 9.0, what does this return?\n\nmovies.some(m => m.rating > 9.5)",
       "options": [
         "true",
-        "false",
         "undefined",
-        "The movie with the highest rating"
+        "The movie with the highest rating",
+        "false"
       ],
       "answer": "false",
       "explanation": "some returns true only if at least one element satisfies the callback. Since no movie exceeds 9.5, it returns false. It never returns a movie object."
@@ -146,8 +146,8 @@
       "difficulty": "intermediate",
       "prompt": "You want a sorted copy of movies by rating descending while leaving the original array unchanged. Which expression is correct?",
       "options": [
-        "movies.sort((a, b) => b.rating - a.rating)",
         "const sorted = [...movies].sort((a, b) => b.rating - a.rating)",
+        "movies.sort((a, b) => b.rating - a.rating)",
         "const sorted = movies.copy().sort((a, b) => b.rating - a.rating)",
         "const sorted = Array.from(movies, m => m.sort())"
       ],

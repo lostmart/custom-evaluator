@@ -29,7 +29,7 @@
       "type": "multiple-choice",
       "difficulty": "beginner",
       "prompt": "Which keyword makes a function asynchronous and causes it to return a Promise?",
-      "options": ["await", "async", "promise", "defer"],
+      "options": ["async", "await", "promise", "defer"],
       "answer": "async",
       "explanation": "The async keyword before a function declaration or expression causes it to implicitly return a Promise. await can only be used inside an async function."
     },
@@ -40,9 +40,9 @@
       "prompt": "What does await do?\n\nconst res = await fetch(url)",
       "options": [
         "Runs the fetch in a background thread",
-        "Pauses the async function until the fetch Promise resolves, then assigns the result",
         "Calls fetch synchronously",
-        "Wraps the result in another Promise"
+        "Wraps the result in another Promise",
+        "Pauses the async function until the fetch Promise resolves, then assigns the result"
       ],
       "answer": "Pauses the async function until the fetch Promise resolves, then assigns the result",
       "explanation": "await suspends the execution of the current async function until the Promise settles. Other code continues to run; the async function resumes when the Promise resolves."
@@ -68,8 +68,8 @@
       "prompt": "Which async function correctly fetches a URL, checks for errors, and returns parsed JSON?",
       "options": [
         "async function load(url) {\n  const res = fetch(url)\n  return res.json()\n}",
-        "async function load(url) {\n  const res = await fetch(url)\n  if (!res.ok) throw new Error(res.status)\n  return await res.json()\n}",
         "function load(url) {\n  const res = await fetch(url)\n  return res.json()\n}",
+        "async function load(url) {\n  const res = await fetch(url)\n  if (!res.ok) throw new Error(res.status)\n  return await res.json()\n}",
         "async function load(url) {\n  return fetch(url).json()\n}"
       ],
       "answer": "async function load(url) {\n  const res = await fetch(url)\n  if (!res.ok) throw new Error(res.status)\n  return await res.json()\n}",
@@ -95,8 +95,8 @@
       "difficulty": "intermediate",
       "prompt": "Rewrite using async/await:\n\nfetch(url)\n  .then(res => res.json())\n  .then(data => console.log(data))\n  .catch(err => console.error(err))\n\nWhich rewrite is correct?",
       "options": [
-        "const data = fetch(url).json(); console.log(data)",
         "async function load() {\n  try {\n    const res = await fetch(url)\n    const data = await res.json()\n    console.log(data)\n  } catch (err) {\n    console.error(err)\n  }\n}",
+        "const data = fetch(url).json(); console.log(data)",
         "async function load() {\n  const res = fetch(url)\n  const data = res.json()\n  console.log(data)\n}",
         "function load() {\n  await fetch(url).then(r => r.json()).then(d => console.log(d))\n}"
       ],

@@ -52,8 +52,8 @@
       "prompt": "Which is an advantage of template literals over string concatenation?",
       "options": [
         "They are faster at runtime",
-        "They support multi-line strings and embedded expressions without + and quotes",
         "They automatically escape HTML",
+        "They support multi-line strings and embedded expressions without + and quotes",
         "They only work with const variables"
       ],
       "answer": "They support multi-line strings and embedded expressions without + and quotes",

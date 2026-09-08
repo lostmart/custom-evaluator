@@ -31,9 +31,9 @@
       "prompt": "Given:\nconst watchlist = ['Inception', 'Dune']\n\nWhich expression creates a NEW array with 'Tenet' added at the end, without mutating watchlist?",
       "options": [
         "watchlist.push('Tenet')",
-        "[...watchlist, 'Tenet']",
         "watchlist + ['Tenet']",
-        "watchlist.concat = ['Tenet']"
+        "watchlist.concat = ['Tenet']",
+        "[...watchlist, 'Tenet']"
       ],
       "answer": "[...watchlist, 'Tenet']",
       "explanation": "Spread creates a new array containing all elements of watchlist followed by 'Tenet'. push mutates the original array — always use spread when you need to produce a modified copy."
@@ -43,7 +43,7 @@
       "type": "multiple-choice",
       "difficulty": "beginner",
       "prompt": "Given:\nconst movie = { title: 'Inception', year: 2010 }\nconst updated = { ...movie, year: 2011 }\n\nWhat is updated.year?",
-      "options": ["2010", "2011", "undefined", "Both 2010 and 2011"],
+      "options": ["2010", "undefined", "2011", "Both 2010 and 2011"],
       "answer": "2011",
       "explanation": "When spreading an object, later properties overwrite earlier ones with the same key. year: 2011 comes after ...movie, so it wins."
     },
@@ -53,8 +53,8 @@
       "difficulty": "beginner",
       "prompt": "What does the rest parameter do in this function?\n\nfunction logMovies(first, ...rest) {}",
       "options": [
-        "rest holds the first argument",
         "rest collects all arguments after the first into an array",
+        "rest holds the first argument",
         "rest makes the remaining parameters optional",
         "rest spreads the arguments into individual variables"
       ],
@@ -68,8 +68,8 @@
       "prompt": "Given:\nconst watchlist = [\n  { id: 1, title: 'Inception' },\n  { id: 2, title: 'Dune' },\n  { id: 3, title: 'Tenet' }\n]\n\nWhich expression creates a new array without the movie with id 2, without mutating the original?",
       "options": [
         "watchlist.splice(1, 1)",
-        "watchlist.filter(m => m.id !== 2)",
         "delete watchlist[1]",
+        "watchlist.filter(m => m.id !== 2)",
         "watchlist.length = watchlist.length - 1"
       ],
       "answer": "watchlist.filter(m => m.id !== 2)",
@@ -96,9 +96,9 @@
       "prompt": "Given:\nconst watchlist = ['Inception', 'Interstellar']\nconst newMovies = ['Tenet', 'Oppenheimer']\n\nWhich creates a new flat array containing all four titles without mutating either source?",
       "options": [
         "watchlist.push(...newMovies)",
-        "[...watchlist, ...newMovies]",
         "watchlist.concat = newMovies",
-        "[watchlist, newMovies]"
+        "[watchlist, newMovies]",
+        "[...watchlist, ...newMovies]"
       ],
       "answer": "[...watchlist, ...newMovies]",
       "explanation": "Spreading both arrays into a new array literal creates a flat combined copy. push mutates the original. concat= is not valid syntax. [watchlist, newMovies] creates a nested array of two arrays, not a flat list."
@@ -109,8 +109,8 @@
       "difficulty": "beginner",
       "prompt": "Given:\nconst watchlist = ['Inception', 'Interstellar']\n\nWhich creates a new array with 'Dune' at the beginning, without mutating watchlist?",
       "options": [
-        "watchlist.unshift('Dune')",
         "['Dune', ...watchlist]",
+        "watchlist.unshift('Dune')",
         "[...watchlist, 'Dune']",
         "watchlist.push('Dune', 0)"
       ],
@@ -122,7 +122,7 @@
       "type": "multiple-choice",
       "difficulty": "intermediate",
       "prompt": "Given:\nconst baseInfo = { title: 'Dune', year: 2021 }\nconst extraInfo = { rating: 8.0, year: 2023 }\nconst merged = { ...baseInfo, ...extraInfo }\n\nWhat is merged.year?",
-      "options": ["2021", "2023", "Both 2021 and 2023", "undefined — duplicate keys are dropped"],
+      "options": ["2021", "Both 2021 and 2023", "2023", "undefined — duplicate keys are dropped"],
       "answer": "2023",
       "explanation": "When two spread objects share a key, the later one wins. extraInfo is spread after baseInfo, so its year: 2023 overwrites year: 2021."
     }
