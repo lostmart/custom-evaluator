@@ -1,8 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { useEffect, useRef } from "react"
-import { useRouter } from "next/navigation"
+import { Suspense, useEffect, useRef } from "react"
+import { useSearchParams } from "next/navigation"
 import { useTest } from "@/context/TestContext"
 import { useUser } from "@/context/UserContext"
 import { track } from "@/lib/track"
@@ -22,11 +22,16 @@ function getDiagnosticMessage(score: number, total: number): string {
 	return "Lots of ground to cover — this is exactly what the program is here for."
 }
 
-export default function ScorePage() {
-	const { test, setTest } = useTest()
-	const { user, setUser } = useUser()
-	const router = useRouter()
-	const { points, totalQuestions, questionSet } = test
+function ScoreContent() {
+	const { test } = useTest()
+	const { user } = useUser()
+	const params = useSearchParams()
+
+	// URL params are the source of truth (survive refresh); context is fallback
+	const points = params.get("points") !== null ? Number(params.get("points")) : test.points
+	const totalQuestions = params.get("total") !== null ? Number(params.get("total")) : test.totalQuestions
+	const questionSet = params.get("set") || test.questionSet
+
 	const pct = totalQuestions > 0 ? Math.round((points / totalQuestions) * 100) : 0
 	const errors = totalQuestions - points
 	const courseLabel = questionSet ? COURSE_LABELS[questionSet] ?? null : null
@@ -36,14 +41,19 @@ export default function ScorePage() {
 		if (totalQuestions > 0 && !tracked.current) {
 			tracked.current = true
 			track({ email: user.email, event: "completed", detail: `${points}/${totalQuestions} correct` })
+
+			fetch("/api/study-submit", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					sheetName: "Quiz Results",
+					email: user.email,
+					submittedAt: new Date().toLocaleString("sv-SE", { timeZone: "Europe/Paris" }),
+					courseTitle: `${questionSet ?? "unknown"} — ${points}/${totalQuestions}`,
+				}),
+			}).catch(() => {})
 		}
 	}, [])
-
-	function handleRestart() {
-		setTest({ currentQuestion: 0, points: 0, totalQuestions: 0, cancelled: false, questionSet: null })
-		setUser({ hasStarted: false })
-		router.push("/")
-	}
 
 	return (
 		<div className="min-h-screen flex flex-col bg-stone-100 font-sans">
@@ -92,18 +102,18 @@ export default function ScorePage() {
 					)}
 				</div>
 
-				<div className="flex flex-col items-center gap-3">
-					<button
-						onClick={handleRestart}
-						className="bg-primary text-white text-sm font-medium px-6 py-2.5 hover:opacity-90 active:opacity-80 transition"
-					>
-						Try again →
-					</button>
-					<p className="text-xs text-zinc-400 text-center">
-						Your results have been recorded. You can close this tab.
-					</p>
-				</div>
+				<p className="text-xs text-zinc-400 text-center">
+					Your results have been recorded. You can close this tab.
+				</p>
 			</main>
 		</div>
+	)
+}
+
+export default function ScorePage() {
+	return (
+		<Suspense>
+			<ScoreContent />
+		</Suspense>
 	)
 }

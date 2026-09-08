@@ -90,11 +90,10 @@ export default function QuestionPage() {
 	}, [current])
 
 	const question = shuffled[current]
-	if (!question) return null
-
-	const options = question.options.map((opt) => ({ id: opt, label: opt }))
+	const options = question ? question.options.map((opt) => ({ id: opt, label: opt })) : []
 
 	function handleSubmit() {
+		if (!question) return
 		const isCorrect = selected === question.answer
 		const newPoints = isCorrect ? test.points + 1 : test.points
 		const nextQuestion = current + 1
@@ -106,7 +105,7 @@ export default function QuestionPage() {
 
 		if (nextQuestion >= total) {
 			setTest({ points: newPoints, currentQuestion: nextQuestion })
-			router.push("/score")
+			router.push(`/score?points=${newPoints}&total=${total}&set=${test.questionSet ?? ""}`)
 		} else {
 			setTest({ points: newPoints, currentQuestion: nextQuestion })
 		}
@@ -123,7 +122,7 @@ export default function QuestionPage() {
 		}
 	}
 
-	// Countdown tick — auto-submits at 0
+	// Countdown tick — auto-submits at 0 (must be before early return)
 	useEffect(() => {
 		if (timeLeft <= 0) {
 			submitRef.current()
@@ -132,6 +131,8 @@ export default function QuestionPage() {
 		const id = setTimeout(() => setTimeLeft((t) => t - 1), 1000)
 		return () => clearTimeout(id)
 	}, [timeLeft])
+
+	if (!question) return null
 
 	return (
 		<Guard>
