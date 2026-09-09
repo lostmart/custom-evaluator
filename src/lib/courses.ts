@@ -69,6 +69,18 @@ import pmDatabaseMigrations from "@/assets/courses/python-microservices/topics/d
 import pmResilience from "@/assets/courses/python-microservices/topics/resilience.json";
 import pmMeta from "@/assets/courses/python-microservices/meta.json";
 
+// ── typescript-react ──────────────────────────────────────────────────────────
+import trMeta from "@/assets/courses/typescript-react/meta.json";
+import trTypeAnnotations from "@/assets/courses/typescript-react/topics/type-annotations.json";
+import trInterfaces from "@/assets/courses/typescript-react/topics/interfaces.json";
+import trUnionTypes from "@/assets/courses/typescript-react/topics/union-types.json";
+import trGenerics from "@/assets/courses/typescript-react/topics/generics.json";
+import trReactProps from "@/assets/courses/typescript-react/topics/react-props.json";
+import trReactEvents from "@/assets/courses/typescript-react/topics/react-events.json";
+import trReactHooks from "@/assets/courses/typescript-react/topics/react-hooks.json";
+import trAsyncTyping from "@/assets/courses/typescript-react/topics/async-typing.json";
+import trUtilityTypes from "@/assets/courses/typescript-react/topics/utility-types.json";
+
 // ── modern-js ─────────────────────────────────────────────────────────────────
 import fefMeta from "@/assets/courses/modern-js/meta.json";
 import jsConstLet from "@/assets/courses/modern-js/topics/const-let.json";
@@ -137,6 +149,20 @@ export const courses: Record<string, CourseData> = {
       jsArrayMethods,
       jsAsyncAwait,
       jsOptionalChaining,
+    ] as Topic[]),
+  },
+  "typescript-react": {
+    ...trMeta,
+    topicsMap: toMap([
+      trTypeAnnotations,
+      trInterfaces,
+      trUnionTypes,
+      trGenerics,
+      trReactProps,
+      trReactEvents,
+      trReactHooks,
+      trAsyncTyping,
+      trUtilityTypes,
     ] as Topic[]),
   },
 };

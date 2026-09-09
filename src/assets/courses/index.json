@@ -20,4 +20,9 @@
     "title": "Python Microservices",
     "description": "Building and deploying microservices with Python."
   },
+  {
+    "id": "typescript-react",
+    "title": "TypeScript for React",
+    "description": "EPITA S5 · Essential TypeScript concepts for building typed React applications — interfaces, generics, hooks, events, and utility types."
+  }
 ]

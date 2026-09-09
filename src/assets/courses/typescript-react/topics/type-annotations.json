@@ -1,0 +1,111 @@
+{
+  "id": "type-annotations",
+  "courseId": "typescript-react",
+  "title": "Type Annotations",
+  "summary": "TypeScript adds optional static types to JavaScript. You annotate variables, function parameters, and return values with a colon followed by the type. The compiler checks these at build time and catches mismatches before the browser runs the code. In a Vite + React project this happens automatically on every save. The most common primitive types are string, number, boolean, null, and undefined. When TypeScript can infer the type from the assigned value, the annotation is optional — but explicit annotations on function signatures are always good practice.",
+  "keyPoints": [
+    "Annotate with a colon: let title: string = 'Inception'",
+    "Function parameters and return types: function greet(name: string): string",
+    "TypeScript infers types from literals — const x = 5 is already typed as number",
+    "Prefer annotating function signatures explicitly, even when inference would work",
+    "never use `any` — it disables type checking entirely and defeats the purpose of TypeScript",
+    "void is the return type for functions that do not return a value",
+    "The compiler runs at build time; type errors do not reach the browser"
+  ],
+  "externalLinks": [
+    {
+      "label": "TypeScript Handbook — Everyday Types",
+      "url": "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "ta-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which annotation correctly types a variable that holds a movie title?",
+      "options": [
+        "let title: String = 'Inception'",
+        "let title: string = 'Inception'",
+        "let title = string('Inception')",
+        "let title: text = 'Inception'"
+      ],
+      "answer": "let title: string = 'Inception'",
+      "explanation": "Primitive types in TypeScript are lowercase: string, number, boolean. String (capital S) refers to the JavaScript wrapper object, which is not what you want for a plain value."
+    },
+    {
+      "id": "ta-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What is the correct return type annotation for this function?\n\nfunction double(n: number) {\n  return n * 2\n}",
+      "options": [
+        "function double(n: number): void",
+        "function double(n: number): string",
+        "function double(n: number): number",
+        "function double(n: number): integer"
+      ],
+      "answer": "function double(n: number): number",
+      "explanation": "Multiplying a number by 2 always produces a number. void is for functions with no return value. integer does not exist as a TypeScript type."
+    },
+    {
+      "id": "ta-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "You write: const rating = 8.8\nWithout any annotation, what type does TypeScript infer for rating?",
+      "options": ["any", "float", "number", "string"],
+      "answer": "number",
+      "explanation": "TypeScript infers the type from the assigned literal. 8.8 is a numeric literal, so rating is inferred as number. TypeScript has no separate float type."
+    },
+    {
+      "id": "ta-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What is wrong with this code?\n\nfunction logTitle(title: string): void {\n  return title\n}",
+      "options": [
+        "string is not a valid type",
+        "void functions must return undefined explicitly",
+        "A function annotated as void should not return a value",
+        "Nothing is wrong"
+      ],
+      "answer": "A function annotated as void should not return a value",
+      "explanation": "void means the function's return value is not used or does not exist. Returning a string from a void function is a type error."
+    },
+    {
+      "id": "ta-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "A colleague annotates a parameter as `any` to silence a TypeScript error. What is the problem with this?",
+      "options": [
+        "any is not a valid TypeScript type",
+        "any disables all type checking on that value, hiding real bugs",
+        "any only works on primitive values",
+        "any makes the code run slower"
+      ],
+      "answer": "any disables all type checking on that value, hiding real bugs",
+      "explanation": "any opts out of TypeScript's type system entirely. Errors that the compiler would normally catch are silently allowed. Use unknown or a proper type instead."
+    },
+    {
+      "id": "ta-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Which function signature correctly types a function that takes a boolean and returns nothing?",
+      "options": [
+        "function toggle(active: boolean): null",
+        "function toggle(active: boolean): undefined",
+        "function toggle(active: boolean): void",
+        "function toggle(active: boolean): never"
+      ],
+      "answer": "function toggle(active: boolean): void",
+      "explanation": "void is the correct return type for a function that performs a side effect but does not return a meaningful value. never is for functions that never complete (throw or infinite loop)."
+    },
+    {
+      "id": "ta-ex-07",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Add type annotations to the parameters and return type of this function:",
+      "code": "function formatTitle(title, year) {\n  return `${title} (${year})`\n}",
+      "answer": "function formatTitle(title: string, year: number): string {\n  return `${title} (${year})`\n}",
+      "explanation": "title is a string, year is a number, and the template literal always produces a string — so the return type is string."
+    }
+  ]
+}

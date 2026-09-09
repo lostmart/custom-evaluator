@@ -1,0 +1,16 @@
+{
+  "id": "typescript-react",
+  "title": "TypeScript for React",
+  "description": "EPITA S5 · 2627_BSI_CS_S05_PROG_FEF · Essential TypeScript for building typed React applications — write components, hooks, and API calls that the compiler verifies before the browser runs them.",
+  "topics": [
+    { "id": "type-annotations", "title": "S1 — Type Annotations" },
+    { "id": "interfaces", "title": "S1 — Interfaces and Type Aliases" },
+    { "id": "union-types", "title": "S1 — Union Types and Type Narrowing" },
+    { "id": "generics", "title": "S2 — Generics" },
+    { "id": "react-props", "title": "S2 — Typing React Props" },
+    { "id": "react-events", "title": "S2 — Typing React Events" },
+    { "id": "react-hooks", "title": "S3 — Typing useState and useRef" },
+    { "id": "async-typing", "title": "S3 — Typing async and fetch" },
+    { "id": "utility-types", "title": "S3 — Utility Types" }
+  ]
+}

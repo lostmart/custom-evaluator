@@ -1,0 +1,116 @@
+{
+  "id": "interfaces",
+  "courseId": "typescript-react",
+  "title": "Interfaces and Type Aliases",
+  "summary": "Interfaces describe the shape of an object — which properties it has and what type each one is. In React, you will define an interface for almost every component's props and every piece of API data. Type aliases (type keyword) can do the same job for objects, and additionally handle unions, primitives, and mapped types. The practical rule: use interface for object shapes (especially props), use type for anything more complex. Both are erased at compile time — they produce no runtime code.",
+  "keyPoints": [
+    "interface Movie { id: number; title: string; rating: number }",
+    "type aliases use the = sign: type Movie = { id: number; title: string }",
+    "Interfaces can be extended: interface DetailedMovie extends Movie { director: string }",
+    "Type aliases can be composed with intersections: type DetailedMovie = Movie & { director: string }",
+    "Both are erased at compile time — zero runtime cost",
+    "Optional properties use ?: — the property may be absent or undefined",
+    "Use interface for React props and API shapes; use type for unions and computed types"
+  ],
+  "externalLinks": [
+    {
+      "label": "TypeScript Handbook — Object Types",
+      "url": "https://www.typescriptlang.org/docs/handbook/2/objects.html"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "if-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which correctly defines an interface for a movie object with id (number), title (string), and rating (number)?",
+      "options": [
+        "interface Movie = { id: number, title: string, rating: number }",
+        "interface Movie { id: number; title: string; rating: number }",
+        "type interface Movie { id: number; title: string; rating: number }",
+        "interface Movie(id: number, title: string, rating: number)"
+      ],
+      "answer": "interface Movie { id: number; title: string; rating: number }",
+      "explanation": "Interface syntax uses curly braces with property: type pairs separated by semicolons (or newlines). There is no = sign and no parentheses."
+    },
+    {
+      "id": "if-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Given:\ninterface Movie { id: number; title: string; rating: number }\n\nWhich object satisfies this interface?",
+      "options": [
+        "{ id: '1', title: 'Inception', rating: 8.8 }",
+        "{ title: 'Inception', rating: 8.8 }",
+        "{ id: 1, title: 'Inception', rating: 8.8 }",
+        "{ id: 1, title: 'Inception' }"
+      ],
+      "answer": "{ id: 1, title: 'Inception', rating: 8.8 }",
+      "explanation": "All three required fields must be present with the correct types. id must be a number (not a string), and rating cannot be omitted."
+    },
+    {
+      "id": "if-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "How do you make the genre field optional in this interface?\n\ninterface Movie { id: number; title: string; genre: string }",
+      "options": [
+        "genre: string | undefined",
+        "genre?: string",
+        "optional genre: string",
+        "genre: string?"
+      ],
+      "answer": "genre?: string",
+      "explanation": "The ? after a property name marks it as optional. The value will be string | undefined at runtime, but you only need to write genre?: string in the interface."
+    },
+    {
+      "id": "if-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "You have:\ninterface Movie { id: number; title: string }\n\nHow do you create a DetailedMovie interface that extends Movie and adds a director field?",
+      "options": [
+        "interface DetailedMovie = Movie + { director: string }",
+        "interface DetailedMovie extends Movie { director: string }",
+        "interface DetailedMovie implements Movie { director: string }",
+        "interface DetailedMovie inherits Movie { director: string }"
+      ],
+      "answer": "interface DetailedMovie extends Movie { director: string }",
+      "explanation": "Interfaces use extends to inherit all properties from another interface and add new ones. implements is for classes, not interfaces."
+    },
+    {
+      "id": "if-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "What is the key practical difference between interface and type in TypeScript?",
+      "options": [
+        "interface is faster at runtime than type",
+        "type can define unions and primitives; interface is limited to object shapes",
+        "interface supports optional properties; type does not",
+        "type is deprecated in modern TypeScript"
+      ],
+      "answer": "type can define unions and primitives; interface is limited to object shapes",
+      "explanation": "Both handle object shapes equally well, but only type can express things like: type Status = 'idle' | 'loading' | 'error', or type ID = number. Neither exists at runtime — both are erased."
+    },
+    {
+      "id": "if-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Given:\ninterface Movie { id: number; title: string; poster?: string }\n\nconst film: Movie = { id: 1, title: 'Dune' }\n\nIs this valid TypeScript?",
+      "options": [
+        "No — poster is missing so TypeScript will error",
+        "Yes — poster is optional so it can be omitted",
+        "No — interface properties must all have values",
+        "Yes — but poster will be null at runtime"
+      ],
+      "answer": "Yes — poster is optional so it can be omitted",
+      "explanation": "The ? marks poster as optional. The object is valid without it. At runtime poster will be undefined (not null) if not provided."
+    },
+    {
+      "id": "if-ex-07",
+      "type": "fill-in",
+      "difficulty": "intermediate",
+      "prompt": "Define a type alias Director with name (string), nationality (string), and an optional birthYear (number):",
+      "code": "// Define the type alias here\n\nconst director: Director = { name: 'Nolan', nationality: 'British-American' }",
+      "answer": "type Director = { name: string; nationality: string; birthYear?: number }\n\nconst director: Director = { name: 'Nolan', nationality: 'British-American' }",
+      "explanation": "type uses an = sign. birthYear?: number makes it optional. The object is valid without birthYear because of the ?."
+    }
+  ]
+}

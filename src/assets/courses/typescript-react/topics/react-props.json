@@ -1,0 +1,116 @@
+{
+  "id": "react-props",
+  "courseId": "typescript-react",
+  "title": "Typing React Props",
+  "summary": "In TypeScript React projects, every component's props should have an explicit interface. Define an interface named after the component with Props suffix (e.g. MovieCardProps), then annotate the function parameter. TypeScript will error if a caller passes the wrong type, omits a required prop, or misspells a prop name. Optional props use ?. Children are typed as React.ReactNode. The convention is to destructure props inline and annotate the destructured parameter.",
+  "keyPoints": [
+    "Define an interface for every component: interface MovieCardProps { title: string; rating: number }",
+    "Annotate the parameter: function MovieCard({ title, rating }: MovieCardProps)",
+    "Optional props: poster?: string — callers may omit it",
+    "Children prop type: children: React.ReactNode",
+    "Or use React.PropsWithChildren<MyProps> to add children to an existing interface",
+    "Avoid using React.FC<Props> — prefer plain function syntax with annotated parameter",
+    "TypeScript will catch missing props, wrong types, and extra unknown props at build time"
+  ],
+  "externalLinks": [
+    {
+      "label": "React TypeScript Cheatsheet — Props",
+      "url": "https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/basic_type_example"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "rp-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which correctly defines props and uses them in a MovieCard component?",
+      "options": [
+        "function MovieCard(title: string, rating: number) { return <h2>{title}</h2> }",
+        "interface MovieCardProps { title: string; rating: number }\nfunction MovieCard({ title, rating }: MovieCardProps) { return <h2>{title}</h2> }",
+        "function MovieCard(props: { title, rating }) { return <h2>{props.title}</h2> }",
+        "function MovieCard<MovieCardProps>({ title, rating }) { return <h2>{title}</h2> }"
+      ],
+      "answer": "interface MovieCardProps { title: string; rating: number }\nfunction MovieCard({ title, rating }: MovieCardProps) { return <h2>{title}</h2> }",
+      "explanation": "Define the shape in a separate interface, then destructure and annotate the parameter. Listing props as individual function parameters does not work for React components."
+    },
+    {
+      "id": "rp-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Given:\ninterface BadgeProps { value: number; max?: number }\n\nWhich of the following calls is valid?",
+      "options": [
+        "<Badge />",
+        "<Badge value={8.8} max={10} />",
+        "<Badge max={10} />",
+        "<Badge value='8.8' />"
+      ],
+      "answer": "<Badge value={8.8} max={10} />",
+      "explanation": "value is required (no ?), max is optional. Omitting value errors. Passing value as a string '8.8' instead of a number 8.8 also errors — TypeScript checks the JSX attributes against the interface."
+    },
+    {
+      "id": "rp-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "How do you type a component that renders its children?\n\nfunction Card({ children }) { return <div>{children}</div> }",
+      "options": [
+        "interface CardProps { children: any }",
+        "interface CardProps { children: JSX.Element }",
+        "interface CardProps { children: React.ReactNode }",
+        "interface CardProps { children: string }"
+      ],
+      "answer": "interface CardProps { children: React.ReactNode }",
+      "explanation": "React.ReactNode accepts anything React can render: strings, numbers, JSX elements, arrays, null. JSX.Element only accepts JSX, which would reject strings and null as children."
+    },
+    {
+      "id": "rp-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "You have MovieCardProps and want to add children without modifying the interface. Which utility type does this?",
+      "options": [
+        "React.FC<MovieCardProps>",
+        "React.PropsWithChildren<MovieCardProps>",
+        "React.WithChildren<MovieCardProps>",
+        "Partial<MovieCardProps> & { children: ReactNode }"
+      ],
+      "answer": "React.PropsWithChildren<MovieCardProps>",
+      "explanation": "React.PropsWithChildren<T> is a built-in utility that adds children?: React.ReactNode to an existing props type. It lets you keep your interface clean and add children at the usage site."
+    },
+    {
+      "id": "rp-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Why is using React.FC<Props> discouraged in modern TypeScript React code?",
+      "options": [
+        "React.FC does not support generic components",
+        "React.FC implicitly added children to props in older versions, hiding intent, and it is now an unnecessary wrapper",
+        "React.FC does not work with hooks",
+        "React.FC requires class components"
+      ],
+      "answer": "React.FC implicitly added children to props in older versions, hiding intent, and it is now an unnecessary wrapper",
+      "explanation": "Before React 18, React.FC automatically included children in every component's props, even when they shouldn't accept children. Modern practice is to use a plain function with an explicitly annotated parameter — it is simpler and clearer."
+    },
+    {
+      "id": "rp-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Given:\ninterface MovieCardProps { title: string; rating: number; poster?: string }\n\nWhich JSX call will TypeScript accept?",
+      "options": [
+        "<MovieCard title='Inception' />",
+        "<MovieCard rating={8.8} />",
+        "<MovieCard title='Inception' rating={8.8} />",
+        "<MovieCard title='Inception' rating='8.8' />"
+      ],
+      "answer": "<MovieCard title='Inception' rating={8.8} />",
+      "explanation": "title and rating are required. poster is optional and can be omitted. Passing rating as the string '8.8' would error because the interface expects number."
+    },
+    {
+      "id": "rp-ex-07",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Define a WatchButton component that accepts a required label (string) and an optional onWatch callback that takes no arguments and returns nothing:",
+      "code": "// Define the interface and component here\n\nfunction WatchButton({ label, onWatch }) {\n  return <button onClick={onWatch}>{label}</button>\n}",
+      "answer": "interface WatchButtonProps {\n  label: string\n  onWatch?: () => void\n}\n\nfunction WatchButton({ label, onWatch }: WatchButtonProps) {\n  return <button onClick={onWatch}>{label}</button>\n}",
+      "explanation": "Callback props are typed as function signatures. () => void means a function with no parameters that returns nothing. The ? makes it optional so the component can be used without passing a handler."
+    }
+  ]
+}

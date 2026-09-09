@@ -1,0 +1,120 @@
+{
+  "id": "react-hooks",
+  "courseId": "typescript-react",
+  "title": "Typing useState and useRef",
+  "summary": "React's built-in hooks are generic functions. Providing a type argument tells TypeScript the exact shape of the state or ref, so every setter call and access is validated. useState<T>(initial) infers T from the initial value when possible, but an explicit type argument is needed when the initial value (like null or []) does not convey the full type. useRef<T>(null) types the ref's current property as T | null before the component mounts, and as T afterwards — providing the correct HTMLElement type unlocks IDE autocomplete for all DOM methods.",
+  "keyPoints": [
+    "useState<Movie | null>(null) — explicit type needed because null alone tells TypeScript nothing",
+    "useState<number[]>([]) — explicit type needed because [] could be any array",
+    "useState infers correctly from non-null literals: useState(0) is useState<number>",
+    "useRef<HTMLInputElement>(null) — types current as HTMLInputElement | null",
+    "Access DOM methods via ref.current?.focus() — optional chaining handles the null before mount",
+    "useRef<number>(0) — mutable ref that holds a value, not a DOM element",
+    "Never mutate state directly — always call the setter: setMovies([...movies, newMovie])"
+  ],
+  "externalLinks": [
+    {
+      "label": "React Docs — useState",
+      "url": "https://react.dev/reference/react/useState"
+    },
+    {
+      "label": "React Docs — useRef",
+      "url": "https://react.dev/reference/react/useRef"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "rh-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Why does useState(null) require an explicit type argument when holding a Movie?",
+      "options": [
+        "useState does not accept null as an initial value",
+        "TypeScript infers the type as null, not Movie | null, so you must write useState<Movie | null>(null)",
+        "React hooks do not support generics",
+        "null is not a valid type in TypeScript"
+      ],
+      "answer": "TypeScript infers the type as null, not Movie | null, so you must write useState<Movie | null>(null)",
+      "explanation": "TypeScript infers the type from the initial value. null alone is inferred as the literal type null. Without the explicit generic, setMovie(someMovie) would be a type error. The explicit <Movie | null> tells TypeScript the full range of values the state can hold."
+    },
+    {
+      "id": "rh-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which useState call correctly initialises an empty list of movies?",
+      "options": [
+        "const [movies, setMovies] = useState([])",
+        "const [movies, setMovies] = useState<Movie>([])",
+        "const [movies, setMovies] = useState<Movie[]>([])",
+        "const [movies, setMovies] = useState<Array>([])"
+      ],
+      "answer": "const [movies, setMovies] = useState<Movie[]>([])",
+      "explanation": "[] alone is inferred as never[], which cannot hold Movie objects. The explicit <Movie[]> type argument tells TypeScript the array will contain Movie objects, enabling correct typing on setMovies and the movies variable."
+    },
+    {
+      "id": "rh-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What is the correct useRef type for a ref attached to an <input> element?",
+      "options": [
+        "useRef<Element>(null)",
+        "useRef<HTMLElement>(null)",
+        "useRef<HTMLInputElement>(null)",
+        "useRef<Input>(null)"
+      ],
+      "answer": "useRef<HTMLInputElement>(null)",
+      "explanation": "The type parameter must match the specific DOM element type. HTMLInputElement gives access to .value, .focus(), and other input-specific methods with full type safety."
+    },
+    {
+      "id": "rh-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Given: const inputRef = useRef<HTMLInputElement>(null)\n\nWhy should you write inputRef.current?.focus() instead of inputRef.current.focus()?",
+      "options": [
+        "focus() does not exist on HTMLInputElement",
+        "current is HTMLInputElement | null — it is null before the component mounts",
+        "useRef always returns undefined",
+        "Optional chaining is required for all ref access in React"
+      ],
+      "answer": "current is HTMLInputElement | null — it is null before the component mounts",
+      "explanation": "The ref is only assigned when the component mounts and the DOM element is created. Before that, current is null. Optional chaining (?.) safely skips the call if current is null, avoiding a runtime crash."
+    },
+    {
+      "id": "rh-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "You want to add a movie to a list without mutating state. Which setter call is correct?",
+      "options": [
+        "movies.push(newMovie)",
+        "setMovies(movies.push(newMovie))",
+        "setMovies([...movies, newMovie])",
+        "setMovies(movies.concat = [newMovie])"
+      ],
+      "answer": "setMovies([...movies, newMovie])",
+      "explanation": "React state must never be mutated directly. Create a new array with the spread operator to include all existing movies plus the new one. TypeScript will verify that newMovie is a Movie because of the useState<Movie[]> type."
+    },
+    {
+      "id": "rh-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "When does TypeScript correctly infer the state type without an explicit type argument?",
+      "options": [
+        "const [count, setCount] = useState(null)",
+        "const [items, setItems] = useState([])",
+        "const [count, setCount] = useState(0)",
+        "const [user, setUser] = useState(undefined)"
+      ],
+      "answer": "const [count, setCount] = useState(0)",
+      "explanation": "TypeScript infers number from the literal 0. Inference works well for unambiguous literals (0, 'hello', true). null, undefined, and [] are too ambiguous — they don't tell TypeScript what the state will eventually hold."
+    },
+    {
+      "id": "rh-ex-07",
+      "type": "fill-in",
+      "difficulty": "intermediate",
+      "prompt": "Fix the useState and useRef types in this component:",
+      "code": "function MovieSearch() {\n  const [selected, setSelected] = useState(null)\n  const [results, setResults] = useState([])\n  const inputRef = useRef(null)\n\n  return (\n    <div>\n      <input ref={inputRef} />\n      <button onClick={() => inputRef.current.focus()}>Focus</button>\n      <p>{selected?.title}</p>\n    </div>\n  )\n}",
+      "answer": "function MovieSearch() {\n  const [selected, setSelected] = useState<Movie | null>(null)\n  const [results, setResults] = useState<Movie[]>([])\n  const inputRef = useRef<HTMLInputElement>(null)\n\n  return (\n    <div>\n      <input ref={inputRef} />\n      <button onClick={() => inputRef.current?.focus()}>Focus</button>\n      <p>{selected?.title}</p>\n    </div>\n  )\n}",
+      "explanation": "Three fixes: useState<Movie | null>(null) so selected can hold a Movie, useState<Movie[]>([]) so results is a typed array, useRef<HTMLInputElement>(null) so the ref knows about input methods, and ?. on current to handle null before mount."
+    }
+  ]
+}

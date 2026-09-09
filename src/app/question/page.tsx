@@ -17,7 +17,7 @@ import Nav from "@/components/ui/Nav"
 import ProgressBar from "@/components/ui/ProgressBar"
 import Prompt from "@/components/ui/Prompt"
 
-const TIMER_DURATION = 25
+const TIMER_DURATION = 20
 
 function shuffle<T>(arr: T[]): T[] {
 	const a = [...arr]
@@ -33,7 +33,7 @@ function CircularTimer({ timeLeft }: { timeLeft: number }) {
 	const circumference = 2 * Math.PI * radius
 	const dashoffset = circumference * (1 - timeLeft / TIMER_DURATION)
 	const color =
-		timeLeft > 15 ? "#10b981" : timeLeft > 8 ? "#f59e0b" : "#ef4444"
+		timeLeft > 10 ? "#10b981" : timeLeft > 5 ? "#f59e0b" : "#ef4444"
 
 	return (
 		<div className="relative w-12 h-12 sm:w-14 sm:h-14 shrink-0">

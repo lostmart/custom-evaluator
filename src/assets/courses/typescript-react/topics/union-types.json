@@ -1,0 +1,116 @@
+{
+  "id": "union-types",
+  "courseId": "typescript-react",
+  "title": "Union Types and Type Narrowing",
+  "summary": "A union type says a value can be one of several types, written with a pipe: string | null. TypeScript will not let you call string methods on a string | null value until you narrow it — prove to the compiler which branch you are in using an if check, typeof, or an 'in' check. In React, union types appear constantly: a prop that may or may not be provided, an API response that could be data or an error, a state machine with discrete statuses. Discriminated unions (objects that share a type field with a literal value) are the cleanest pattern for complex state.",
+  "keyPoints": [
+    "Union syntax: string | number, Movie | null, 'idle' | 'loading' | 'error'",
+    "You cannot access string methods on string | null without narrowing first",
+    "Narrow with if checks: if (value !== null) { ... }",
+    "Narrow with typeof: if (typeof value === 'string') { ... }",
+    "Narrow with 'in': if ('title' in value) { ... } distinguishes object shapes",
+    "Discriminated unions add a shared type literal field to enable exhaustive switches",
+    "String literal unions replace enums for most React use cases"
+  ],
+  "externalLinks": [
+    {
+      "label": "TypeScript Handbook — Narrowing",
+      "url": "https://www.typescriptlang.org/docs/handbook/2/narrowing.html"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "ut-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which type annotation allows poster to hold either a string URL or null?",
+      "options": [
+        "poster: string?",
+        "poster: string | null",
+        "poster: nullable string",
+        "poster: string | undefined | null"
+      ],
+      "answer": "poster: string | null",
+      "explanation": "The pipe | separates the allowed types. string | null means the value is either a string or explicitly null. string? is not valid TypeScript syntax."
+    },
+    {
+      "id": "ut-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Given poster: string | null, why does this code produce a TypeScript error?\n\nconst url = poster.toUpperCase()",
+      "options": [
+        "toUpperCase does not exist on string",
+        "poster could be null, and null has no toUpperCase method",
+        "You must use poster?.toUpperCase() for all string methods",
+        "Union types cannot call methods directly"
+      ],
+      "answer": "poster could be null, and null has no toUpperCase method",
+      "explanation": "TypeScript sees both branches of the union. If poster is null, calling toUpperCase would throw at runtime. You must narrow to string first: if (poster !== null) { poster.toUpperCase() }"
+    },
+    {
+      "id": "ut-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which code correctly narrows a string | null value before using it?",
+      "options": [
+        "const upper = poster!.toUpperCase()",
+        "const upper = (poster as string).toUpperCase()",
+        "if (poster !== null) { const upper = poster.toUpperCase() }",
+        "const upper = poster.toUpperCase() ?? ''"
+      ],
+      "answer": "if (poster !== null) { const upper = poster.toUpperCase() }",
+      "explanation": "An if check narrows the type inside the block. TypeScript knows poster is string (not null) inside the if. The ! and as casts silence the error without actually protecting against null."
+    },
+    {
+      "id": "ut-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "You define: type Status = 'idle' | 'loading' | 'success' | 'error'\n\nWhat happens if you try to assign: const s: Status = 'fetching'",
+      "options": [
+        "TypeScript widens the type to string",
+        "TypeScript throws a runtime error",
+        "TypeScript produces a compile-time error — 'fetching' is not in the union",
+        "The assignment succeeds silently"
+      ],
+      "answer": "TypeScript produces a compile-time error — 'fetching' is not in the union",
+      "explanation": "String literal unions restrict the value to exactly those strings. 'fetching' is not one of them, so TypeScript errors at compile time — catching a typo before the code runs."
+    },
+    {
+      "id": "ut-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Given:\ntype Result = { type: 'success'; data: Movie[] } | { type: 'error'; message: string }\n\nInside a switch on result.type, TypeScript knows the exact shape in each case. What pattern is this called?",
+      "options": [
+        "Type assertion",
+        "Discriminated union",
+        "Intersection type",
+        "Conditional type"
+      ],
+      "answer": "Discriminated union",
+      "explanation": "A discriminated union is a union of objects that share a common literal field (here: type). Switching on that field lets TypeScript narrow to the specific variant in each case, giving you full type safety without casts."
+    },
+    {
+      "id": "ut-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "How do you narrow a value of type Movie | string to check if it is a Movie object?",
+      "options": [
+        "if (typeof result === 'Movie')",
+        "if (result instanceof Movie)",
+        "if ('title' in result)",
+        "if (result.type === 'movie')"
+      ],
+      "answer": "if ('title' in result)",
+      "explanation": "typeof only works for primitives. instanceof works for classes, not plain objects. Checking for a property unique to Movie with 'in' is the idiomatic narrowing technique for object unions."
+    },
+    {
+      "id": "ut-ex-07",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Write a function getPoster that returns the poster string, or '/placeholder.jpg' if poster is null:",
+      "code": "interface Movie { title: string; poster: string | null }\n\nfunction getPoster(movie: Movie): string {\n  // your code here\n}",
+      "answer": "interface Movie { title: string; poster: string | null }\n\nfunction getPoster(movie: Movie): string {\n  if (movie.poster !== null) {\n    return movie.poster\n  }\n  return '/placeholder.jpg'\n}",
+      "explanation": "Checking movie.poster !== null narrows the type to string inside the if block. TypeScript is then satisfied that the return value is always a string."
+    }
+  ]
+}

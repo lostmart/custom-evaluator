@@ -1,0 +1,111 @@
+{
+  "id": "generics",
+  "courseId": "typescript-react",
+  "title": "Generics",
+  "summary": "Generics let you write reusable functions and types that work with any type while staying fully type-safe. Instead of writing getFirst(arr: string[]) and getFirst(arr: number[]) separately, you write getFirst<T>(arr: T[]): T and TypeScript infers T from the argument. In React, generics appear everywhere: useState<Movie | null>(null), useRef<HTMLInputElement>(null), and typed fetch wrappers. The angle-bracket syntax <T> declares the type parameter; you can constrain it with extends: <T extends object> means T must be an object.",
+  "keyPoints": [
+    "Generic syntax: function identity<T>(value: T): T",
+    "TypeScript infers the type argument from usage — you rarely write it explicitly for functions",
+    "Typed arrays: Movie[] is shorthand for Array<Movie>",
+    "Constrain with extends: <T extends object> limits T to non-primitive types",
+    "keyof T gives the union of all property names of T as string literals",
+    "React hooks are generic: useState<Movie | null>(null), useRef<HTMLInputElement>(null)",
+    "Generic fetch wrapper: async function fetchJson<T>(url: string): Promise<T>"
+  ],
+  "externalLinks": [
+    {
+      "label": "TypeScript Handbook — Generics",
+      "url": "https://www.typescriptlang.org/docs/handbook/2/generics.html"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "gn-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What does this function do?\n\nfunction first<T>(arr: T[]): T | undefined {\n  return arr[0]\n}",
+      "options": [
+        "Returns the first element of a string array only",
+        "Returns the first element of any typed array, or undefined if empty",
+        "Returns a copy of the array",
+        "Returns the type of the array elements"
+      ],
+      "answer": "Returns the first element of any typed array, or undefined if empty",
+      "explanation": "T is a type parameter that gets filled in at call time. first(['a','b']) makes T=string; first([1,2,3]) makes T=number. The return type T | undefined matches arr[0] which is undefined when the array is empty."
+    },
+    {
+      "id": "gn-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Given: const movies: Movie[] = []\n\nWhich is an equivalent annotation using the Array generic form?",
+      "options": [
+        "const movies: Array(Movie) = []",
+        "const movies: Generic<Movie> = []",
+        "const movies: Array<Movie> = []",
+        "const movies: List<Movie> = []"
+      ],
+      "answer": "const movies: Array<Movie> = []",
+      "explanation": "Movie[] and Array<Movie> are identical. The shorthand Movie[] is more common, but Array<Movie> makes the generic nature explicit."
+    },
+    {
+      "id": "gn-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "You call: first(['Inception', 'Dune', 'Parasite'])\n\nWhat does TypeScript infer as the type of T?",
+      "options": ["any", "string[]", "string", "unknown"],
+      "answer": "string",
+      "explanation": "TypeScript infers T from the argument. Passing a string[] makes T=string, so the return type is string | undefined. You do not need to write first<string>(...) explicitly."
+    },
+    {
+      "id": "gn-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "What does <T extends keyof U> mean in a generic constraint?",
+      "options": [
+        "T must be a subtype of U",
+        "T must be one of the property names of U",
+        "T must extend the class U",
+        "T and U must be the same type"
+      ],
+      "answer": "T must be one of the property names of U",
+      "explanation": "keyof U produces a union of the string literal property names of U. Constraining T extends keyof U means T can only be a valid key of U. This is how pluck<T, K extends keyof T>(arr: T[], key: K): T[K][] is typed."
+    },
+    {
+      "id": "gn-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Which correctly types a fetchJson function that returns a Promise of any caller-specified shape?",
+      "options": [
+        "async function fetchJson(url: string): Promise<any>",
+        "async function fetchJson<T>(url: string): Promise<T>",
+        "async function fetchJson(url: string): T",
+        "async function fetchJson<T extends object>(url: string): T"
+      ],
+      "answer": "async function fetchJson<T>(url: string): Promise<T>",
+      "explanation": "The generic T lets each caller specify the expected shape: fetchJson<Movie[]>(url) or fetchJson<Post>(url). Returning Promise<any> loses all type safety. An async function always returns a Promise, so the return type must be Promise<T>."
+    },
+    {
+      "id": "gn-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "In React, how do you type useState so it holds either a Movie object or null?",
+      "options": [
+        "const [movie, setMovie] = useState(null as Movie)",
+        "const [movie, setMovie] = useState<Movie | null>(null)",
+        "const [movie, setMovie] = useState<Movie>(null)",
+        "const [movie, setMovie] = useState<nullable Movie>(null)"
+      ],
+      "answer": "const [movie, setMovie] = useState<Movie | null>(null)",
+      "explanation": "useState is a generic hook. Passing <Movie | null> tells TypeScript the state can be a Movie object or null. Passing just <Movie> would make null an invalid initial value."
+    },
+    {
+      "id": "gn-ex-07",
+      "type": "fill-in",
+      "difficulty": "intermediate",
+      "prompt": "Write a generic pluck function that extracts an array of values for a given key from an array of objects:",
+      "code": "// pluck(movies, 'title') → ['Inception', 'Dune']\n// pluck(movies, 'rating') → [8.8, 8.0]\nfunction pluck(items, key) {\n  return items.map(item => item[key])\n}",
+      "answer": "function pluck<T, K extends keyof T>(items: T[], key: K): T[K][] {\n  return items.map(item => item[key])\n}",
+      "explanation": "T is the object type, K is constrained to the actual property names of T via keyof T. The return type T[K][] means an array of whatever type that property holds — string[] for 'title', number[] for 'rating'."
+    }
+  ]
+}

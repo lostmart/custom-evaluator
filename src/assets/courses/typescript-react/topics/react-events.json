@@ -1,0 +1,116 @@
+{
+  "id": "react-events",
+  "courseId": "typescript-react",
+  "title": "Typing React Events",
+  "summary": "React wraps native DOM events in its own synthetic event system. TypeScript requires specific event types depending on the element — the generic React.SyntheticEvent covers all events, but more specific types give you access to typed properties like e.target.value. The most common types are React.ChangeEvent<HTMLInputElement> for input onChange, React.MouseEvent<HTMLButtonElement> for button onClick, and React.FormEvent<HTMLFormElement> for form onSubmit. The type parameter is the HTML element the event originates from.",
+  "keyPoints": [
+    "onChange on <input>: React.ChangeEvent<HTMLInputElement>",
+    "onChange on <select>: React.ChangeEvent<HTMLSelectElement>",
+    "onChange on <textarea>: React.ChangeEvent<HTMLTextAreaElement>",
+    "onClick on <button>: React.MouseEvent<HTMLButtonElement>",
+    "onSubmit on <form>: React.FormEvent<HTMLFormElement>",
+    "e.target.value is typed as string for all ChangeEvent handlers",
+    "Always call e.preventDefault() in form onSubmit handlers"
+  ],
+  "externalLinks": [
+    {
+      "label": "React TypeScript Cheatsheet — Events",
+      "url": "https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/forms_and_events"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "re-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What is the correct type for an onChange handler on an <input> element?",
+      "options": [
+        "React.Event<HTMLInputElement>",
+        "React.ChangeEvent<HTMLInputElement>",
+        "HTMLInputElement.ChangeEvent",
+        "React.InputEvent<string>"
+      ],
+      "answer": "React.ChangeEvent<HTMLInputElement>",
+      "explanation": "React.ChangeEvent<T> is the event type for onChange. The type parameter T specifies the element — HTMLInputElement for <input>. This gives TypeScript enough information to know that e.target.value is a string."
+    },
+    {
+      "id": "re-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Given:\nconst handleChange = (e: React.ChangeEvent<HTMLInputElement>) => { ... }\n\nHow do you read the current input value inside handleChange?",
+      "options": [
+        "e.value",
+        "e.currentTarget.innerText",
+        "e.target.value",
+        "e.data"
+      ],
+      "answer": "e.target.value",
+      "explanation": "For input change events, the new value is at e.target.value and is typed as string. e.value does not exist on the event object."
+    },
+    {
+      "id": "re-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which type should you use for the onSubmit handler of a <form>?",
+      "options": [
+        "React.ChangeEvent<HTMLFormElement>",
+        "React.ClickEvent<HTMLFormElement>",
+        "React.FormEvent<HTMLFormElement>",
+        "React.SubmitEvent<HTMLFormElement>"
+      ],
+      "answer": "React.FormEvent<HTMLFormElement>",
+      "explanation": "Form submission uses React.FormEvent<HTMLFormElement>. You will typically call e.preventDefault() inside the handler to stop the page from reloading."
+    },
+    {
+      "id": "re-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What is the correct type for an onClick handler on a <button>?",
+      "options": [
+        "React.ClickEvent<HTMLButtonElement>",
+        "React.MouseEvent<HTMLButtonElement>",
+        "React.ButtonEvent<HTMLButtonElement>",
+        "React.SyntheticEvent<HTMLButtonElement>"
+      ],
+      "answer": "React.MouseEvent<HTMLButtonElement>",
+      "explanation": "Clicks are mouse events, so the type is React.MouseEvent. The type parameter specifies the element — HTMLButtonElement for <button>. React.SyntheticEvent is too broad and loses element-specific information."
+    },
+    {
+      "id": "re-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "You want to pass an onClick handler as a prop from a parent to a child button component. How should you type the prop?",
+      "options": [
+        "onClick: void",
+        "onClick: React.MouseEvent",
+        "onClick: (e: React.MouseEvent<HTMLButtonElement>) => void",
+        "onClick: () => React.MouseEvent<HTMLButtonElement>"
+      ],
+      "answer": "onClick: (e: React.MouseEvent<HTMLButtonElement>) => void",
+      "explanation": "Callback props that handle events are typed as functions. The parameter receives the event, and the function returns nothing (void). This lets the parent pass any handler that accepts a MouseEvent."
+    },
+    {
+      "id": "re-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Which type handles onChange on a <select> element?",
+      "options": [
+        "React.ChangeEvent<HTMLInputElement>",
+        "React.SelectEvent<HTMLSelectElement>",
+        "React.ChangeEvent<HTMLSelectElement>",
+        "React.MouseEvent<HTMLSelectElement>"
+      ],
+      "answer": "React.ChangeEvent<HTMLSelectElement>",
+      "explanation": "The event type is always React.ChangeEvent for onChange — but the type parameter must match the element. For <select> use HTMLSelectElement, not HTMLInputElement. e.target.value still gives the selected option's value as a string."
+    },
+    {
+      "id": "re-ex-07",
+      "type": "fill-in",
+      "difficulty": "intermediate",
+      "prompt": "Type the handleSubmit function correctly, ensuring e.preventDefault() is called:",
+      "code": "function SearchForm() {\n  const handleSubmit = (e) => {\n    e.preventDefault()\n    console.log('submitted')\n  }\n  return <form onSubmit={handleSubmit}><button>Search</button></form>\n}",
+      "answer": "function SearchForm() {\n  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {\n    e.preventDefault()\n    console.log('submitted')\n  }\n  return <form onSubmit={handleSubmit}><button>Search</button></form>\n}",
+      "explanation": "React.FormEvent<HTMLFormElement> is the correct type for a form's onSubmit handler. TypeScript will then know e.preventDefault() exists and autocomplete other FormEvent methods."
+    }
+  ]
+}

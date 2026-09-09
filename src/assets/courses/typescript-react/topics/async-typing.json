@@ -1,0 +1,120 @@
+{
+  "id": "async-typing",
+  "courseId": "typescript-react",
+  "title": "Typing async and fetch",
+  "summary": "fetch() returns Promise<Response>, but TypeScript cannot infer the shape of the JSON body — you must cast it yourself. The pattern is to define an interface matching the API response, then cast the result of res.json() using as. A generic fetchJson<T> wrapper centralises this cast and makes all callers type-safe. In React, data fetching usually happens inside a useEffect or a custom hook, and the results are stored in typed state. The TMDB API, which powers the course project, returns objects with specific field names (id, title, vote_average, poster_path) — these must match the interface exactly.",
+  "keyPoints": [
+    "fetch() returns Promise<Response> — TypeScript does not know the response body shape",
+    "Cast the JSON: const data = await res.json() as Movie[]",
+    "Or use a generic wrapper: async function fetchJson<T>(url: string): Promise<T>",
+    "Always check res.ok before parsing — a 404 still resolves, it does not throw",
+    "Throw on failure: if (!res.ok) throw new Error(`HTTP ${res.status}`)",
+    "async functions always return a Promise — annotate as Promise<T>, not T",
+    "TMDB fields: id, title, vote_average, poster_path — match interface names to API field names exactly"
+  ],
+  "externalLinks": [
+    {
+      "label": "MDN — Using Fetch",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch"
+    },
+    {
+      "label": "TMDB API Docs",
+      "url": "https://developer.themoviedb.org/reference/movie-popular-list"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "at-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What does fetch() return in TypeScript?",
+      "options": [
+        "Promise<any>",
+        "Promise<unknown>",
+        "Promise<Response>",
+        "Promise<JSON>"
+      ],
+      "answer": "Promise<Response>",
+      "explanation": "fetch() is typed as returning Promise<Response>. The Response object has methods like .json(), .text(), and .ok. TypeScript does not know the shape of the body — that is your job to annotate."
+    },
+    {
+      "id": "at-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "How do you tell TypeScript that res.json() will return an array of Movie objects?",
+      "options": [
+        "const movies = res.json<Movie[]>()",
+        "const movies: Movie[] = res.json()",
+        "const movies = await res.json() as Movie[]",
+        "const movies = res.json() as Promise<Movie[]>"
+      ],
+      "answer": "const movies = await res.json() as Movie[]",
+      "explanation": "res.json() returns Promise<any>. Awaiting it gives any. The as Movie[] cast narrows the type so TypeScript treats the value as Movie[]. Note: this is a compile-time cast — TypeScript trusts you; it does not validate at runtime."
+    },
+    {
+      "id": "at-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "A fetch to a non-existent endpoint returns a 404. In TypeScript/JavaScript, what happens by default?",
+      "options": [
+        "The Promise rejects with an error",
+        "fetch throws a TypeError",
+        "The Promise resolves with a Response where res.ok is false",
+        "res.json() throws a SyntaxError"
+      ],
+      "answer": "The Promise resolves with a Response where res.ok is false",
+      "explanation": "fetch only rejects on network failure (no connection, DNS error). HTTP error codes (404, 500) still resolve. You must check res.ok and throw manually: if (!res.ok) throw new Error('...')"
+    },
+    {
+      "id": "at-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Which correctly types a generic fetch wrapper?",
+      "options": [
+        "function fetchJson(url: string): Promise<any>",
+        "async function fetchJson<T>(url: string): T",
+        "async function fetchJson<T>(url: string): Promise<T>",
+        "function fetchJson<T>(url: string): T"
+      ],
+      "answer": "async function fetchJson<T>(url: string): Promise<T>",
+      "explanation": "async functions always return a Promise. The return type must be Promise<T>, not T. The generic <T> lets each caller specify the expected shape: fetchJson<Movie[]>(url)."
+    },
+    {
+      "id": "at-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "The TMDB popular movies endpoint returns objects with a vote_average field. You define:\ninterface Movie { id: number; title: string; voteAverage: number }\n\nYou cast the response as Movie[]. What is the problem?",
+      "options": [
+        "The interface needs to extend a base TMDB type",
+        "The field name voteAverage does not match the API's vote_average — the property will be undefined at runtime",
+        "TypeScript will error because you cannot cast API responses",
+        "Nothing is wrong"
+      ],
+      "answer": "The field name voteAverage does not match the API's vote_average — the property will be undefined at runtime",
+      "explanation": "TypeScript's cast is compile-time only — it does not transform the data. The API sends vote_average (snake_case); if your interface uses voteAverage (camelCase), the property will be undefined at runtime. Interface field names must exactly match the API field names."
+    },
+    {
+      "id": "at-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Where in a React component should you call fetch to load data on mount?",
+      "options": [
+        "Directly in the component body (top level)",
+        "Inside a useState initialiser",
+        "Inside a useEffect with an empty dependency array []",
+        "Inside the JSX return statement"
+      ],
+      "answer": "Inside a useEffect with an empty dependency array []",
+      "explanation": "Calling fetch in the component body runs on every render. The empty dependency array [] makes useEffect run only once after the first mount — the correct place for initial data loading."
+    },
+    {
+      "id": "at-ex-07",
+      "type": "fill-in",
+      "difficulty": "intermediate",
+      "prompt": "Complete the typed fetch function. It should throw if the response is not ok, and return the parsed JSON as Movie[]:",
+      "code": "interface Movie { id: number; title: string; vote_average: number; poster_path: string }\n\nasync function fetchPopularMovies(apiKey: string) {\n  const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`)\n  // check res.ok and throw if not\n  // parse and return as Movie[]\n}",
+      "answer": "interface Movie { id: number; title: string; vote_average: number; poster_path: string }\n\nasync function fetchPopularMovies(apiKey: string): Promise<Movie[]> {\n  const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`)\n  if (!res.ok) throw new Error(`HTTP error ${res.status}`)\n  const data = await res.json() as { results: Movie[] }\n  return data.results\n}",
+      "explanation": "TMDB wraps the array in a results field. The return type is Promise<Movie[]>. Checking res.ok before parsing guards against silent error responses. The cast tells TypeScript the JSON shape."
+    }
+  ]
+}

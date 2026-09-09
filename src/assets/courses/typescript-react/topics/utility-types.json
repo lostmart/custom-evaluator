@@ -1,0 +1,116 @@
+{
+  "id": "utility-types",
+  "courseId": "typescript-react",
+  "title": "Utility Types",
+  "summary": "TypeScript ships a set of built-in generic types that transform existing types without rewriting them. The most useful in React are: Partial<T> (all fields optional — perfect for update payloads and form state), Pick<T, K> (keep only listed fields — great for component props that show a subset of a model), Omit<T, K> (drop listed fields — useful when creating records before an ID is assigned), and Record<K, V> (typed object map — replaces any for dictionaries and caches). These utility types compose well: Partial<Pick<Movie, 'rating' | 'genre'>> gives a partial update type for just two fields.",
+  "keyPoints": [
+    "Partial<Movie> — every field becomes optional: useful for PATCH payloads and form drafts",
+    "Required<Movie> — every field becomes required: opposite of Partial",
+    "Pick<Movie, 'title' | 'rating'> — keep only those fields",
+    "Omit<Movie, 'id'> — drop the id field (e.g. before creation, when the DB assigns it)",
+    "Record<string, Movie> — an object whose keys are strings and values are Movies",
+    "Utility types compose: Partial<Omit<Movie, 'id'>> for an optional create payload",
+    "All utility types produce new types — they do not mutate the original interface"
+  ],
+  "externalLinks": [
+    {
+      "label": "TypeScript Handbook — Utility Types",
+      "url": "https://www.typescriptlang.org/docs/handbook/utility-types.html"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "uu-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Given:\ninterface Movie { id: number; title: string; rating: number }\n\nWhat does Partial<Movie> produce?",
+      "options": [
+        "{ id?: number; title?: string; rating?: number }",
+        "{ id: number; title?: string; rating?: number }",
+        "{ id?: number } | { title?: string } | { rating?: number }",
+        "Partial<Movie> removes all fields"
+      ],
+      "answer": "{ id?: number; title?: string; rating?: number }",
+      "explanation": "Partial<T> makes every property optional by adding ?. All three fields become optional, so an empty object {} is valid as Partial<Movie>. This is ideal for update/PATCH functions where you only send the fields that changed."
+    },
+    {
+      "id": "uu-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "You want a type that has only the title and poster fields of Movie. Which utility type gives you this?",
+      "options": [
+        "Omit<Movie, 'title' | 'poster'>",
+        "Partial<Movie>",
+        "Pick<Movie, 'title' | 'poster'>",
+        "Record<Movie, 'title' | 'poster'>"
+      ],
+      "answer": "Pick<Movie, 'title' | 'poster'>",
+      "explanation": "Pick<T, K> creates a new type that keeps only the listed keys from T. Pick<Movie, 'title' | 'poster'> gives { title: string; poster: string }. Omit does the opposite — it removes listed keys."
+    },
+    {
+      "id": "uu-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "When creating a new movie, the database assigns the id. Which type represents a movie without an id?",
+      "options": [
+        "Partial<Movie>",
+        "Pick<Movie, 'title' | 'rating' | 'poster'>",
+        "Omit<Movie, 'id'>",
+        "Required<Movie>"
+      ],
+      "answer": "Omit<Movie, 'id'>",
+      "explanation": "Omit<T, K> removes the listed keys from T. Omit<Movie, 'id'> gives { title: string; rating: number; poster: string } — exactly the shape needed to create a movie before the server assigns an id."
+    },
+    {
+      "id": "uu-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "You want a typed in-memory cache where keys are movie IDs (numbers) and values are Movie objects. Which type is correct?",
+      "options": [
+        "{ [key: string]: Movie }",
+        "Map<number, Movie>",
+        "Record<number, Movie>",
+        "Dict<number, Movie>"
+      ],
+      "answer": "Record<number, Movie>",
+      "explanation": "Record<K, V> creates an object type with keys of type K and values of type V. Record<number, Movie> means numeric keys and Movie values. It is more readable than the index signature syntax and more idiomatic for plain objects."
+    },
+    {
+      "id": "uu-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "A function receives only the fields the caller wants to update. Which type should its parameter be?",
+      "options": [
+        "Movie",
+        "Partial<Movie>",
+        "Omit<Movie, 'id'>",
+        "Required<Movie>"
+      ],
+      "answer": "Partial<Movie>",
+      "explanation": "Partial<Movie> makes all fields optional, so the caller can pass just { rating: 9.0 } or { title: 'Dune: Part Two', rating: 8.5 }. The function must still receive the id to know which record to update — that is typically a separate parameter."
+    },
+    {
+      "id": "uu-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "What does this composed type represent?\ntype MovieDraft = Partial<Omit<Movie, 'id'>>",
+      "options": [
+        "A Movie with all fields required except id",
+        "A Movie with no fields at all",
+        "A Movie where all fields except id are optional",
+        "An object that can only have an id field"
+      ],
+      "answer": "A Movie where all fields except id are optional",
+      "explanation": "Omit<Movie, 'id'> removes id. Partial<...> then makes the remaining fields optional. The result is a type where title, rating, poster etc. can all be omitted — useful for a form state where the user fills in fields one at a time."
+    },
+    {
+      "id": "uu-ex-07",
+      "type": "fill-in",
+      "difficulty": "intermediate",
+      "prompt": "Using utility types, define: (1) NewMovie — Movie without id, (2) MovieUpdate — all Movie fields except id are optional, (3) MovieCache — a Record keyed by number:",
+      "code": "interface Movie { id: number; title: string; rating: number; poster: string }\n\n// Define NewMovie, MovieUpdate, MovieCache here\n",
+      "answer": "interface Movie { id: number; title: string; rating: number; poster: string }\n\ntype NewMovie = Omit<Movie, 'id'>\ntype MovieUpdate = Partial<Omit<Movie, 'id'>>\ntype MovieCache = Record<number, Movie>",
+      "explanation": "NewMovie uses Omit to remove id. MovieUpdate composes Partial and Omit — first remove id so it cannot be accidentally changed, then make the remaining fields optional. MovieCache uses Record for a numeric-keyed object of Movies."
+    }
+  ]
+}
