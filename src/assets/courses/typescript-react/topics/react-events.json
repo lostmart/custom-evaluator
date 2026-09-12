@@ -20,7 +20,7 @@
   ],
   "exercises": [
     {
-      "id": "re-ex-01",
+      "id": "rev-ex-01",
       "type": "multiple-choice",
       "difficulty": "beginner",
       "prompt": "What is the correct type for an onChange handler on an <input> element?",
@@ -34,7 +34,7 @@
       "explanation": "React.ChangeEvent<T> is the event type for onChange. The type parameter T specifies the element — HTMLInputElement for <input>. This gives TypeScript enough information to know that e.target.value is a string."
     },
     {
-      "id": "re-ex-02",
+      "id": "rev-ex-02",
       "type": "multiple-choice",
       "difficulty": "beginner",
       "prompt": "Given:\nconst handleChange = (e: React.ChangeEvent<HTMLInputElement>) => { ... }\n\nHow do you read the current input value inside handleChange?",
@@ -48,7 +48,7 @@
       "explanation": "For input change events, the new value is at e.target.value and is typed as string. e.value does not exist on the event object."
     },
     {
-      "id": "re-ex-03",
+      "id": "rev-ex-03",
       "type": "multiple-choice",
       "difficulty": "beginner",
       "prompt": "Which type should you use for the onSubmit handler of a <form>?",
@@ -62,7 +62,7 @@
       "explanation": "Form submission uses React.FormEvent<HTMLFormElement>. You will typically call e.preventDefault() inside the handler to stop the page from reloading."
     },
     {
-      "id": "re-ex-04",
+      "id": "rev-ex-04",
       "type": "multiple-choice",
       "difficulty": "beginner",
       "prompt": "What is the correct type for an onClick handler on a <button>?",
@@ -76,7 +76,7 @@
       "explanation": "Clicks are mouse events, so the type is React.MouseEvent. The type parameter specifies the element — HTMLButtonElement for <button>. React.SyntheticEvent is too broad and loses element-specific information."
     },
     {
-      "id": "re-ex-05",
+      "id": "rev-ex-05",
       "type": "multiple-choice",
       "difficulty": "intermediate",
       "prompt": "You want to pass an onClick handler as a prop from a parent to a child button component. How should you type the prop?",
@@ -90,7 +90,7 @@
       "explanation": "Callback props that handle events are typed as functions. The parameter receives the event, and the function returns nothing (void). This lets the parent pass any handler that accepts a MouseEvent."
     },
     {
-      "id": "re-ex-06",
+      "id": "rev-ex-06",
       "type": "multiple-choice",
       "difficulty": "intermediate",
       "prompt": "Which type handles onChange on a <select> element?",
@@ -104,7 +104,7 @@
       "explanation": "The event type is always React.ChangeEvent for onChange — but the type parameter must match the element. For <select> use HTMLSelectElement, not HTMLInputElement. e.target.value still gives the selected option's value as a string."
     },
     {
-      "id": "re-ex-07",
+      "id": "rev-ex-07",
       "type": "fill-in",
       "difficulty": "intermediate",
       "prompt": "Type the handleSubmit function correctly, ensuring e.preventDefault() is called:",

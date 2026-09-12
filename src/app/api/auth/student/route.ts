@@ -6,7 +6,7 @@ const ROSTER_URL = process.env.ROSTER_URL!;
 export async function POST(req: NextRequest) {
   const { email } = await req.json();
 
-  if (!email?.endsWith("@epita.fr")) {
+  if (!email || typeof email !== "string" || !/^[^@]+@epita\.fr$/.test(email)) {
     return NextResponse.json({ error: "Invalid email" }, { status: 400 });
   }
 
