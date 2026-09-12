@@ -14,7 +14,6 @@
     "@codesandbox/sandpack-react": "^2.20.0",
     "@libsql/client": "^0.17.3",
     "@monaco-editor/react": "^4.7.0",
-    "better-sqlite3": "^12.10.0",
     "jose": "^6.2.3",
     "next": "16.2.6",
     "react": "19.2.4",

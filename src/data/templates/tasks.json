@@ -3,27 +3,24 @@
     "id": "task1",
     "description": "Wire the button to the changeValue function",
     "check": {
-      "type": "button-connected",
-      "targetSelector": "div[style]",
-      "initialText": "dynamic message here !"
+      "type": "code-contains",
+      "pattern": "onClick\\s*=\\s*\\{\\s*changeValue\\s*\\}"
     }
   },
   {
     "id": "task2",
     "description": "Update the state when the button is clicked",
     "check": {
-      "type": "dom-changed",
-      "targetSelector": "div[style]",
-      "notEqual": "dynamic message here !"
+      "type": "code-contains",
+      "pattern": "changeValue\\s*=.*=>\\s*\\{?\\s*[^}]*setState\\s*\\("
     }
   },
   {
     "id": "task3",
     "description": "Display \"clicked\" in the message div",
     "check": {
-      "type": "dom-equals",
-      "targetSelector": "div[style]",
-      "expected": "clicked"
+      "type": "code-contains",
+      "pattern": "setState\\s*\\(\\s*[\"']clicked[\"']\\s*\\)"
     }
   }
 ]

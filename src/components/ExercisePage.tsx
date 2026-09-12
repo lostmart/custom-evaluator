@@ -1,12 +1,12 @@
 "use client";
 
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useState } from "react";
 import PlayGround from "./PlayGround";
 
-type TaskCheck =
-  | { type: "button-connected"; targetSelector: string; initialText: string }
-  | { type: "dom-changed"; targetSelector: string; notEqual: string }
-  | { type: "dom-equals"; targetSelector: string; expected: string };
+type TaskCheck = {
+  type: "code-contains";
+  pattern: string;
+};
 
 type Task = {
   id: string;
@@ -14,24 +14,8 @@ type Task = {
   check: TaskCheck;
 };
 
-type SandpackMessage = {
-  type: "sandpack-check";
-  consoleFired: boolean;
-  elements: Record<string, string>;
-};
-
-function evaluateTask(task: Task, msg: SandpackMessage): boolean {
-  const { check } = task;
-  const text = msg.elements[check.targetSelector] ?? "";
-
-  switch (check.type) {
-    case "button-connected":
-      return msg.consoleFired;
-    case "dom-changed":
-      return text !== check.notEqual;
-    case "dom-equals":
-      return text === check.expected;
-  }
+function evaluateTask(task: Task, code: string): boolean {
+  return new RegExp(task.check.pattern, "s").test(code);
 }
 
 type ExercisePageProps = {
@@ -41,36 +25,23 @@ type ExercisePageProps = {
 };
 
 export default function ExercisePage({ defaultCode, guides, tasks }: ExercisePageProps) {
-  const [completedIds, setCompletedIds] = useState<string[]>([]);
-  const completedRef = useRef<string[]>([]);
+  const [currentCode, setCurrentCode] = useState(defaultCode);
 
-  useEffect(() => {
-    function handleMessage(event: MessageEvent) {
-      const msg = event.data as SandpackMessage;
-      if (!msg || msg.type !== "sandpack-check") return;
-
-      const current = completedRef.current;
-      const nextTaskIndex = current.length;
-      if (nextTaskIndex >= tasks.length) return;
-
-      const nextTask = tasks[nextTaskIndex];
-      if (evaluateTask(nextTask, msg)) {
-        const updated = [...current, nextTask.id];
-        completedRef.current = updated;
-        setCompletedIds(updated);
-      }
-    }
-
-    window.addEventListener("message", handleMessage);
-    return () => window.removeEventListener("message", handleMessage);
-  }, [tasks]);
+  const completedIds = tasks
+    .filter((task) => evaluateTask(task, currentCode))
+    .map((task) => task.id);
 
   const allDone = completedIds.length === tasks.length;
 
+  function handleSubmit() {
+    console.log("=== Student submission ===");
+    console.log(currentCode);
+  }
+
   return (
     <div className="h-screen w-screen flex flex-col bg-zinc-900 overflow-hidden">
-      <div className="flex-1 min-h-0">
-        <PlayGround defaultCode={defaultCode} />
+      <div className="min-h-0">
+        <PlayGround defaultCode={defaultCode} onCodeChange={setCurrentCode} />
       </div>
 
       <div className="shrink-0 overflow-y-auto bg-zinc-800 border-t border-zinc-700 px-6 py-4 flex items-start gap-8">
@@ -105,6 +76,7 @@ export default function ExercisePage({ defaultCode, guides, tasks }: ExercisePag
         </div>
 
         <button
+          onClick={handleSubmit}
           disabled={!allDone}
           className="shrink-0 px-5 py-2 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-medium rounded transition"
         >
