@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import PlayGround from "./PlayGround";
 import { useUser } from "@/context/UserContext";
 
@@ -21,7 +21,7 @@ function evaluateTask(task: Task, code: string): boolean {
 
 type ExercisePageProps = {
   defaultCode: string;
-  guides: ReactNode[];
+  guides: string[];
   tasks: Task[];
   sheetName: string;
   courseTitle: string;
@@ -71,6 +71,20 @@ export default function ExercisePage({ defaultCode, guides, tasks, sheetName, co
     }
   }
 
+  if (submitted) {
+    return (
+      <div className="h-screen w-screen flex items-center justify-center bg-zinc-900">
+        <div className="flex flex-col items-center gap-4 text-center">
+          <span className="text-emerald-400 text-5xl">✓</span>
+          <h1 className="text-2xl font-semibold text-zinc-100">Exercise submitted</h1>
+          <p className="text-sm text-zinc-400 max-w-sm">
+            Your work on <span className="text-zinc-200">{courseTitle}</span> has been recorded. You can close this tab.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="h-screen w-screen flex flex-col bg-zinc-900 overflow-hidden">
       <div className="min-h-0">
@@ -114,7 +128,7 @@ export default function ExercisePage({ defaultCode, guides, tasks, sheetName, co
             disabled={!allDone || submitting || submitted}
             className="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-medium rounded transition"
           >
-            {submitted ? "Submitted" : submitting ? "Submitting..." : "Submit"}
+            {submitting ? "Submitting..." : "Submit"}
           </button>
           {error && <p className="text-red-400 text-xs">{error}</p>}
         </div>

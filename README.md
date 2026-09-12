@@ -11,8 +11,14 @@ The platform is intentionally low-stakes: assessments are framed as calibration 
 ## Repo structure
 
 ```
-docs/        # Project documentation
-src/         # Next.js application
+data/
+  templates/           # Exercise data (one folder per exercise)
+    use-state-one/     # Example exercise
+      App.tsx          # Starter code
+      tasks.json       # Task definitions with regex checks
+      meta.json        # { sheetName, courseTitle, guides }
+docs/                  # Project documentation
+src/                   # Next.js application
 ```
 
 ## docs/
@@ -35,6 +41,24 @@ Each course exposes three pages. Replace `{course}` with one of the course IDs l
 | `/{course}` | Landing page — student identifies with their `@epita.fr` email, then chooses study or quiz |
 | `/{course}/study` | Study mode — browse topics, read summaries, work through exercises at your own pace |
 | `/{course}/quiz` | Assessment mode — randomised questions, linear flow, one submission per student |
+
+### Code exercises
+
+Interactive React exercises use a dynamic route:
+
+| Route | Description |
+|---|---|
+| `/codeEditor/{exerciseId}` | Code exercise — Monaco editor + Sandpack preview, task validation, submit to Google Sheets |
+
+The `exerciseId` maps to a folder under `data/templates/`. Each folder contains `App.tsx` (starter code), `tasks.json` (validation rules), and `meta.json` (metadata + guides).
+
+| Exercise ID | Title |
+|---|---|
+| `use-state-one` | Simple useState exercise |
+
+Students identify via email (stored in `localStorage` by the landing page). The email is read client-side by `ExercisePage` at submit time.
+
+To add a new exercise, create a new folder under `data/templates/` with the three required files.
 
 ### Available courses
 

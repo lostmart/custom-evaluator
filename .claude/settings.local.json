@@ -34,7 +34,13 @@
       "WebFetch(domain:github.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(gh api:*)",
-      "Bash(git:*)"
+      "Bash(git:*)",
+      "Read(//c/Users$CM7100-M9DP4O11CIGV/Documents/code/**)",
+      "Bash(\"/c/Program Files/nodejs/npm\" install jose)",
+      "Read(//c/Users/$CM7100-M9DP4O11CIGV/Documents/code/custom-evaluator/data/templates/use-state-one/**)",
+      "Bash(mkdir -p \"/c/Users/$CM7100-M9DP4O11CIGV/Documents/code/custom-evaluator/src/app/codeEditor/[exerciseId]\")",
+      "Read(//c/Users/$CM7100-M9DP4O11CIGV/Documents/code/custom-evaluator/src/app/codeEditor//**)",
+      "Bash(rm:*)"
     ]
   }
 }

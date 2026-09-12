@@ -1,0 +1,9 @@
+{
+  "sheetName": "react1",
+  "courseTitle": "use state one",
+  "guides": [
+    "Link the button to the `changeValue` function",
+    "Use `useState` to manage state",
+    "The button must update the displayed message when clicked"
+  ]
+}
