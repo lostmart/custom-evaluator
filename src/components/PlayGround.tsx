@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useCallback, useRef, useState } from "react";
 import {
   SandpackProvider,
   SandpackPreview,
@@ -15,22 +15,30 @@ const PlayGround = ({
   defaultCode: string;
   onCodeChange?: (code: string) => void;
 }) => {
-  // The code Sandpack is currently running (updated on "Run")
   const [runCode, setRunCode] = useState(defaultCode);
-  // Key to force SandpackProvider re-mount on Run
   const [runKey, setRunKey] = useState(0);
-  // Track current editor content for the Run button
-  const [editorCode, setEditorCode] = useState(defaultCode);
+  const editorCodeRef = useRef(defaultCode);
 
   function handleEditorChange(value: string) {
-    setEditorCode(value);
+    editorCodeRef.current = value;
     onCodeChange?.(value);
   }
 
-  function handleRun() {
-    setRunCode(editorCode);
+  const handleRun = useCallback(() => {
+    setRunCode(editorCodeRef.current);
     setRunKey((k) => k + 1);
-  }
+  }, []);
+
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.ctrlKey && e.key === "Enter") {
+        e.preventDefault();
+        handleRun();
+      }
+    }
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [handleRun]);
 
   return (
     <div className="flex h-full w-full" style={{ minHeight: "60vh" }}>
@@ -43,6 +51,7 @@ const PlayGround = ({
           theme="vs-dark"
           height="100%"
           onChange={handleEditorChange}
+          onRun={handleRun}
           disablePaste
         />
       </div>
@@ -57,6 +66,7 @@ const PlayGround = ({
           <button
             onClick={handleRun}
             className="px-3 py-0.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium rounded transition"
+            title="Ctrl+Enter"
           >
             Run
           </button>

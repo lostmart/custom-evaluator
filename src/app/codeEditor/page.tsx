@@ -17,6 +17,8 @@ const page = () => {
     <ExercisePage
       defaultCode={defaultCode}
       tasks={tasks}
+      sheetName="react1"
+      courseTitle="use state one"
       guides={[
         <Fragment key={0}>
           Link the button to the `changeValue` function

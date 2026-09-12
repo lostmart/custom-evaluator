@@ -13,9 +13,10 @@ type CodeEditorProps = {
 	disablePaste?: boolean
 	onChange?: (value: string) => void
 	onValidate?: (markers: editor.IMarker[]) => void
+	onRun?: () => void
 }
 
-export default function CodeEditor({ filename, defaultValue = "", defaultLanguage = "javascript", theme = "vs-dark", height = "300px", disablePaste = false, onChange, onValidate }: CodeEditorProps) {
+export default function CodeEditor({ filename, defaultValue = "", defaultLanguage = "javascript", theme = "vs-dark", height = "300px", disablePaste = false, onChange, onValidate, onRun }: CodeEditorProps) {
 	const handleMount: OnMount = (editorInstance, monaco) => {
 		if (disablePaste) {
 			// Block paste on Monaco's internal textarea
@@ -24,6 +25,10 @@ export default function CodeEditor({ filename, defaultValue = "", defaultLanguag
 			editorInstance.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyV, () => null)
 			editorInstance.addCommand(monaco.KeyMod.Shift | monaco.KeyCode.Insert, () => null)
 		}
+
+		editorInstance.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => {
+			onRun?.()
+		})
 
 		monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
 			...monaco.languages.typescript.typescriptDefaults.getCompilerOptions(),

@@ -2,6 +2,7 @@
 
 import { ReactNode, useState } from "react";
 import PlayGround from "./PlayGround";
+import { useUser } from "@/context/UserContext";
 
 type TaskCheck = {
   type: "code-contains";
@@ -22,10 +23,16 @@ type ExercisePageProps = {
   defaultCode: string;
   guides: ReactNode[];
   tasks: Task[];
+  sheetName: string;
+  courseTitle: string;
 };
 
-export default function ExercisePage({ defaultCode, guides, tasks }: ExercisePageProps) {
+export default function ExercisePage({ defaultCode, guides, tasks, sheetName, courseTitle }: ExercisePageProps) {
+  const { user } = useUser();
   const [currentCode, setCurrentCode] = useState(defaultCode);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const completedIds = tasks
     .filter((task) => evaluateTask(task, currentCode))
@@ -33,9 +40,35 @@ export default function ExercisePage({ defaultCode, guides, tasks }: ExercisePag
 
   const allDone = completedIds.length === tasks.length;
 
-  function handleSubmit() {
-    console.log("=== Student submission ===");
-    console.log(currentCode);
+  async function handleSubmit() {
+    setSubmitting(true);
+    setError(null);
+
+    try {
+      const res = await fetch("/api/study-submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sheetName,
+          courseTitle,
+          email: user.email,
+          code: currentCode,
+          submittedAt: new Date().toISOString(),
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.ok) {
+        setError(data.error || "Submission failed");
+      } else {
+        setSubmitted(true);
+      }
+    } catch {
+      setError("Network error — try again");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -75,13 +108,16 @@ export default function ExercisePage({ defaultCode, guides, tasks }: ExercisePag
           </ul>
         </div>
 
-        <button
-          onClick={handleSubmit}
-          disabled={!allDone}
-          className="shrink-0 px-5 py-2 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-medium rounded transition"
-        >
-          Submit
-        </button>
+        <div className="shrink-0 flex flex-col items-end gap-1">
+          <button
+            onClick={handleSubmit}
+            disabled={!allDone || submitting || submitted}
+            className="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-medium rounded transition"
+          >
+            {submitted ? "Submitted" : submitting ? "Submitting..." : "Submit"}
+          </button>
+          {error && <p className="text-red-400 text-xs">{error}</p>}
+        </div>
       </div>
     </div>
   );
