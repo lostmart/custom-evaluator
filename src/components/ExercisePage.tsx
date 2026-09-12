@@ -48,7 +48,7 @@ export default function ExercisePage({ defaultCode, testCode, guides }: Exercise
   return (
     <div className="h-screen w-screen flex flex-col bg-zinc-900 overflow-hidden">
       {/* Playground — fills remaining space */}
-      <div className="flex-1 min-h-0">
+      <div className="min-h-0">
         <PlayGround
           defaultCode={defaultCode}
           testCode={testCode}
@@ -57,7 +57,7 @@ export default function ExercisePage({ defaultCode, testCode, guides }: Exercise
       </div>
 
       {/* Guides + Submit + Results panel */}
-      <div className="shrink-0 max-h-56 overflow-y-auto bg-zinc-800 border-t border-zinc-700 px-6 py-4 flex items-start gap-8">
+      <div className="shrink-0 overflow-y-auto bg-zinc-800 border-t border-zinc-700 px-6 py-4 flex items-start gap-8">
         {/* Guides */}
         <div className="flex-1 text-zinc-100 text-sm">
           <h2 className="font-semibold text-zinc-300 mb-2">Guide</h2>
