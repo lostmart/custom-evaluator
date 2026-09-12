@@ -33,7 +33,8 @@
       "Bash(rm -rf .next)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "Bash(gh api:*)"
+      "Bash(gh api:*)",
+      "Bash(git:*)"
     ]
   }
 }
