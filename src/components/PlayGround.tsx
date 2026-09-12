@@ -1,58 +1,12 @@
 "use client";
 
-import type { editor } from "monaco-editor";
+import { useState } from "react";
 import {
   SandpackProvider,
   SandpackPreview,
   SandpackConsole,
-  useSandpack,
-  useActiveCode,
 } from "@codesandbox/sandpack-react";
 import CodeEditor from "./question/CodeEditor";
-
-function RefreshButton() {
-  const { sandpack } = useSandpack();
-  return (
-    <button
-      onClick={() => sandpack.resetAllFiles()}
-      className="text-zinc-400 hover:text-zinc-200 transition text-sm px-1"
-      aria-label="Refresh preview"
-      title="Refresh preview"
-    >
-      ↻
-    </button>
-  );
-}
-
-function EditorWithSync({
-  defaultCode,
-  onValidate,
-  onCodeChange,
-}: {
-  defaultCode: string;
-  onValidate: (markers: editor.IMarker[]) => void;
-  onCodeChange?: (code: string) => void;
-}) {
-  const { updateCode } = useActiveCode();
-
-  function handleChange(value: string) {
-    updateCode(value);
-    onCodeChange?.(value);
-  }
-
-  return (
-    <CodeEditor
-      filename="App.tsx"
-      defaultLanguage="typescript"
-      defaultValue={defaultCode}
-      onValidate={onValidate}
-      theme="vs-dark"
-      height="100%"
-      onChange={handleChange}
-      disablePaste
-    />
-  );
-}
 
 const PlayGround = ({
   defaultCode,
@@ -61,29 +15,60 @@ const PlayGround = ({
   defaultCode: string;
   onCodeChange?: (code: string) => void;
 }) => {
+  // The code Sandpack is currently running (updated on "Run")
+  const [runCode, setRunCode] = useState(defaultCode);
+  // Key to force SandpackProvider re-mount on Run
+  const [runKey, setRunKey] = useState(0);
+  // Track current editor content for the Run button
+  const [editorCode, setEditorCode] = useState(defaultCode);
+
+  function handleEditorChange(value: string) {
+    setEditorCode(value);
+    onCodeChange?.(value);
+  }
+
+  function handleRun() {
+    setRunCode(editorCode);
+    setRunKey((k) => k + 1);
+  }
+
   return (
-    <SandpackProvider
-      template="react-ts"
-      files={{ "/App.tsx": defaultCode }}
-      options={{ autorun: true, recompileMode: "delayed", recompileDelay: 700, activeFile: "/App.tsx" }}
-    >
-      <div className="flex h-full w-full" style={{ minHeight: "60vh" }}>
-        <div className="flex-1 flex flex-col min-w-0 border-r border-zinc-700">
-          <EditorWithSync
-            defaultCode={defaultCode}
-            onValidate={(m) => console.log(m)}
-            onCodeChange={onCodeChange}
-          />
+    <div className="flex h-full w-full" style={{ minHeight: "60vh" }}>
+      {/* Editor — left */}
+      <div className="flex-1 flex flex-col min-w-0 border-r border-zinc-700">
+        <CodeEditor
+          filename="App.tsx"
+          defaultLanguage="typescript"
+          defaultValue={defaultCode}
+          theme="vs-dark"
+          height="100%"
+          onChange={handleEditorChange}
+          disablePaste
+        />
+      </div>
+
+      {/* Output — right */}
+      <div className="flex-1 flex flex-col min-w-0">
+        {/* Toolbar */}
+        <div className="flex items-center gap-2 px-3 py-2 bg-zinc-800 border-b border-zinc-700 shrink-0">
+          <div className="flex-1 bg-zinc-700 rounded px-3 py-0.5 text-xs text-zinc-400 font-mono">
+            Preview
+          </div>
+          <button
+            onClick={handleRun}
+            className="px-3 py-0.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium rounded transition"
+          >
+            Run
+          </button>
         </div>
 
-        <div className="flex-1 flex flex-col min-w-0">
-          <div className="flex items-center gap-2 px-3 py-2 bg-zinc-800 border-b border-zinc-700 shrink-0">
-            <div className="flex-1 bg-zinc-700 rounded px-3 py-0.5 text-xs text-zinc-400 font-mono">
-              Preview
-            </div>
-            <RefreshButton />
-          </div>
-
+        {/* Sandpack preview — re-mounts on Run */}
+        <SandpackProvider
+          key={runKey}
+          template="react-ts"
+          files={{ "/App.tsx": runCode }}
+          options={{ autorun: true, activeFile: "/App.tsx" }}
+        >
           <SandpackPreview
             style={{ flex: 1 }}
             showNavigator={false}
@@ -98,9 +83,9 @@ const PlayGround = ({
               <SandpackConsole style={{ height: "100%" }} />
             </div>
           </div>
-        </div>
+        </SandpackProvider>
       </div>
-    </SandpackProvider>
+    </div>
   );
 };
 

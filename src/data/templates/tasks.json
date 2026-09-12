@@ -20,7 +20,7 @@
     "description": "Display \"clicked\" in the message div",
     "check": {
       "type": "code-contains",
-      "pattern": "setState\\s*\\(\\s*[\"']clicked[\"']\\s*\\)"
+      "pattern": "(?=.*setState\\s*\\(\\s*[\"']clicked[\"']\\s*\\))(?=.*\\{message\\})"
     }
   }
 ]
