@@ -1,0 +1,29 @@
+[
+  {
+    "id": "task1",
+    "description": "Wire the button to the changeValue function",
+    "check": {
+      "type": "button-connected",
+      "targetSelector": "div[style]",
+      "initialText": "dynamic message here !"
+    }
+  },
+  {
+    "id": "task2",
+    "description": "Update the state when the button is clicked",
+    "check": {
+      "type": "dom-changed",
+      "targetSelector": "div[style]",
+      "notEqual": "dynamic message here !"
+    }
+  },
+  {
+    "id": "task3",
+    "description": "Display \"clicked\" in the message div",
+    "check": {
+      "type": "dom-equals",
+      "targetSelector": "div[style]",
+      "expected": "clicked"
+    }
+  }
+]

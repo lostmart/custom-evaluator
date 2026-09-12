@@ -10,6 +10,20 @@ import {
 import CodeEditor from "./question/CodeEditor";
 
 
+function RefreshButton() {
+  const { sandpack } = useSandpack();
+  return (
+    <button
+      onClick={() => sandpack.resetAllFiles()}
+      className="text-zinc-400 hover:text-zinc-200 transition text-sm px-1"
+      aria-label="Refresh preview"
+      title="Refresh preview"
+    >
+      ↻
+    </button>
+  );
+}
+
 function EditorWithSync({
   defaultCode,
   onValidate,
@@ -40,34 +54,52 @@ function EditorWithSync({
   );
 }
 
+const VERIFIER_CODE = `
+import { createRoot } from "react-dom/client";
+import App from "./App";
+
+let consoleFired = false;
+const _log = console.log;
+console.log = (...args) => { consoleFired = true; _log.apply(console, args); };
+
+const root = document.getElementById("root");
+if (root) createRoot(root).render(<App />);
+
+document.addEventListener("click", (e) => {
+  const target = e.target as HTMLElement;
+  if (target.tagName !== "BUTTON") return;
+  consoleFired = false;
+  setTimeout(() => {
+    const selectors = ["div[style]", "p", "span", "output"];
+    const elements: Record<string, string> = {};
+    selectors.forEach(sel => {
+      const el = document.querySelector(sel);
+      if (el) elements[sel] = el.textContent?.trim() ?? "";
+    });
+    window.parent.postMessage({ type: "sandpack-check", consoleFired, elements }, "*");
+  }, 150);
+}, true);
+`;
+
 const PlayGround = ({
   defaultCode,
-  testCode,
-  showTests = false,
   onCodeChange,
 }: {
   defaultCode: string;
-  testCode?: string;
-  showTests?: boolean;
   onCodeChange?: (code: string) => void;
 }) => {
   const handleEditorValidation = (markers: editor.IMarker[]) => {
     console.log(markers);
   };
 
-  const files: Record<string, string> = { "/App.tsx": defaultCode };
-  if (testCode) files["/App.test.tsx"] = testCode;
-
   return (
     <SandpackProvider
       template="react-ts"
-      files={files}
-      options={{ autorun: true }}
-      customSetup={{
-        dependencies: {
-          "@testing-library/react": "^14.0.0",
-        },
+      files={{
+        "/App.tsx": defaultCode,
+        "/index.tsx": { code: VERIFIER_CODE, hidden: true },
       }}
+      options={{ autorun: true, recompileMode: "immediate", activeFile: "/App.tsx" }}
     >
       <div className="flex h-full w-full" style={{ minHeight: "60vh" }}>
         {/* Editor — left */}
@@ -82,6 +114,7 @@ const PlayGround = ({
             <div className="flex-1 bg-zinc-700 rounded px-3 py-0.5 text-xs text-zinc-400 font-mono">
               Preview
             </div>
+            <RefreshButton />
           </div>
 
           {/* Sandpack preview */}

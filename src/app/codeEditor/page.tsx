@@ -8,18 +8,26 @@ const page = () => {
     path.join(process.cwd(), "data/templates/App.tsx"),
     "utf-8",
   );
-  const testCode = fs.readFileSync(
-    path.join(process.cwd(), "data/templates/tests/App.test.tsx"),
-    "utf-8",
+
+  const tasks = JSON.parse(
+    fs.readFileSync(path.join(process.cwd(), "data/templates/tasks.json"), "utf-8"),
   );
 
   return (
     <ExercisePage
       defaultCode={defaultCode}
-      testCode={testCode}
+      tasks={tasks}
       guides={[
-        <Fragment key={0}>Use <code className="font-mono bg-cyan-950 px-1">useState</code> to manage state</Fragment>,
-        <Fragment key={1}>The button must update the displayed message when clicked</Fragment>,
+        <Fragment key={0}>
+          Link the button to the `changeValue` function
+        </Fragment>,
+        <Fragment key={1}>
+          Use <code className="font-mono bg-cyan-950 px-1">useState</code> to
+          manage state
+        </Fragment>,
+        <Fragment key={2}>
+          The button must update the displayed message when clicked
+        </Fragment>,
       ]}
     />
   );

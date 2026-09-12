@@ -30,6 +30,7 @@ export async function POST(req: NextRequest) {
       {
         configFile: false,
         watch: false,
+        root: process.cwd(),
         reporters: ["json"],
         outputFile: { json: outputFile },
         environment: "jsdom",
@@ -38,6 +39,17 @@ export async function POST(req: NextRequest) {
         esbuild: {
           jsx: "automatic",
           jsxImportSource: "react",
+        },
+        resolve: {
+          alias: {
+            "react": path.join(process.cwd(), "node_modules/react"),
+            "react-dom": path.join(process.cwd(), "node_modules/react-dom"),
+            "react/jsx-runtime": path.join(process.cwd(), "node_modules/react/jsx-runtime"),
+            "@testing-library/react": path.join(process.cwd(), "node_modules/@testing-library/react"),
+          },
+        },
+        server: {
+          fs: { strict: false },
         },
       }
     )
@@ -55,8 +67,11 @@ export async function POST(req: NextRequest) {
       })
     )
 
+    const allRan = json.numTotalTests > 0
+    const noneFailed = json.numFailedTests === 0 && json.numFailedTestSuites === 0
+
     return NextResponse.json({
-      passed: json.numFailedTests === 0,
+      passed: allRan && noneFailed,
       tests,
     })
   } catch (err) {

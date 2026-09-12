@@ -3,15 +3,17 @@ import { useState } from "react";
 export default function App() {
   const [message, setState] = useState("The click will change this message !");
 
-  const changeValue = () => setState("clicked");
+  const changeValue = () => {
+    console.log("running the thing ")
+  }
 
   return (
     <>
       <h1>Simple Use State Exercise</h1>
 
-      <button onClick={changeValue}> Click me !</button>
+      <button> Click me !</button>
 
-      <div style={{ marginTop: "1rem" }}>{message}</div>
+      <div style={{ marginTop: "1rem" }}>dynamic message here !</div>
     </>
   );
 }
