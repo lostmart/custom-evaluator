@@ -9,40 +9,28 @@ import {
 } from "@codesandbox/sandpack-react";
 import CodeEditor from "./question/CodeEditor";
 
-const DEFAULT_CODE = `import {useState} from "react";
-
-export default function App() {
-  const [message, setState] = useState("nunca temas")
-
-  const chanegValue = ()=> setState("clicked !")
-  
-  return (
-    <>
-      <h1>Hello world</h1>
-  
-      <button onClick={chanegValue}> Click me !</button>
-
-      <div>{message}</div>
-    </>
-  )
-}`;
 
 function EditorWithSync({
+  defaultCode,
   onValidate,
+  onCodeChange,
 }: {
+  defaultCode: string;
   onValidate: (markers: editor.IMarker[]) => void;
+  onCodeChange?: (code: string) => void;
 }) {
   const { sandpack } = useSandpack();
 
   function handleChange(value: string) {
     sandpack.updateFile("/App.tsx", value);
+    onCodeChange?.(value);
   }
 
   return (
     <CodeEditor
       filename="App.tsx"
       defaultLanguage="typescript"
-      defaultValue={DEFAULT_CODE}
+      defaultValue={defaultCode}
       onValidate={onValidate}
       theme="vs-dark"
       height="100%"
@@ -52,21 +40,39 @@ function EditorWithSync({
   );
 }
 
-const PlayGround = () => {
+const PlayGround = ({
+  defaultCode,
+  testCode,
+  showTests = false,
+  onCodeChange,
+}: {
+  defaultCode: string;
+  testCode?: string;
+  showTests?: boolean;
+  onCodeChange?: (code: string) => void;
+}) => {
   const handleEditorValidation = (markers: editor.IMarker[]) => {
     console.log(markers);
   };
 
+  const files: Record<string, string> = { "/App.tsx": defaultCode };
+  if (testCode) files["/App.test.tsx"] = testCode;
+
   return (
     <SandpackProvider
       template="react-ts"
-      files={{ "/App.tsx": DEFAULT_CODE }}
+      files={files}
       options={{ autorun: true }}
+      customSetup={{
+        dependencies: {
+          "@testing-library/react": "^14.0.0",
+        },
+      }}
     >
-      <div className="flex h-full w-full" style={{ minHeight: "70vh" }}>
+      <div className="flex h-full w-full" style={{ minHeight: "60vh" }}>
         {/* Editor — left */}
         <div className="flex-1 flex flex-col min-w-0 border-r border-zinc-700">
-          <EditorWithSync onValidate={handleEditorValidation} />
+          <EditorWithSync defaultCode={defaultCode} onValidate={handleEditorValidation} onCodeChange={onCodeChange} />
         </div>
 
         {/* Output — right */}
@@ -94,6 +100,7 @@ const PlayGround = () => {
               <SandpackConsole style={{ height: "100%" }} />
             </div>
           </div>
+
         </div>
       </div>
     </SandpackProvider>
