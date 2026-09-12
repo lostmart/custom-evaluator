@@ -12,6 +12,7 @@ type TestResult = {
 type EvalResult = {
   passed: boolean;
   tests: TestResult[];
+  error?: string;
 };
 
 type ExercisePageProps = {
@@ -27,14 +28,18 @@ export default function ExercisePage({ defaultCode, testCode, guides }: Exercise
 
   async function handleSubmit() {
     setLoading(true);
+    setResult(null);
     try {
       const res = await fetch("/api/evaluate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code: currentCode }),
+        body: JSON.stringify({ code: currentCode, testCode }),
       });
       const data = await res.json();
+      if (data.error) throw new Error(data.error);
       setResult(data);
+    } catch {
+      setResult({ passed: false, tests: [], error: "Evaluation failed. Please try again." });
     } finally {
       setLoading(false);
     }
@@ -69,22 +74,26 @@ export default function ExercisePage({ defaultCode, testCode, guides }: Exercise
             <h2 className="font-semibold text-zinc-300 mb-2">
               Results{" "}
               <span className={result.passed ? "text-emerald-400" : "text-red-400"}>
-                {result.passed ? "All passed" : "Some failed"}
+                {result.error ? "Error" : result.passed ? "All passed" : "Some failed"}
               </span>
             </h2>
-            <ul className="space-y-1">
-              {result.tests.map((t, i) => (
-                <li key={i} className="flex items-start gap-2 font-mono text-xs">
-                  <span className={t.passed ? "text-emerald-400" : "text-red-400"}>
-                    {t.passed ? "✓" : "✗"}
-                  </span>
-                  <span className="text-zinc-300">{t.name}</span>
-                  {t.error && (
-                    <span className="text-red-400 truncate">{t.error.split("\n")[0]}</span>
-                  )}
-                </li>
-              ))}
-            </ul>
+            {result.error ? (
+              <p className="text-red-400 text-xs">{result.error}</p>
+            ) : (
+              <ul className="space-y-1">
+                {result.tests.map((t, i) => (
+                  <li key={i} className="flex items-start gap-2 font-mono text-xs">
+                    <span className={t.passed ? "text-emerald-400" : "text-red-400"}>
+                      {t.passed ? "✓" : "✗"}
+                    </span>
+                    <span className="text-zinc-300">{t.name}</span>
+                    {t.error && (
+                      <span className="text-red-400 truncate">{t.error.split("\n")[0]}</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         )}
 
