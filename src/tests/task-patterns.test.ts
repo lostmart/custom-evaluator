@@ -210,9 +210,8 @@ describe("use-state-one task patterns", () => {
     })
 
     it("matches with let declaration", () => {
-      // pattern checks `changeValue =` followed by arrow and setState
-      expect(matches(p, `let changeValue = () => setState("clicked")`)).toBe(false)
-      // only const is expected based on typical React patterns — just testing the regex
+      // pattern checks `changeValue =` followed by arrow and setState — let is valid too
+      expect(matches(p, `let changeValue = () => setState("clicked")`)).toBe(true)
     })
 
     it("rejects changeValue without setState", () => {
