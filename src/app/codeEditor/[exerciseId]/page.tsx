@@ -32,6 +32,7 @@ export default async function CodeEditorPage({
       courseTitle={meta.courseTitle}
       guides={meta.guides}
       timerSeconds={meta.timerSeconds}
+      tips={meta.tips}
       extraFiles={extraFiles}
     />
   );

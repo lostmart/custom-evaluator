@@ -1,11 +1,15 @@
 {
   "sheetName": "components-props",
   "courseTitle": "React Components & Props",
-  "timerSeconds": 300,
+  "timerSeconds": 500,
   "guides": [
     "Pass data to ONE ArticleComp using hard-coded props in App.js",
     "Define a const articlesList with at least 3 article objects",
-    "Map over articlesList to render an ArticleComp for each item",
-    "Add a unique key prop to each rendered ArticleComp so React works correctly"
+    "ADD (don't delete the previous article) the other articles to the DOM. Map over articlesList to render an ArticleComp for each item",
+    "Add a unique key prop to each rendered ArticleComp from the articlesList so React works correctly"
+  ],
+  "tips": [
+    "You can use the flowerUrl variable to pass the image to the ArticleComp",
+    "In ArticleComp you only need to change the ArticleProps type"
   ]
 }

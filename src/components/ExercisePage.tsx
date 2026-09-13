@@ -12,11 +12,23 @@ type TaskCheck = {
 type Task = {
   id: string;
   description: string;
+  points: number;
   check: TaskCheck;
 };
 
 function evaluateTask(task: Task, code: string): boolean {
   return new RegExp(task.check.pattern, "s").test(code);
+}
+
+function calcScore(tasks: Task[], code: string): number {
+  return tasks.reduce(
+    (sum, t) => sum + (evaluateTask(t, code) ? t.points : 0),
+    0,
+  );
+}
+
+function maxScore(tasks: Task[]): number {
+  return tasks.reduce((sum, t) => sum + t.points, 0);
 }
 
 function formatTime(s: number) {
@@ -129,6 +141,7 @@ type ExercisePageProps = {
   sheetName: string;
   courseTitle: string;
   timerSeconds: number;
+  tips?: string[];
   extraFiles?: Record<string, string>;
 };
 
@@ -139,10 +152,12 @@ export default function ExercisePage({
   sheetName,
   courseTitle,
   timerSeconds,
+  tips = [],
   extraFiles,
 }: ExercisePageProps) {
   const { user } = useUser();
   const [currentCode, setCurrentCode] = useState(defaultCode);
+  const currentCodeRef = useRef(defaultCode);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [timedOut, setTimedOut] = useState(false);
@@ -166,7 +181,9 @@ export default function ExercisePage({
             sheetName,
             courseTitle,
             email: user.email,
-            code: "not finished",
+            code: currentCodeRef.current,
+            score: calcScore(tasks, currentCodeRef.current),
+            maxScore: maxScore(tasks),
             submittedAt: new Date().toISOString(),
           }),
         }).catch(() => {});
@@ -211,10 +228,27 @@ export default function ExercisePage({
                 >
                   <span className="mt-0.5 text-zinc-600">○</span>
                   {task.description}
+                  <span className="text-zinc-600 text-xs">
+                    ({task.points}pts)
+                  </span>
                 </li>
               ))}
             </ul>
           </div>
+
+          {tips.length > 0 && (
+            <div className="flex flex-col gap-2">
+              <h2 className="text-sm font-semibold text-zinc-300">Tips</h2>
+              <ul className="space-y-1.5">
+                {tips.map((tip, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-zinc-400">
+                    <span className="mt-0.5 text-amber-400">*</span>
+                    {tip}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <div className="bg-zinc-900 border border-zinc-700 rounded-sm px-4 py-3 flex items-start gap-3">
             <span className="text-amber-400 text-base mt-0.5">⏱</span>
@@ -246,6 +280,8 @@ export default function ExercisePage({
     .map((task) => task.id);
 
   const allDone = completedIds.length === tasks.length;
+  const score = calcScore(tasks, currentCode);
+  const max = maxScore(tasks);
 
   async function handleSubmit() {
     if (timerRef.current) clearInterval(timerRef.current);
@@ -261,6 +297,8 @@ export default function ExercisePage({
           courseTitle,
           email: user.email,
           code: currentCode,
+          score: calcScore(tasks, currentCode),
+          maxScore: maxScore(tasks),
           submittedAt: new Date().toISOString(),
         }),
       });
@@ -281,7 +319,7 @@ export default function ExercisePage({
 
   if (submitted) {
     return (
-      <div className="h-screen w-screen flex items-center justify-center bg-zinc-900">
+      <div className="min-h-screen w-screen flex items-center justify-center bg-zinc-900">
         <div className="flex flex-col items-center gap-4 text-center">
           <span className="text-emerald-400 text-5xl">✓</span>
           <h1 className="text-2xl font-semibold text-zinc-100">
@@ -303,8 +341,7 @@ export default function ExercisePage({
           <span className="text-red-400 text-5xl">⏱</span>
           <h1 className="text-2xl font-semibold text-zinc-100">Time's up</h1>
           <p className="text-sm text-zinc-400 max-w-sm">
-            Time is up. Your attempt has been recorded. You
-            can close this tab.
+            Time is up. Your attempt has been recorded. You can close this tab.
           </p>
         </div>
       </div>
@@ -314,15 +351,24 @@ export default function ExercisePage({
   const urgent = timeLeft <= 30;
 
   return (
-    <div className="h-screen w-screen flex flex-col bg-zinc-900 overflow-hidden">
+    <div className="min-h-screen w-screen flex flex-col bg-zinc-900 overflow-hidden">
       <div className="min-h-0">
-        <PlayGround defaultCode={defaultCode} onCodeChange={setCurrentCode} extraFiles={extraFiles} />
+        <PlayGround
+          defaultCode={defaultCode}
+          onCodeChange={(code) => {
+            setCurrentCode(code);
+            currentCodeRef.current = code;
+          }}
+          extraFiles={extraFiles}
+        />
       </div>
 
       <div className="shrink-0 overflow-y-auto bg-zinc-800 border-t border-zinc-700 px-6 py-4 flex items-start gap-8">
         {/* Tasks checklist */}
         <div className="flex-1 text-sm">
-          <h2 className="font-semibold text-zinc-300 mb-2">Tasks</h2>
+          <h2 className="font-semibold text-zinc-300 mb-2">
+            Tasks — {score}/{max}
+          </h2>
           <ul className="space-y-1">
             {tasks.map((task) => {
               const done = completedIds.includes(task.id);
@@ -333,6 +379,9 @@ export default function ExercisePage({
                   </span>
                   <span className={done ? "text-zinc-200" : "text-zinc-400"}>
                     {task.description}
+                    <span className="ml-1 text-zinc-500 text-xs">
+                      ({task.points}pts)
+                    </span>
                   </span>
                 </li>
               );
