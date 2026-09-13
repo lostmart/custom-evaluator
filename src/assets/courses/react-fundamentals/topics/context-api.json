@@ -1,0 +1,116 @@
+{
+  "id": "context-api",
+  "courseId": "react-fundamentals",
+  "title": "Context API (useContext)",
+  "summary": "The Context API passes data through the component tree without threading props through every level (prop drilling). Create a context with createContext(), wrap a subtree with a Provider that supplies the value, and consume it in any descendant with useContext(). Context is ideal for truly global data like the current user, theme, or locale — not for every piece of shared state.",
+  "keyPoints": [
+    "Create: const ThemeContext = createContext(defaultValue)",
+    "Provide: <ThemeContext.Provider value={theme}>...</ThemeContext.Provider>",
+    "Consume: const theme = useContext(ThemeContext)",
+    "Context solves prop drilling — passing props through many intermediate components",
+    "When the Provider value changes, all consumers re-render",
+    "Use context for truly global data: user, theme, locale, auth status",
+    "Do not overuse context for all state — it can cause unnecessary re-renders"
+  ],
+  "externalLinks": [
+    {
+      "label": "React Docs — Passing Data Deeply with Context",
+      "url": "https://react.dev/learn/passing-data-deeply-with-context"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "ca-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What problem does the Context API solve?",
+      "options": [
+        "Making API calls faster",
+        "Passing data through many component levels without prop drilling",
+        "Replacing useState entirely",
+        "Adding animations to components"
+      ],
+      "answer": "Passing data through many component levels without prop drilling",
+      "explanation": "Prop drilling means passing a prop through many intermediate components that don't use it. Context lets any descendant access the value directly."
+    },
+    {
+      "id": "ca-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which correctly creates a context with a default value?",
+      "options": [
+        "const ThemeContext = useContext('light')",
+        "const ThemeContext = createContext('light')",
+        "const ThemeContext = new Context('light')",
+        "const ThemeContext = Context.create('light')"
+      ],
+      "answer": "const ThemeContext = createContext('light')",
+      "explanation": "createContext(defaultValue) creates a context object. The default value is used only when a component reads context without a matching Provider above it."
+    },
+    {
+      "id": "ca-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "How do you read a context value inside a functional component?",
+      "options": [
+        "const theme = ThemeContext.value",
+        "const theme = useContext(ThemeContext)",
+        "const theme = ThemeContext.get()",
+        "const theme = this.context.theme"
+      ],
+      "answer": "const theme = useContext(ThemeContext)",
+      "explanation": "useContext(SomeContext) returns the current value from the nearest Provider of that context above in the tree."
+    },
+    {
+      "id": "ca-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "What happens when the Provider's value changes?",
+      "options": [
+        "Nothing — context values are immutable",
+        "Only the Provider re-renders",
+        "All components consuming that context re-render",
+        "Only the nearest consumer re-renders"
+      ],
+      "answer": "All components consuming that context re-render",
+      "explanation": "When the value prop of a Provider changes, React re-renders every component that calls useContext for that context, regardless of depth."
+    },
+    {
+      "id": "ca-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Which is NOT a good use case for Context?",
+      "options": [
+        "Current authenticated user",
+        "UI theme (dark/light mode)",
+        "A form input's local value",
+        "App-wide locale/language setting"
+      ],
+      "answer": "A form input's local value",
+      "explanation": "A form input's value is local state — it only matters to that component. Context is for data that many components across the tree need to access."
+    },
+    {
+      "id": "ca-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "What is the role of the Provider component?",
+      "options": [
+        "It creates the context",
+        "It wraps a subtree and supplies the context value to all descendants",
+        "It consumes the context value",
+        "It prevents child components from re-rendering"
+      ],
+      "answer": "It wraps a subtree and supplies the context value to all descendants",
+      "explanation": "The Provider makes the value available to any descendant that calls useContext. Without a Provider, consumers get the default value from createContext."
+    },
+    {
+      "id": "ca-ex-07",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Complete the code to read the theme from context:\n\nconst ThemeContext = createContext('light')",
+      "code": "function ThemedButton() {\n  const theme = // read context here\n  return <button className={theme}>Click</button>\n}",
+      "answer": "function ThemedButton() {\n  const theme = useContext(ThemeContext)\n  return <button className={theme}>Click</button>\n}",
+      "explanation": "useContext(ThemeContext) reads the current value from the nearest ThemeContext.Provider ancestor."
+    }
+  ]
+}

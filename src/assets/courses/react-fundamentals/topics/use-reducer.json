@@ -1,0 +1,116 @@
+{
+  "id": "use-reducer",
+  "courseId": "react-fundamentals",
+  "title": "useReducer",
+  "summary": "useReducer manages complex state logic using a reducer function, following the pattern: (state, action) => newState. You dispatch actions (plain objects with a type field) and the reducer returns the new state. It is useful when state has multiple sub-values or when the next state depends on the previous one in complex ways. Often paired with Context for lightweight global state management.",
+  "keyPoints": [
+    "const [state, dispatch] = useReducer(reducer, initialState)",
+    "Reducer signature: function reducer(state, action) { return newState }",
+    "Actions are plain objects: { type: 'INCREMENT' } or { type: 'SET_NAME', payload: 'Alice' }",
+    "Dispatch triggers the reducer: dispatch({ type: 'INCREMENT' })",
+    "Use a switch statement in the reducer to handle different action types",
+    "Prefer useReducer over useState when state logic is complex",
+    "Combine with Context to create a lightweight global state store"
+  ],
+  "externalLinks": [
+    {
+      "label": "React Docs — useReducer",
+      "url": "https://react.dev/reference/react/useReducer"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "ur-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What does useReducer return?",
+      "options": [
+        "A single state value",
+        "An array of [state, dispatch]",
+        "An object { state, setState }",
+        "A function that returns the next state"
+      ],
+      "answer": "An array of [state, dispatch]",
+      "explanation": "Like useState, useReducer returns a pair: the current state and a dispatch function to send actions to the reducer."
+    },
+    {
+      "id": "ur-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What is a reducer function?",
+      "options": [
+        "A function that reduces the size of the state",
+        "A pure function that takes (state, action) and returns the new state",
+        "A function that runs after every render",
+        "A function that dispatches actions"
+      ],
+      "answer": "A pure function that takes (state, action) and returns the new state",
+      "explanation": "The reducer calculates the next state based on the current state and the action dispatched. It must be pure — no side effects, always return a new state object."
+    },
+    {
+      "id": "ur-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "What is wrong with this reducer?\n\nfunction reducer(state, action) {\n  switch (action.type) {\n    case 'INCREMENT':\n      state.count += 1\n      return state\n  }\n}",
+      "options": [
+        "The switch is missing a default case",
+        "It mutates the existing state object instead of returning a new one",
+        "The action type should be lowercase",
+        "useReducer does not support switch statements"
+      ],
+      "answer": "It mutates the existing state object instead of returning a new one",
+      "explanation": "Mutating state directly (state.count += 1) breaks React's change detection. Return a new object: return { ...state, count: state.count + 1 }."
+    },
+    {
+      "id": "ur-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "How do you trigger a state update with useReducer?",
+      "options": [
+        "setState({ type: 'INCREMENT' })",
+        "dispatch({ type: 'INCREMENT' })",
+        "reducer({ type: 'INCREMENT' })",
+        "useReducer({ type: 'INCREMENT' })"
+      ],
+      "answer": "dispatch({ type: 'INCREMENT' })",
+      "explanation": "The dispatch function sends an action object to the reducer. React calls the reducer with the current state and the action, then updates state with the result."
+    },
+    {
+      "id": "ur-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "When should you prefer useReducer over useState?",
+      "options": [
+        "Always — useReducer is the newer, better API",
+        "When state is a single boolean or string",
+        "When state has multiple related values or complex update logic",
+        "Only when using class components"
+      ],
+      "answer": "When state has multiple related values or complex update logic",
+      "explanation": "useReducer shines when state transitions are complex, have multiple sub-values, or when the next state depends on the previous in non-trivial ways. For simple state, useState is fine."
+    },
+    {
+      "id": "ur-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "How do you pass data along with an action?\n\ndispatch(???)",
+      "options": [
+        "dispatch('SET_NAME', 'Alice')",
+        "dispatch({ type: 'SET_NAME', payload: 'Alice' })",
+        "dispatch({ 'SET_NAME': 'Alice' })",
+        "dispatch(SET_NAME('Alice'))"
+      ],
+      "answer": "dispatch({ type: 'SET_NAME', payload: 'Alice' })",
+      "explanation": "Actions are plain objects with a type field. Extra data is conventionally put in a payload field (or any other field). The reducer reads action.payload to use the data."
+    },
+    {
+      "id": "ur-ex-07",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Complete the reducer to handle INCREMENT and DECREMENT actions:",
+      "code": "function reducer(state, action) {\n  switch (action.type) {\n    case 'INCREMENT':\n      // return new state with count + 1\n    case 'DECREMENT':\n      // return new state with count - 1\n    default:\n      return state\n  }\n}",
+      "answer": "function reducer(state, action) {\n  switch (action.type) {\n    case 'INCREMENT':\n      return { ...state, count: state.count + 1 }\n    case 'DECREMENT':\n      return { ...state, count: state.count - 1 }\n    default:\n      return state\n  }\n}",
+      "explanation": "Each case returns a new state object with the count updated. Spread ...state to preserve other state properties. The default case returns the current state for unknown actions."
+    }
+  ]
+}

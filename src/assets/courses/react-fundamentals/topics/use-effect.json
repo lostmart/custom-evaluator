@@ -1,0 +1,116 @@
+{
+  "id": "use-effect",
+  "courseId": "react-fundamentals",
+  "title": "useEffect Hook",
+  "summary": "useEffect lets you perform side effects in functional components — data fetching, setting up subscriptions, or manually changing the DOM. It runs after the component renders. The dependency array controls when the effect re-runs: an empty array [] means it runs once after mount; listing dependencies means it re-runs when those values change; omitting the array means it runs after every render. Return a cleanup function to tear down subscriptions or timers.",
+  "keyPoints": [
+    "useEffect(() => { ... }) — runs after every render (rarely wanted)",
+    "useEffect(() => { ... }, []) — runs once after the first render (mount)",
+    "useEffect(() => { ... }, [dep1, dep2]) — re-runs when dep1 or dep2 change",
+    "Return a cleanup function: useEffect(() => { const id = setInterval(...); return () => clearInterval(id) }, [])",
+    "Cleanup runs before the effect re-runs and when the component unmounts",
+    "Common uses: fetching data, event listeners, timers, document title updates",
+    "Effects run after render, not during — they do not block the browser paint"
+  ],
+  "externalLinks": [
+    {
+      "label": "React Docs — Synchronizing with Effects",
+      "url": "https://react.dev/learn/synchronizing-with-effects"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "ue-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which useEffect runs only once when the component mounts?",
+      "options": [
+        "useEffect(() => { fetchData() })",
+        "useEffect(() => { fetchData() }, [])",
+        "useEffect(() => { fetchData() }, [true])",
+        "useEffect(() => { fetchData() }, null)"
+      ],
+      "answer": "useEffect(() => { fetchData() }, [])",
+      "explanation": "An empty dependency array [] tells React this effect has no dependencies, so it only needs to run once after the initial render."
+    },
+    {
+      "id": "ue-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "When does this effect re-run?\n\nuseEffect(() => {\n  document.title = `${count} items`\n}, [count])",
+      "options": [
+        "On every render",
+        "Only when count changes",
+        "Only on mount",
+        "Never — it is a static effect"
+      ],
+      "answer": "Only when count changes",
+      "explanation": "The dependency array [count] tells React to re-run this effect whenever the count value changes between renders."
+    },
+    {
+      "id": "ue-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "What does the cleanup function do?\n\nuseEffect(() => {\n  const id = setInterval(() => tick(), 1000)\n  return () => clearInterval(id)\n}, [])",
+      "options": [
+        "It runs before the effect runs for the first time",
+        "It clears the interval when the component unmounts",
+        "It prevents the effect from running",
+        "It runs on every render"
+      ],
+      "answer": "It clears the interval when the component unmounts",
+      "explanation": "The function returned from useEffect is the cleanup. For a mount-only effect ([]), cleanup runs when the component unmounts. This prevents memory leaks from lingering intervals."
+    },
+    {
+      "id": "ue-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "What happens if you omit the dependency array entirely?\n\nuseEffect(() => {\n  console.log('effect ran')\n})",
+      "options": [
+        "The effect runs once on mount",
+        "The effect never runs",
+        "The effect runs after every render",
+        "React throws an error"
+      ],
+      "answer": "The effect runs after every render",
+      "explanation": "No dependency array means the effect has no way to know when to skip. React runs it after every render, which is rarely what you want."
+    },
+    {
+      "id": "ue-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Why is this code problematic?\n\nuseEffect(() => {\n  setCount(count + 1)\n}, [count])",
+      "options": [
+        "useEffect cannot call setState",
+        "It creates an infinite loop — updating count triggers re-render, which re-runs the effect",
+        "count is not accessible inside useEffect",
+        "The dependency array is wrong"
+      ],
+      "answer": "It creates an infinite loop — updating count triggers re-render, which re-runs the effect",
+      "explanation": "The effect depends on count and also sets count. Every render triggers the effect, which changes count, which triggers another render — infinite loop."
+    },
+    {
+      "id": "ue-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which is the correct way to fetch data on mount?",
+      "options": [
+        "const data = useEffect(async () => await fetch('/api'))",
+        "useEffect(() => { fetch('/api').then(r => r.json()).then(setData) }, [])",
+        "useEffect(fetch('/api'), [])",
+        "useState(fetch('/api'))"
+      ],
+      "answer": "useEffect(() => { fetch('/api').then(r => r.json()).then(setData) }, [])",
+      "explanation": "useEffect's callback cannot be async directly (it must return undefined or a cleanup function). Use .then() chains or define an async function inside and call it."
+    },
+    {
+      "id": "ue-ex-07",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Complete the effect so it updates the document title whenever count changes:",
+      "code": "const [count, setCount] = useState(0)\n\nuseEffect(() => {\n  document.title = `Count: ${count}`\n}, /* dependency array here */)",
+      "answer": "const [count, setCount] = useState(0)\n\nuseEffect(() => {\n  document.title = `Count: ${count}`\n}, [count])",
+      "explanation": "Listing count in the dependency array tells React to re-run the effect whenever count changes, keeping the document title in sync."
+    }
+  ]
+}

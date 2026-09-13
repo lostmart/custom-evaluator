@@ -1,0 +1,142 @@
+[
+  {
+    "title": "useEffect",
+    "question": "What does useEffect with an empty dependency array [] do?",
+    "answer": "Runs the effect once after the first render (mount)",
+    "type": "multiple",
+    "options": ["Runs the effect before every render", "Runs the effect once after the first render (mount)", "Runs the effect only when state changes", "Never runs the effect"]
+  },
+  {
+    "title": "useEffect",
+    "question": "When does the cleanup function returned from useEffect run?",
+    "answer": "Before the effect re-runs and when the component unmounts",
+    "type": "multiple",
+    "options": ["Only when the component unmounts", "Before the effect re-runs and when the component unmounts", "Immediately after the effect runs", "Only on the first render"]
+  },
+  {
+    "title": "useEffect",
+    "question": "What happens if you omit the dependency array from useEffect?",
+    "answer": "The effect runs after every render",
+    "type": "multiple",
+    "options": ["The effect runs once on mount", "The effect never runs", "The effect runs after every render", "React throws an error"]
+  },
+  {
+    "title": "useEffect",
+    "question": "Which is the correct way to fetch data on mount using useEffect?",
+    "answer": "Define an async function inside the effect and call it immediately",
+    "type": "multiple",
+    "options": ["Pass an async function directly to useEffect", "Define an async function inside the effect and call it immediately", "Use await directly at the top of the effect callback", "Call fetch outside of useEffect"]
+  },
+  {
+    "title": "Context API",
+    "question": "What problem does the Context API solve?",
+    "answer": "Prop drilling — passing props through many intermediate components",
+    "type": "multiple",
+    "options": ["Slow rendering performance", "Prop drilling — passing props through many intermediate components", "Managing CSS styles globally", "Handling asynchronous operations"]
+  },
+  {
+    "title": "Context API",
+    "question": "What are the three steps to use Context?",
+    "answer": "createContext(), wrap with Provider, consume with useContext()",
+    "type": "multiple",
+    "options": ["useState(), useEffect(), useRef()", "createContext(), wrap with Provider, consume with useContext()", "createStore(), dispatch(), subscribe()", "defineContext(), inject(), observe()"]
+  },
+  {
+    "title": "Context API",
+    "question": "What happens when the value passed to a Context Provider changes?",
+    "answer": "All components that consume that context re-render",
+    "type": "multiple",
+    "options": ["Nothing — consumers must manually refresh", "All components that consume that context re-render", "Only the Provider component re-renders", "The entire app re-renders"]
+  },
+  {
+    "title": "Routing",
+    "question": "Why should you use <Link to='/about'> instead of <a href='/about'> in a React SPA?",
+    "answer": "Link navigates without a full page reload, preserving client-side state",
+    "type": "multiple",
+    "options": ["Link is faster than anchor tags", "Link navigates without a full page reload, preserving client-side state", "Anchor tags are not supported in React", "Link automatically prefetches the page"]
+  },
+  {
+    "title": "Routing",
+    "question": "How do you read URL parameters in a component rendered by <Route path='/movies/:id'>?",
+    "answer": "const { id } = useParams()",
+    "type": "multiple",
+    "options": ["const id = useRoute().id", "const { id } = useParams()", "const id = this.props.params.id", "const { id } = useSearchParams()"]
+  },
+  {
+    "title": "Routing",
+    "question": "Which component wraps a React app to enable client-side routing?",
+    "answer": "<BrowserRouter>",
+    "type": "multiple",
+    "options": ["<Router>", "<BrowserRouter>", "<AppRouter>", "<RouteProvider>"]
+  },
+  {
+    "title": "CSS Modules",
+    "question": "How do you import and use a CSS Module in a React component?",
+    "answer": "import styles from './Card.module.css' then className={styles.card}",
+    "type": "multiple",
+    "options": ["import './Card.css' then className='card'", "import styles from './Card.module.css' then className={styles.card}", "require('./Card.css') then className='card'", "import { card } from './Card.css' then className={card}"]
+  },
+  {
+    "title": "CSS Modules",
+    "question": "What is the main benefit of CSS Modules?",
+    "answer": "Class names are locally scoped — no collisions with other components",
+    "type": "multiple",
+    "options": ["They load CSS faster", "Class names are locally scoped — no collisions with other components", "They support CSS variables", "They allow inline styles"]
+  },
+  {
+    "title": "CSS Modules",
+    "question": "What naming convention should you use for CSS Module files?",
+    "answer": "ComponentName.module.css",
+    "type": "multiple",
+    "options": ["ComponentName.css", "ComponentName.module.css", "ComponentName.styles.css", "ComponentName.scoped.css"]
+  },
+  {
+    "title": "Services and APIs",
+    "question": "Why should you put fetch/axios calls in separate service modules instead of directly in components?",
+    "answer": "It keeps components focused on rendering and makes API logic reusable and testable",
+    "type": "multiple",
+    "options": ["It makes the app load faster", "It keeps components focused on rendering and makes API logic reusable and testable", "React does not allow fetch inside components", "It is required by the React Router"]
+  },
+  {
+    "title": "Services and APIs",
+    "question": "What is a service module in the context of a React application?",
+    "answer": "A plain JavaScript module that exports functions for API operations",
+    "type": "multiple",
+    "options": ["A React component that handles data", "A plain JavaScript module that exports functions for API operations", "A built-in React hook for fetching", "A middleware between React and the server"]
+  },
+  {
+    "title": "Data Fetching",
+    "question": "What are the three states typically managed when fetching data?",
+    "answer": "loading, data, error",
+    "type": "multiple",
+    "options": ["open, closed, pending", "loading, data, error", "request, response, callback", "start, middle, end"]
+  },
+  {
+    "title": "Data Fetching",
+    "question": "Why can't you pass an async function directly to useEffect?",
+    "answer": "useEffect's callback must return undefined or a cleanup function — async returns a Promise",
+    "type": "multiple",
+    "options": ["async functions are not supported in React", "useEffect's callback must return undefined or a cleanup function — async returns a Promise", "await is not allowed inside useEffect", "It causes an infinite loop"]
+  },
+  {
+    "title": "Data Fetching",
+    "question": "fetch() resolves successfully even for HTTP 404 or 500 responses. How do you detect these errors?",
+    "answer": "Check res.ok — it is false for non-2xx status codes",
+    "type": "multiple",
+    "options": ["Wrap fetch in try/catch — it throws on 404", "Check res.ok — it is false for non-2xx status codes", "Use res.error to read the error message", "fetch always throws for error status codes"]
+  },
+  {
+    "title": "Data Fetching",
+    "question": "How do you prevent a race condition when a component unmounts before a fetch completes?",
+    "answer": "Use a cleanup flag or AbortController in the useEffect cleanup",
+    "type": "multiple",
+    "options": ["Add a try/catch block", "Use a cleanup flag or AbortController in the useEffect cleanup", "Use synchronous fetch instead", "Disable component unmounting"]
+  },
+  {
+    "title": "Data Fetching",
+    "question": "Where should you trigger a data fetch that runs once when the component mounts?",
+    "answer": "In a useEffect with an empty dependency array []",
+    "type": "multiple",
+    "options": ["In the component's return statement", "In a useEffect with an empty dependency array []", "In the useState initializer", "Outside the component function"]
+  }
+]

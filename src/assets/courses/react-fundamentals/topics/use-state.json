@@ -1,0 +1,116 @@
+{
+  "id": "use-state",
+  "courseId": "react-fundamentals",
+  "title": "State (useState)",
+  "summary": "State is mutable data managed within a component that triggers a re-render when updated. The useState hook returns a pair: the current value and a setter function. Calling the setter replaces the value and schedules a re-render. State updates are asynchronous — the new value is available on the next render, not immediately after calling the setter. For updates that depend on the previous value, pass a function to the setter.",
+  "keyPoints": [
+    "Import and call: const [count, setCount] = useState(0)",
+    "The initial value is only used on the first render",
+    "Calling the setter (e.g. setCount(5)) triggers a re-render with the new value",
+    "State updates are asynchronous — reading state right after setting it gives the old value",
+    "Use the functional form for updates based on previous state: setCount(prev => prev + 1)",
+    "Never mutate state directly — always use the setter function",
+    "Each component instance has its own independent state"
+  ],
+  "externalLinks": [
+    {
+      "label": "React Docs — useState",
+      "url": "https://react.dev/reference/react/useState"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "us-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which correctly initializes state with a value of 0?",
+      "options": [
+        "const count = useState(0)",
+        "const [count, setCount] = useState(0)",
+        "let [count, setCount] = useState(0)",
+        "const {count, setCount} = useState(0)"
+      ],
+      "answer": "const [count, setCount] = useState(0)",
+      "explanation": "useState returns an array of [value, setter]. Array destructuring extracts both. Using const is correct — you never reassign these variables, you call setCount to update."
+    },
+    {
+      "id": "us-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What happens when you call setCount(5)?",
+      "options": [
+        "count is immediately set to 5 on the same line",
+        "React schedules a re-render and count will be 5 on the next render",
+        "The component is destroyed and recreated with count = 5",
+        "Nothing — you must call forceUpdate() after"
+      ],
+      "answer": "React schedules a re-render and count will be 5 on the next render",
+      "explanation": "State updates are asynchronous. Calling setCount(5) tells React to re-render the component. On that next render, useState(0) returns 5 instead of 0."
+    },
+    {
+      "id": "us-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Why should you use setCount(prev => prev + 1) instead of setCount(count + 1) when incrementing?",
+      "options": [
+        "It is faster",
+        "It prevents the count from going negative",
+        "It ensures you always use the latest value, even if multiple updates are batched",
+        "It is required by React — the other form throws an error"
+      ],
+      "answer": "It ensures you always use the latest value, even if multiple updates are batched",
+      "explanation": "React batches state updates. If you call setCount(count + 1) twice in the same handler, count is stale for the second call. The functional form receives the actual latest value."
+    },
+    {
+      "id": "us-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What is wrong with this code?\n\nconst [items, setItems] = useState(['a', 'b'])\nitems.push('c')\nsetItems(items)",
+      "options": [
+        "Nothing — it works correctly",
+        "You are mutating the state array directly — create a new array instead",
+        "push() is not available on state arrays",
+        "setItems only accepts strings, not arrays"
+      ],
+      "answer": "You are mutating the state array directly — create a new array instead",
+      "explanation": "Mutating state directly can cause React to skip re-renders because the reference hasn't changed. The correct approach: setItems([...items, 'c']) or setItems(prev => [...prev, 'c'])."
+    },
+    {
+      "id": "us-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "What does useState return on subsequent renders (not the first)?",
+      "options": [
+        "Always the initial value",
+        "The most recently set value",
+        "undefined",
+        "The previous and current values as an array"
+      ],
+      "answer": "The most recently set value",
+      "explanation": "The initial value passed to useState is only used on the first render. On subsequent renders, React returns the current state value (whatever was last set)."
+    },
+    {
+      "id": "us-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "How do you store an object in state and update just one property?\n\nconst [user, setUser] = useState({ name: 'Alice', age: 25 })",
+      "options": [
+        "setUser({ age: 26 })",
+        "user.age = 26; setUser(user)",
+        "setUser({ ...user, age: 26 })",
+        "setUser(user.age = 26)"
+      ],
+      "answer": "setUser({ ...user, age: 26 })",
+      "explanation": "Spread the existing object and override the property you want to change. This creates a new object reference, which React detects as a change. Never mutate state directly."
+    },
+    {
+      "id": "us-ex-07",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Complete the toggle function so clicking the button switches isOn between true and false:",
+      "code": "const [isOn, setIsOn] = useState(false)\n\nfunction toggle() {\n  // update isOn to its opposite\n}",
+      "answer": "const [isOn, setIsOn] = useState(false)\n\nfunction toggle() {\n  setIsOn(prev => !prev)\n}",
+      "explanation": "The functional updater receives the current value. !prev flips the boolean. This is safer than setIsOn(!isOn) when updates might be batched."
+    }
+  ]
+}

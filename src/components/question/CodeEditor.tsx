@@ -19,11 +19,14 @@ type CodeEditorProps = {
 export default function CodeEditor({ filename, defaultValue = "", defaultLanguage = "javascript", theme = "vs-dark", height = "300px", disablePaste = false, onChange, onValidate, onRun }: CodeEditorProps) {
 	const handleMount: OnMount = (editorInstance, monaco) => {
 		if (disablePaste) {
+			const domNode = editorInstance.getDomNode()
 			// Block paste on Monaco's internal textarea
-			editorInstance.getDomNode()?.querySelector("textarea")?.addEventListener("paste", (e) => e.preventDefault())
+			domNode?.querySelector("textarea")?.addEventListener("paste", (e) => e.preventDefault())
 			// Block Ctrl+V and Shift+Insert
 			editorInstance.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyV, () => null)
 			editorInstance.addCommand(monaco.KeyMod.Shift | monaco.KeyCode.Insert, () => null)
+			// Block drag-and-drop text into the editor
+			domNode?.addEventListener("drop", (e) => e.preventDefault())
 		}
 
 		editorInstance.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => {
@@ -92,6 +95,7 @@ export default function CodeEditor({ filename, defaultValue = "", defaultLanguag
 					fontSize: 14,
 					scrollBeyondLastLine: false,
 					lineNumbers: "on",
+					contextmenu: !disablePaste,
 				}}
 			/>
 		</div>

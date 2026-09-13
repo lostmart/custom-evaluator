@@ -1,0 +1,116 @@
+{
+  "id": "routing",
+  "courseId": "react-fundamentals",
+  "title": "Routing",
+  "summary": "Client-side routing in React is handled by React Router. It maps URL paths to components so users can navigate between pages without a full page reload. BrowserRouter wraps the app, Routes contains the route definitions, and Route maps a path to a component. Link and NavLink replace <a> tags for navigation without reloading. Dynamic segments like :id capture URL parameters.",
+  "keyPoints": [
+    "Wrap the app with <BrowserRouter> to enable routing",
+    "Define routes: <Routes><Route path='/' element={<Home />} /></Routes>",
+    "Use <Link to='/about'>About</Link> instead of <a href> for SPA navigation",
+    "NavLink adds an 'active' class to the current route's link",
+    "Dynamic routes: <Route path='/movies/:id' element={<MovieDetail />} />",
+    "Read URL params: const { id } = useParams()",
+    "Programmatic navigation: const navigate = useNavigate(); navigate('/home')"
+  ],
+  "externalLinks": [
+    {
+      "label": "React Router Docs",
+      "url": "https://reactrouter.com/en/main"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "rt-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What component wraps your app to enable React Router?",
+      "options": [
+        "<Router>",
+        "<BrowserRouter>",
+        "<AppRouter>",
+        "<RouteProvider>"
+      ],
+      "answer": "<BrowserRouter>",
+      "explanation": "BrowserRouter uses the HTML5 History API for clean URLs. It wraps the entire app so routing works everywhere inside it."
+    },
+    {
+      "id": "rt-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which correctly defines a route that shows the Home component at the root path?",
+      "options": [
+        "<Route url='/' component={Home} />",
+        "<Route path='/' element={<Home />} />",
+        "<Route to='/' render={Home} />",
+        "<Route path='/'>{Home}</Route>"
+      ],
+      "answer": "<Route path='/' element={<Home />} />",
+      "explanation": "In React Router v6, routes use path for the URL and element for the JSX to render. The element prop takes a JSX element, not a component reference."
+    },
+    {
+      "id": "rt-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Why use <Link> instead of <a> for navigation in a React app?",
+      "options": [
+        "<Link> is faster to type",
+        "<Link> navigates without a full page reload, preserving app state",
+        "<a> does not work in React at all",
+        "<Link> automatically adds styling"
+      ],
+      "answer": "<Link> navigates without a full page reload, preserving app state",
+      "explanation": "An <a> tag causes a full page reload, losing all React state. <Link> uses the History API to update the URL and re-render only the changed components."
+    },
+    {
+      "id": "rt-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "How do you define a route with a dynamic segment?\n\nExample: /movies/42 should show MovieDetail",
+      "options": [
+        "<Route path='/movies/{id}' element={<MovieDetail />} />",
+        "<Route path='/movies/:id' element={<MovieDetail />} />",
+        "<Route path='/movies/$id' element={<MovieDetail />} />",
+        "<Route path='/movies/[id]' element={<MovieDetail />} />"
+      ],
+      "answer": "<Route path='/movies/:id' element={<MovieDetail />} />",
+      "explanation": "React Router uses :paramName syntax for dynamic segments. The value (42 in /movies/42) is accessible via useParams()."
+    },
+    {
+      "id": "rt-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "How do you read the id from the URL /movies/42 inside the MovieDetail component?",
+      "options": [
+        "const id = window.location.id",
+        "const { id } = useParams()",
+        "const id = props.params.id",
+        "const id = useRoute().id"
+      ],
+      "answer": "const { id } = useParams()",
+      "explanation": "useParams() returns an object of the URL's dynamic segments. For path='/movies/:id' and URL /movies/42, useParams() returns { id: '42' }."
+    },
+    {
+      "id": "rt-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "How do you navigate programmatically (e.g. after form submission)?",
+      "options": [
+        "window.location.href = '/success'",
+        "const navigate = useNavigate(); navigate('/success')",
+        "Router.push('/success')",
+        "useHistory().go('/success')"
+      ],
+      "answer": "const navigate = useNavigate(); navigate('/success')",
+      "explanation": "useNavigate() returns a function you can call to navigate programmatically. This is the React Router v6 API (v5 used useHistory)."
+    },
+    {
+      "id": "rt-ex-07",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Complete the navigation link to go to the /about page without a full reload:",
+      "code": "import { ??? } from 'react-router-dom'\n\nfunction Nav() {\n  return <nav><??? to='/about'>About</???></nav>\n}",
+      "answer": "import { Link } from 'react-router-dom'\n\nfunction Nav() {\n  return <nav><Link to='/about'>About</Link></nav>\n}",
+      "explanation": "Import Link from react-router-dom and use it like an anchor tag. The to prop specifies the destination path."
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "id": "props",
+  "courseId": "react-fundamentals",
+  "title": "Props",
+  "summary": "Props (short for properties) are read-only data passed from a parent component to a child component. They customize a component's output, much like HTML attributes. Props flow one way — parent to child (unidirectional data flow). A component should never modify its own props. Destructuring props in the function parameter is the standard pattern.",
+  "keyPoints": [
+    "Props are passed as attributes: <MovieCard title='Inception' rating={8.8} />",
+    "Access props by destructuring the parameter: function MovieCard({ title, rating })",
+    "Props are read-only — a component must never modify its own props",
+    "Data flows one way: parent → child (unidirectional data flow)",
+    "Pass any JavaScript value: strings, numbers, arrays, objects, functions",
+    "Default values: function MovieCard({ rating = 0 }) — used when the prop is not passed",
+    "The special children prop contains whatever is nested between opening and closing tags"
+  ],
+  "externalLinks": [
+    {
+      "label": "React Docs — Passing Props to a Component",
+      "url": "https://react.dev/learn/passing-props-to-a-component"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "pr-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "How do you pass a title prop to a MovieCard component?",
+      "options": [
+        "<MovieCard title='Inception'>",
+        "<MovieCard>title='Inception'</MovieCard>",
+        "<MovieCard set-title='Inception' />",
+        "MovieCard.title = 'Inception'"
+      ],
+      "answer": "<MovieCard title='Inception'>",
+      "explanation": "Props are passed as attributes in JSX, just like HTML attributes. The component receives them as properties of its props object."
+    },
+    {
+      "id": "pr-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which correctly receives and uses the title prop?",
+      "options": [
+        "function MovieCard(title) { return <h2>{title}</h2> }",
+        "function MovieCard({ title }) { return <h2>{title}</h2> }",
+        "function MovieCard() { return <h2>{this.title}</h2> }",
+        "function MovieCard(props.title) { return <h2>{title}</h2> }"
+      ],
+      "answer": "function MovieCard({ title }) { return <h2>{title}</h2> }",
+      "explanation": "Props arrive as a single object. Destructuring { title } extracts the property. Without destructuring, you'd write (props) and access props.title."
+    },
+    {
+      "id": "pr-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What does 'unidirectional data flow' mean in React?",
+      "options": [
+        "Data flows from child components up to parent components",
+        "Data flows from parent components down to child components via props",
+        "Data can only flow between sibling components",
+        "Data flows in both directions between parent and child"
+      ],
+      "answer": "Data flows from parent components down to child components via props",
+      "explanation": "React enforces a one-way data flow: parents pass data to children through props. Children cannot directly modify parent data — they use callbacks instead."
+    },
+    {
+      "id": "pr-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What happens if you try to modify a prop inside a component?\n\nfunction MovieCard({ title }) {\n  title = 'Changed'\n  return <h2>{title}</h2>\n}",
+      "options": [
+        "It works fine and shows 'Changed'",
+        "It throws a runtime error",
+        "The local variable changes but it violates the props contract — props should be treated as read-only",
+        "React automatically reverts the change"
+      ],
+      "answer": "The local variable changes but it violates the props contract — props should be treated as read-only",
+      "explanation": "Reassigning a destructured variable works in JavaScript, but it breaks React's mental model. Props are meant to be read-only. Use state if you need mutable data."
+    },
+    {
+      "id": "pr-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "How do you pass a number and a function as props?",
+      "options": [
+        "<MovieCard rating='8.8' onRate='handleRate' />",
+        "<MovieCard rating={8.8} onRate={handleRate} />",
+        "<MovieCard rating=(8.8) onRate=(handleRate) />",
+        "<MovieCard rating=\"{8.8}\" onRate=\"{handleRate}\" />"
+      ],
+      "answer": "<MovieCard rating={8.8} onRate={handleRate} />",
+      "explanation": "Non-string values must be passed inside curly braces {}. Strings can use quotes, but numbers, functions, arrays, and objects require braces."
+    },
+    {
+      "id": "pr-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "What does the children prop contain?\n\n<Card>\n  <h2>Title</h2>\n  <p>Body</p>\n</Card>",
+      "options": [
+        "An empty object",
+        "The string 'Card'",
+        "The JSX elements nested between <Card> and </Card>",
+        "undefined — children must be passed explicitly"
+      ],
+      "answer": "The JSX elements nested between <Card> and </Card>",
+      "explanation": "Anything between a component's opening and closing tags is passed as the special children prop. The Card component can render it with {children}."
+    },
+    {
+      "id": "pr-ex-07",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Complete the component to use a default value of 'Untitled' for the title prop:",
+      "code": "function MovieCard({ title }) {\n  return <h2>{title}</h2>\n}",
+      "answer": "function MovieCard({ title = 'Untitled' }) {\n  return <h2>{title}</h2>\n}",
+      "explanation": "Default parameter values in destructuring are used when the prop is undefined (not passed or explicitly set to undefined)."
+    }
+  ]
+}

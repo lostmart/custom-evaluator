@@ -1,0 +1,116 @@
+{
+  "id": "css-modules",
+  "courseId": "react-fundamentals",
+  "title": "CSS Modules",
+  "summary": "CSS Modules are CSS files where class names are scoped locally to the component by default, preventing collisions across the app. Name the file with .module.css extension, import it as an object, and use the class names as properties. The build tool generates unique class names at compile time. This gives you the full power of CSS without worrying about global name clashes.",
+  "keyPoints": [
+    "Name the file: MovieCard.module.css",
+    "Import: import styles from './MovieCard.module.css'",
+    "Use: <div className={styles.card}>",
+    "Class names are locally scoped — no collisions with other components",
+    "The build tool generates unique names like MovieCard_card_a1b2c3",
+    "Compose classes: composes: base from './base.module.css'",
+    "Use camelCase for class names: .movieCard instead of .movie-card (easier to access as styles.movieCard)"
+  ],
+  "externalLinks": [
+    {
+      "label": "CSS Modules — GitHub",
+      "url": "https://github.com/css-modules/css-modules"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "cm-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What file extension enables CSS Modules in a React project?",
+      "options": [
+        ".css",
+        ".module.css",
+        ".scoped.css",
+        ".local.css"
+      ],
+      "answer": ".module.css",
+      "explanation": "The .module.css extension tells the build tool to process the file as a CSS Module with locally scoped class names."
+    },
+    {
+      "id": "cm-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "How do you apply a CSS Module class to an element?",
+      "options": [
+        "<div class='card'>",
+        "<div className='card'>",
+        "<div className={styles.card}>",
+        "<div style={styles.card}>"
+      ],
+      "answer": "<div className={styles.card}>",
+      "explanation": "Import the module as styles and access class names as properties. The build tool replaces styles.card with a unique generated class name."
+    },
+    {
+      "id": "cm-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What is the main advantage of CSS Modules over regular CSS?",
+      "options": [
+        "CSS Modules are faster to parse",
+        "Class names are locally scoped — no global collisions",
+        "CSS Modules support animations that regular CSS cannot",
+        "CSS Modules do not require a build step"
+      ],
+      "answer": "Class names are locally scoped — no global collisions",
+      "explanation": "Regular CSS has global scope — a .card class in one file affects all .card elements. CSS Modules generate unique names so each component's styles are isolated."
+    },
+    {
+      "id": "cm-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "How do you apply multiple CSS Module classes to one element?",
+      "options": [
+        "<div className={styles.card styles.featured}>",
+        "<div className={styles.card + ' ' + styles.featured}>",
+        "<div className=[styles.card, styles.featured]>",
+        "<div className={{card: true, featured: true}}>"
+      ],
+      "answer": "<div className={styles.card + ' ' + styles.featured}>",
+      "explanation": "Concatenate the class names with a space. Template literals also work: className={`${styles.card} ${styles.featured}`}."
+    },
+    {
+      "id": "cm-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "What does the generated class name look like in the browser?\n\n/* MovieCard.module.css */\n.card { border: 1px solid gray; }",
+      "options": [
+        "card",
+        "MovieCard_card_a1b2c3",
+        ".module-card",
+        "styles-card"
+      ],
+      "answer": "MovieCard_card_a1b2c3",
+      "explanation": "The build tool generates a unique name combining the filename, class name, and a hash. This ensures no two components share the same class name."
+    },
+    {
+      "id": "cm-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which import statement is correct for a CSS Module?",
+      "options": [
+        "import './MovieCard.module.css'",
+        "import styles from './MovieCard.module.css'",
+        "import { card } from './MovieCard.module.css'",
+        "require('./MovieCard.module.css')"
+      ],
+      "answer": "import styles from './MovieCard.module.css'",
+      "explanation": "Default-import the module as an object. Each CSS class becomes a property on that object: styles.card, styles.title, etc."
+    },
+    {
+      "id": "cm-ex-07",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Complete the code to use the 'title' and 'card' classes from a CSS Module:",
+      "code": "import styles from './MovieCard.module.css'\n\nfunction MovieCard() {\n  return (\n    <div className={/* card class */}>\n      <h2 className={/* title class */}>Inception</h2>\n    </div>\n  )\n}",
+      "answer": "import styles from './MovieCard.module.css'\n\nfunction MovieCard() {\n  return (\n    <div className={styles.card}>\n      <h2 className={styles.title}>Inception</h2>\n    </div>\n  )\n}",
+      "explanation": "Access CSS Module classes as properties of the imported styles object: styles.card for .card and styles.title for .title."
+    }
+  ]
+}

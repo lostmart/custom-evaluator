@@ -1,8 +1,8 @@
 // imports and some other code ...
 const flowerUrl =
-  "https://images.pexels.com/photos/39207267/pexels-photo-39207267.jpeg";
+  "https://images.pexels.com/photos/11302990/pexels-photo-11302990.jpeg";
 
-// this could be a new file !! 🫠
+// this could be a new file !!
 
 // type ArticleProps = {
 // YOU NEED TO DEFINE THE TYPE FOR THE PROPS PASSED TO ArticleComp
@@ -59,3 +59,5 @@ const App = () => {
 };
 
 export default App;
+
+// Click Run or press Ctrl + Enter to update the preview.

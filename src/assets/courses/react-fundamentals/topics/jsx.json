@@ -1,0 +1,116 @@
+{
+  "id": "jsx",
+  "courseId": "react-fundamentals",
+  "title": "JSX",
+  "summary": "JSX is a syntax extension that lets you write HTML-like markup inside JavaScript. It is compiled to React.createElement() calls under the hood. JSX expressions must return a single root element — use a fragment (<>...</>) when you need to return siblings without adding a wrapper div. JavaScript expressions go inside curly braces {}. JSX attributes use camelCase (className, onClick, htmlFor) instead of HTML attributes.",
+  "keyPoints": [
+    "JSX compiles to React.createElement() calls — it is not HTML",
+    "Every JSX expression must have exactly one root element or use a fragment <>...</>",
+    "Embed JavaScript expressions inside curly braces: {variable}, {fn()}, {a + b}",
+    "HTML attributes use camelCase: className instead of class, htmlFor instead of for, onClick instead of onclick",
+    "Self-closing tags must have a slash: <img />, <input />, <br />",
+    "Comments in JSX: {/* this is a comment */}",
+    "JSX prevents injection attacks — values are escaped before rendering"
+  ],
+  "externalLinks": [
+    {
+      "label": "React Docs — Writing Markup with JSX",
+      "url": "https://react.dev/learn/writing-markup-with-jsx"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "jsx-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which of these is valid JSX?",
+      "options": [
+        "<div class=\"box\">Hello</div>",
+        "<div className=\"box\">Hello</div>",
+        "<div className='box'>Hello</div class>",
+        "<DIV className=\"box\">Hello</DIV>"
+      ],
+      "answer": "<div className=\"box\">Hello</div>",
+      "explanation": "JSX uses className instead of class. The closing tag must match exactly. While <DIV> would technically work in JSX (it compiles), React treats uppercase tags as components, not HTML elements."
+    },
+    {
+      "id": "jsx-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "How do you embed a JavaScript variable in JSX?",
+      "options": [
+        "<p>{{name}}</p>",
+        "<p>{name}</p>",
+        "<p>${name}</p>",
+        "<p><%=name%></p>"
+      ],
+      "answer": "<p>{name}</p>",
+      "explanation": "Single curly braces {} are used to embed JavaScript expressions in JSX. Double braces {{}} are used for inline style objects, not variable interpolation."
+    },
+    {
+      "id": "jsx-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What happens if you try to return two sibling elements without a wrapper?\n\nreturn (\n  <h1>Title</h1>\n  <p>Body</p>\n)",
+      "options": [
+        "Both elements render normally",
+        "Only the first element renders",
+        "A syntax error — JSX must have one root element",
+        "The elements are automatically wrapped in a div"
+      ],
+      "answer": "A syntax error — JSX must have one root element",
+      "explanation": "JSX requires a single root element. Wrap siblings in a <div> or use a fragment <>...</> to avoid adding extra DOM nodes."
+    },
+    {
+      "id": "jsx-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which correctly returns siblings without adding a wrapper element to the DOM?",
+      "options": [
+        "return (<h1>A</h1><p>B</p>)",
+        "return (<div><h1>A</h1><p>B</p></div>)",
+        "return (<><h1>A</h1><p>B</p></>)",
+        "return ([<h1>A</h1>, <p>B</p>])"
+      ],
+      "answer": "return (<><h1>A</h1><p>B</p></>)",
+      "explanation": "Fragments (<>...</>) group elements without adding an extra DOM node. A div wrapper works but adds unnecessary markup. Arrays work technically but require keys and are not idiomatic."
+    },
+    {
+      "id": "jsx-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which is the correct way to write a comment inside JSX?",
+      "options": [
+        "<!-- This is a comment -->",
+        "// This is a comment",
+        "{/* This is a comment */}",
+        "/* This is a comment */"
+      ],
+      "answer": "{/* This is a comment */}",
+      "explanation": "JSX comments must be wrapped in curly braces as JavaScript expressions: {/* comment */}. HTML comments and bare JS comments are not valid inside JSX markup."
+    },
+    {
+      "id": "jsx-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "What does JSX compile to under the hood?\n\n<button className=\"btn\">Click</button>",
+      "options": [
+        "document.createElement('button')",
+        "React.createElement('button', { className: 'btn' }, 'Click')",
+        "new Button({ className: 'btn', children: 'Click' })",
+        "React.render('button', 'btn', 'Click')"
+      ],
+      "answer": "React.createElement('button', { className: 'btn' }, 'Click')",
+      "explanation": "JSX is syntactic sugar for React.createElement(type, props, ...children). The compiler transforms JSX into these function calls before the browser runs the code."
+    },
+    {
+      "id": "jsx-ex-07",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Fix this JSX so it renders a label with the text 'Email' pointing to an input with id 'email':",
+      "code": "<label for=\"email\">Email</label>\n<input type=\"email\" id=\"email\">",
+      "answer": "<label htmlFor=\"email\">Email</label>\n<input type=\"email\" id=\"email\" />",
+      "explanation": "In JSX, the 'for' attribute is written as 'htmlFor' (since for is a reserved word in JavaScript), and void elements like <input> must be self-closing with />."
+    }
+  ]
+}

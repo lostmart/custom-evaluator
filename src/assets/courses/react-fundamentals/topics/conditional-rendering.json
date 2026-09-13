@@ -1,0 +1,116 @@
+{
+  "id": "conditional-rendering",
+  "courseId": "react-fundamentals",
+  "title": "Conditional Rendering",
+  "summary": "Conditional rendering displays different UI based on state or props. Use if/else for early returns, the ternary operator (condition ? a : b) for inline branching, and the logical AND (condition && <Element />) to show or hide elements. Returning null from a component renders nothing. Choose the pattern that keeps your JSX readable.",
+  "keyPoints": [
+    "Early return with if: if (!isLoggedIn) return <LoginScreen />",
+    "Ternary in JSX: {isLoggedIn ? <Dashboard /> : <LoginScreen />}",
+    "Logical AND for show/hide: {showBanner && <Banner />}",
+    "Return null to render nothing",
+    "Avoid nested ternaries — extract into variables or use early returns",
+    "Falsy gotcha: {count && <Tag />} renders 0 when count is 0. Use {count > 0 && <Tag />}",
+    "Each pattern has a use case — pick the one that is most readable"
+  ],
+  "externalLinks": [
+    {
+      "label": "React Docs — Conditional Rendering",
+      "url": "https://react.dev/learn/conditional-rendering"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "cr-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which renders <Dashboard /> when isLoggedIn is true, and <LoginScreen /> otherwise?",
+      "options": [
+        "{isLoggedIn && <Dashboard /> || <LoginScreen />}",
+        "{isLoggedIn ? <Dashboard /> : <LoginScreen />}",
+        "{if (isLoggedIn) <Dashboard /> else <LoginScreen />}",
+        "{isLoggedIn : <Dashboard /> ? <LoginScreen />}"
+      ],
+      "answer": "{isLoggedIn ? <Dashboard /> : <LoginScreen />}",
+      "explanation": "The ternary operator (condition ? ifTrue : ifFalse) is the standard way to conditionally render one of two elements inline in JSX."
+    },
+    {
+      "id": "cr-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which renders <Banner /> only when showBanner is true, and nothing otherwise?",
+      "options": [
+        "{showBanner ? <Banner />}",
+        "{showBanner && <Banner />}",
+        "{showBanner || <Banner />}",
+        "{if (showBanner) <Banner />}"
+      ],
+      "answer": "{showBanner && <Banner />}",
+      "explanation": "Logical AND (&&) renders the right side only when the left side is truthy. When showBanner is false, the entire expression evaluates to false, and React renders nothing."
+    },
+    {
+      "id": "cr-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "What does this render when count is 0?\n\n{count && <Badge count={count} />}",
+      "options": [
+        "Nothing",
+        "<Badge count={0} />",
+        "The number 0 displayed on screen",
+        "An error"
+      ],
+      "answer": "The number 0 displayed on screen",
+      "explanation": "0 is falsy in JavaScript, so the && expression short-circuits and returns 0. React renders the number 0 as text. Fix: use {count > 0 && <Badge count={count} />}."
+    },
+    {
+      "id": "cr-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "How do you render nothing from a component?",
+      "options": [
+        "return undefined",
+        "return ''",
+        "return null",
+        "return <empty />"
+      ],
+      "answer": "return null",
+      "explanation": "Returning null tells React to render nothing. This is useful for components that conditionally hide themselves based on props or state."
+    },
+    {
+      "id": "cr-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which pattern is best for showing a loading spinner while data loads, and the content after?\n\nconst [loading, setLoading] = useState(true)",
+      "options": [
+        "if (loading) return <Spinner />\nreturn <Content />",
+        "{loading && <Spinner /> && <Content />}",
+        "loading ? <Content /> : <Spinner />",
+        "{loading || <Content />}"
+      ],
+      "answer": "if (loading) return <Spinner />\nreturn <Content />",
+      "explanation": "Early return is cleanest when one branch is a completely different screen. The component returns <Spinner /> if loading, otherwise falls through to return <Content />."
+    },
+    {
+      "id": "cr-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Why should you avoid deeply nested ternaries in JSX?",
+      "options": [
+        "They cause performance issues",
+        "They are not valid JavaScript",
+        "They make the code hard to read and maintain",
+        "React does not support nested ternaries"
+      ],
+      "answer": "They make the code hard to read and maintain",
+      "explanation": "Nested ternaries are hard to scan. Extract conditions into variables or use early returns. Readability matters more than compactness."
+    },
+    {
+      "id": "cr-ex-07",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Complete the component to show 'Welcome back!' when isLoggedIn is true and 'Please log in' otherwise:",
+      "code": "function Greeting({ isLoggedIn }) {\n  return <p>{/* conditional text here */}</p>\n}",
+      "answer": "function Greeting({ isLoggedIn }) {\n  return <p>{isLoggedIn ? 'Welcome back!' : 'Please log in'}</p>\n}",
+      "explanation": "The ternary operator inside curly braces chooses between the two strings based on the isLoggedIn prop."
+    }
+  ]
+}

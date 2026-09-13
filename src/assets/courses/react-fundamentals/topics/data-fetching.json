@@ -1,0 +1,116 @@
+{
+  "id": "data-fetching",
+  "courseId": "react-fundamentals",
+  "title": "Data Fetching",
+  "summary": "Data fetching in React involves loading external data asynchronously and managing the three states: loading, success, and error. The typical pattern uses useState for data/loading/error states and useEffect to trigger the fetch on mount. Always handle the loading state (show a spinner) and error state (show a message). Cleanup or ignore stale responses when the component unmounts before the fetch completes.",
+  "keyPoints": [
+    "Three states to manage: loading (boolean), data (the result), error (the error message)",
+    "Fetch in useEffect with an empty dependency array for mount-time fetching",
+    "Set loading to true before fetch, false after (in both success and error paths)",
+    "Handle errors: wrap in try/catch or check res.ok before calling res.json()",
+    "Show a spinner or skeleton while loading",
+    "Show an error message when the fetch fails",
+    "Avoid race conditions: use a cleanup flag or AbortController for unmounted components"
+  ],
+  "externalLinks": [
+    {
+      "label": "React Docs — Fetching Data with Effects",
+      "url": "https://react.dev/reference/react/useEffect#fetching-data-with-effects"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "df-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What are the three states typically managed when fetching data?",
+      "options": [
+        "open, closed, pending",
+        "loading, data, error",
+        "request, response, callback",
+        "start, middle, end"
+      ],
+      "answer": "loading, data, error",
+      "explanation": "loading tracks whether the fetch is in progress, data holds the successful result, and error stores any error message. All three should be reflected in the UI."
+    },
+    {
+      "id": "df-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Where do you typically trigger a data fetch in a functional component?",
+      "options": [
+        "In the component's return statement",
+        "In a useEffect with an empty dependency array",
+        "In the useState initializer",
+        "Outside the component function"
+      ],
+      "answer": "In a useEffect with an empty dependency array",
+      "explanation": "useEffect with [] runs once after mount — the right time to fetch initial data. Fetching in the return statement or outside the component would cause issues."
+    },
+    {
+      "id": "df-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "What is wrong with this fetch code?\n\nuseEffect(async () => {\n  const res = await fetch('/api/movies')\n  const data = await res.json()\n  setMovies(data)\n}, [])",
+      "options": [
+        "fetch is not available in React",
+        "useEffect's callback cannot be async — it must return undefined or a cleanup function",
+        "You cannot use await inside useEffect",
+        "The dependency array should include setMovies"
+      ],
+      "answer": "useEffect's callback cannot be async — it must return undefined or a cleanup function",
+      "explanation": "An async function returns a Promise, but useEffect expects undefined or a cleanup function. Define an async function inside the effect and call it immediately."
+    },
+    {
+      "id": "df-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "How do you properly handle errors in a fetch call?",
+      "options": [
+        "Errors are automatically caught by React",
+        "Use try/catch around the fetch and set an error state",
+        "Add an onerror attribute to the component",
+        "Errors in fetch are impossible"
+      ],
+      "answer": "Use try/catch around the fetch and set an error state",
+      "explanation": "Wrap the fetch in try/catch. In the catch block, set the error state. Also check res.ok — fetch only rejects on network errors, not HTTP errors like 404."
+    },
+    {
+      "id": "df-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Why should you check res.ok before calling res.json()?",
+      "options": [
+        "res.json() crashes on non-JSON responses",
+        "fetch does not reject on HTTP errors (404, 500) — only on network failures",
+        "res.ok is required by the fetch specification",
+        "It makes the request faster"
+      ],
+      "answer": "fetch does not reject on HTTP errors (404, 500) — only on network failures",
+      "explanation": "fetch resolves successfully even for 404 or 500 responses. You must check res.ok (or res.status) to detect HTTP errors and handle them appropriately."
+    },
+    {
+      "id": "df-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "What is a race condition in data fetching and how do you prevent it?",
+      "options": [
+        "Two components fetching at the same time — use a queue",
+        "A response arriving after the component unmounted — use a cleanup flag or AbortController",
+        "The server sending data too fast — add a delay",
+        "Two state updates happening simultaneously — use useReducer"
+      ],
+      "answer": "A response arriving after the component unmounted — use a cleanup flag or AbortController",
+      "explanation": "If a component unmounts before the fetch completes, calling setState on an unmounted component is wasteful. Use a boolean flag in cleanup or AbortController to cancel the request."
+    },
+    {
+      "id": "df-ex-07",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Complete the data fetching pattern with loading and error handling:",
+      "code": "const [movies, setMovies] = useState([])\nconst [loading, setLoading] = useState(true)\nconst [error, setError] = useState(null)\n\nuseEffect(() => {\n  async function fetchMovies() {\n    try {\n      const res = await fetch('/api/movies')\n      const data = await res.json()\n      setMovies(data)\n    } catch (err) {\n      // handle error\n    } finally {\n      // stop loading\n    }\n  }\n  fetchMovies()\n}, [])",
+      "answer": "const [movies, setMovies] = useState([])\nconst [loading, setLoading] = useState(true)\nconst [error, setError] = useState(null)\n\nuseEffect(() => {\n  async function fetchMovies() {\n    try {\n      const res = await fetch('/api/movies')\n      const data = await res.json()\n      setMovies(data)\n    } catch (err) {\n      setError(err.message)\n    } finally {\n      setLoading(false)\n    }\n  }\n  fetchMovies()\n}, [])",
+      "explanation": "In catch, store the error message in state. In finally (runs in both success and error), stop the loading state. This ensures the UI always moves out of the loading state."
+    }
+  ]
+}

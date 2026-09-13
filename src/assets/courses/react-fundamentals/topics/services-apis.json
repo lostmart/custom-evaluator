@@ -1,0 +1,116 @@
+{
+  "id": "services-apis",
+  "courseId": "react-fundamentals",
+  "title": "Services and APIs",
+  "summary": "Separating data-fetching logic into service modules keeps components clean and focused on rendering. A service is a plain JavaScript module that exports functions for each API operation (getMovies, createMovie, deleteMovie). Components call service functions and handle the results. This separation makes code testable, reusable, and easier to maintain — if the API changes, you update the service, not every component.",
+  "keyPoints": [
+    "A service is a module that exports API functions: export function getMovies() { return fetch(...) }",
+    "Keep fetch/axios calls out of components — put them in services",
+    "Services are plain functions, not React components or hooks",
+    "Use a base URL constant or environment variable for the API endpoint",
+    "Each service function handles one API operation (single responsibility)",
+    "Components import and call service functions: const movies = await movieService.getAll()",
+    "Error handling can live in the service (throw) or the component (try/catch)"
+  ],
+  "externalLinks": [
+    {
+      "label": "MDN — Using Fetch",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "sa-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Why should you put API calls in service modules instead of directly in components?",
+      "options": [
+        "Components cannot use fetch()",
+        "It separates concerns — components handle UI, services handle data",
+        "Service modules run on the server",
+        "It makes the API calls faster"
+      ],
+      "answer": "It separates concerns — components handle UI, services handle data",
+      "explanation": "Separation of concerns keeps components focused on rendering. If the API changes, you update one service file instead of every component that fetches data."
+    },
+    {
+      "id": "sa-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which is a well-structured service function?",
+      "options": [
+        "function MovieService() { return <div>Movies</div> }",
+        "export async function getMovies() { const res = await fetch('/api/movies'); return res.json() }",
+        "const getMovies = useState(fetch('/api/movies'))",
+        "class MovieService extends React.Component { fetch() {} }"
+      ],
+      "answer": "export async function getMovies() { const res = await fetch('/api/movies'); return res.json() }",
+      "explanation": "A service function is a plain async function that makes the API call and returns the parsed data. It has no React dependency."
+    },
+    {
+      "id": "sa-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "How should a component use a service function?",
+      "options": [
+        "Import the service and call it inside useEffect",
+        "Render the service as a child component",
+        "Pass the service as a prop",
+        "Call the service in the module scope (outside the component)"
+      ],
+      "answer": "Import the service and call it inside useEffect",
+      "explanation": "Data fetching is a side effect. Import the service function and call it inside useEffect (or an event handler), then store the result in state."
+    },
+    {
+      "id": "sa-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What does res.json() do in a fetch call?",
+      "options": [
+        "Converts the response to a JSON string",
+        "Parses the response body as JSON and returns a promise",
+        "Sends JSON to the server",
+        "Validates that the response is valid JSON"
+      ],
+      "answer": "Parses the response body as JSON and returns a promise",
+      "explanation": "res.json() reads the response stream, parses it as JSON, and returns a promise that resolves with the resulting JavaScript object."
+    },
+    {
+      "id": "sa-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Which is the best way to handle the API base URL?",
+      "options": [
+        "Hardcode it in every service function",
+        "Store it in a constant or environment variable",
+        "Pass it as a React prop",
+        "Put it in localStorage"
+      ],
+      "answer": "Store it in a constant or environment variable",
+      "explanation": "A constant (const BASE_URL = process.env.REACT_APP_API_URL) lets you change the URL for different environments (dev, staging, prod) without modifying service code."
+    },
+    {
+      "id": "sa-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "How do you send data in a POST request with fetch?",
+      "options": [
+        "fetch('/api/movies', { data: movieData })",
+        "fetch('/api/movies', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(movieData) })",
+        "fetch('/api/movies').post(movieData)",
+        "fetch('/api/movies', 'POST', movieData)"
+      ],
+      "answer": "fetch('/api/movies', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(movieData) })",
+      "explanation": "fetch's second argument is an options object. Set method to POST, declare the content type, and serialize the data with JSON.stringify in the body."
+    },
+    {
+      "id": "sa-ex-07",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Complete the service function to fetch a single movie by ID:",
+      "code": "const BASE_URL = '/api/movies'\n\nexport async function getMovie(id) {\n  // fetch the movie and return parsed JSON\n}",
+      "answer": "const BASE_URL = '/api/movies'\n\nexport async function getMovie(id) {\n  const res = await fetch(`${BASE_URL}/${id}`)\n  return res.json()\n}",
+      "explanation": "Construct the URL with the id, fetch it, and return the parsed JSON. The caller (a component) will await the result."
+    }
+  ]
+}

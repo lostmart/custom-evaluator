@@ -24,5 +24,15 @@
     "id": "typescript-react",
     "title": "TypeScript for React",
     "description": "EPITA S5 · Essential TypeScript concepts for building typed React applications — interfaces, generics, hooks, events, and utility types."
+  },
+  {
+    "id": "react-fundamentals",
+    "title": "React Fundamentals",
+    "description": "EPITA S5 · Core React concepts — JSX, components, props, state, hooks, routing, and data fetching."
+  },
+  {
+    "id": "react-fundamentals-2",
+    "title": "React Fundamentals — Part 2",
+    "description": "EPITA S5 · useEffect, Context API, routing, CSS Modules, services, and data fetching."
   }
 ]

@@ -9,6 +9,8 @@ import set1 from "@/assets/data.json"
 import set2 from "@/assets/data-set2.json"
 import set3 from "@/assets/microservicesPythonQuestions.json"
 import set4 from "@/assets/modern-js-questions.json"
+import set5 from "@/assets/react-fundamentals-questions.json"
+import set6 from "@/assets/react-fundamentals-2-questions.json"
 import Badge from "@/components/ui/Badge"
 import Guard from "@/components/Guard"
 import Modal from "@/components/ui/Modal"
@@ -66,7 +68,7 @@ export default function QuestionPage() {
 	const router = useRouter()
 	const current = test.currentQuestion
 
-	const pool = test.questionSet === "linux-fundamentals" ? set2 : test.questionSet === "python-microservices" ? set3 : test.questionSet === "modern-js" ? set4 : set1
+	const pool = test.questionSet === "linux-fundamentals" ? set2 : test.questionSet === "python-microservices" ? set3 : test.questionSet === "modern-js" ? set4 : test.questionSet === "react-fundamentals" ? set5 : test.questionSet === "react-fundamentals-2" ? set6 : set1
 	const [shuffled] = useState(() => shuffle(pool).slice(0, 20))
 	const total = shuffled.length
 

@@ -1,0 +1,21 @@
+{
+  "id": "react-fundamentals",
+  "title": "React Fundamentals",
+  "description": "EPITA S5 · 2627_BSI_CS_S05_PROG_FEF · Core React concepts — JSX, components, props, state, hooks, routing, and data fetching.",
+  "topics": [
+    { "id": "jsx", "title": "S1 — JSX" },
+    { "id": "functional-components", "title": "S1 — Functional Components" },
+    { "id": "props", "title": "S1 — Props" },
+    { "id": "use-state", "title": "S2 — State (useState)" },
+    { "id": "event-handling", "title": "S2 — Event Handling" },
+    { "id": "conditional-rendering", "title": "S2 — Conditional Rendering" },
+    { "id": "lists-and-keys", "title": "S3 — Lists and Keys" },
+    { "id": "use-effect", "title": "S3 — useEffect Hook" },
+    { "id": "context-api", "title": "S4 — Context API (useContext)" },
+    { "id": "use-reducer", "title": "S4 — useReducer" },
+    { "id": "routing", "title": "S5 — Routing" },
+    { "id": "css-modules", "title": "S5 — CSS Modules" },
+    { "id": "services-apis", "title": "S5 — Services and APIs" },
+    { "id": "data-fetching", "title": "S5 — Data Fetching" }
+  ]
+}

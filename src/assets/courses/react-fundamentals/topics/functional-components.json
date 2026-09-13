@@ -1,0 +1,116 @@
+{
+  "id": "functional-components",
+  "courseId": "react-fundamentals",
+  "title": "Functional Components",
+  "summary": "Functional components are JavaScript functions that return React elements. They are the primary way to build UI in modern React. A component name must start with an uppercase letter so React distinguishes it from HTML tags. Components can be composed — a parent renders child components just like HTML elements. Each component should ideally do one thing (single responsibility).",
+  "keyPoints": [
+    "A component is a function that returns JSX (React elements)",
+    "Component names must start with an uppercase letter: App, Header, MovieCard",
+    "Components are reusable — use them like custom HTML tags: <MovieCard />",
+    "Compose components: a parent renders children, building a tree",
+    "Each component should have a single responsibility",
+    "Export components to use them in other files: export default function App() {}",
+    "Components re-render when their state or props change"
+  ],
+  "externalLinks": [
+    {
+      "label": "React Docs — Your First Component",
+      "url": "https://react.dev/learn/your-first-component"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "fc-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which is a valid React functional component?",
+      "options": [
+        "function movieCard() { return <div>Movie</div> }",
+        "function MovieCard() { return <div>Movie</div> }",
+        "const MovieCard = { return <div>Movie</div> }",
+        "class MovieCard { render() { return <div>Movie</div> } }"
+      ],
+      "answer": "function MovieCard() { return <div>Movie</div> }",
+      "explanation": "A functional component is a function that returns JSX. The name must start with an uppercase letter so React treats it as a component, not an HTML element."
+    },
+    {
+      "id": "fc-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Why must component names start with an uppercase letter?",
+      "options": [
+        "It is a JavaScript language requirement",
+        "React uses the casing to distinguish components from HTML elements",
+        "Uppercase names run faster in the virtual DOM",
+        "It is only a convention — lowercase works too"
+      ],
+      "answer": "React uses the casing to distinguish components from HTML elements",
+      "explanation": "React treats lowercase tags as HTML elements (<div>, <span>) and uppercase tags as components (<MovieCard>, <Header>). A lowercase component name would be rendered as an unknown HTML element."
+    },
+    {
+      "id": "fc-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "How do you use a MovieCard component inside another component?",
+      "options": [
+        "MovieCard()",
+        "<MovieCard />",
+        "render(MovieCard)",
+        "new MovieCard()"
+      ],
+      "answer": "<MovieCard />",
+      "explanation": "Components are used like HTML tags in JSX: <MovieCard />. Calling them as regular functions works technically but bypasses React's rendering lifecycle."
+    },
+    {
+      "id": "fc-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What does this component render?\n\nfunction Greeting() {\n  const name = 'Alice'\n  return <h1>Hello, {name}!</h1>\n}",
+      "options": [
+        "<h1>Hello, {name}!</h1>",
+        "<h1>Hello, Alice!</h1>",
+        "An error — variables cannot be used in JSX",
+        "<h1>Hello, !</h1>"
+      ],
+      "answer": "<h1>Hello, Alice!</h1>",
+      "explanation": "The curly braces {} embed the JavaScript variable name into the JSX output. The rendered result shows the value of the variable."
+    },
+    {
+      "id": "fc-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Which is the correct way to export a component for use in other files?",
+      "options": [
+        "module.exports = MovieCard",
+        "export default function MovieCard() { return <div /> }",
+        "return MovieCard",
+        "public function MovieCard() { return <div /> }"
+      ],
+      "answer": "export default function MovieCard() { return <div /> }",
+      "explanation": "ES module syntax (export default) is the standard way to export React components. module.exports is CommonJS and not typically used in React projects."
+    },
+    {
+      "id": "fc-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "What is component composition?",
+      "options": [
+        "Combining CSS styles from multiple components",
+        "Building complex UIs by nesting components inside other components",
+        "Merging multiple components into a single function",
+        "Inheriting behavior from a parent component class"
+      ],
+      "answer": "Building complex UIs by nesting components inside other components",
+      "explanation": "Composition means a parent component renders child components in its JSX, forming a tree. This is React's primary pattern for building UIs — prefer composition over inheritance."
+    },
+    {
+      "id": "fc-ex-07",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Complete this component so it renders an <article> with a <h2> showing 'My Article' and a <p> showing 'Article body':",
+      "code": "function Article() {\n  // return the JSX here\n}",
+      "answer": "function Article() {\n  return (\n    <article>\n      <h2>My Article</h2>\n      <p>Article body</p>\n    </article>\n  )\n}",
+      "explanation": "The component returns JSX with an <article> root element containing the heading and paragraph. Parentheses after return are optional but help with multiline JSX."
+    }
+  ]
+}

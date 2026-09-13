@@ -12,6 +12,9 @@ const COURSE_LABELS: Record<string, string> = {
   "bash-scripting": "Bash Scripting",
   "linux-fundamentals": "Linux Fundamentals",
   "python-microservices": "Python Microservices",
+  "modern-js": "Front-End Frameworks",
+  "react-fundamentals": "React Fundamentals",
+  "react-fundamentals-2": "React Fundamentals — Part 2",
 };
 
 function getDiagnosticMessage(score: number, total: number): string {

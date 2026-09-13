@@ -1,0 +1,142 @@
+[
+  {
+    "title": "JSX",
+    "question": "Which attribute name is correct in JSX?",
+    "answer": "className",
+    "type": "multiple",
+    "options": ["class", "className", "css-class", "classname"]
+  },
+  {
+    "title": "JSX",
+    "question": "What does JSX compile to under the hood?",
+    "answer": "React.createElement() calls",
+    "type": "multiple",
+    "options": ["document.createElement() calls", "React.createElement() calls", "HTML template literals", "Web Component definitions"]
+  },
+  {
+    "title": "JSX",
+    "question": "How do you embed a JavaScript expression inside JSX?",
+    "answer": "Wrap it in curly braces: {expression}",
+    "type": "multiple",
+    "options": ["Wrap it in curly braces: {expression}", "Use double brackets: [[expression]]", "Use dollar sign: $expression", "Use backticks: `expression`"]
+  },
+  {
+    "title": "Functional Components",
+    "question": "Why must a React component name start with an uppercase letter?",
+    "answer": "So React can distinguish it from native HTML tags",
+    "type": "multiple",
+    "options": ["It is a JavaScript syntax requirement", "So React can distinguish it from native HTML tags", "Lowercase names cause runtime errors", "It is only a convention, lowercase works too"]
+  },
+  {
+    "title": "Functional Components",
+    "question": "What does a functional component return?",
+    "answer": "JSX (React elements)",
+    "type": "multiple",
+    "options": ["A string of HTML", "JSX (React elements)", "A DOM node", "An object with a render method"]
+  },
+  {
+    "title": "Functional Components",
+    "question": "When does a component re-render?",
+    "answer": "When its state or props change",
+    "type": "multiple",
+    "options": ["Only when you call forceUpdate()", "When its state or props change", "Every second automatically", "Only on page refresh"]
+  },
+  {
+    "title": "Props",
+    "question": "How do you pass a numeric prop called rating with value 8.5 to a MovieCard component?",
+    "answer": "<MovieCard rating={8.5} />",
+    "type": "multiple",
+    "options": ["<MovieCard rating=\"8.5\" />", "<MovieCard rating={8.5} />", "<MovieCard rating=8.5 />", "<MovieCard set-rating={8.5} />"]
+  },
+  {
+    "title": "Props",
+    "question": "What happens if a component modifies its own props?",
+    "answer": "It violates React's rules — props are read-only",
+    "type": "multiple",
+    "options": ["The component re-renders with the new values", "It violates React's rules — props are read-only", "The parent component is notified", "Nothing, it works fine"]
+  },
+  {
+    "title": "Props",
+    "question": "What is the children prop in React?",
+    "answer": "Whatever is nested between the component's opening and closing tags",
+    "type": "multiple",
+    "options": ["The first child component in the tree", "Whatever is nested between the component's opening and closing tags", "An array of all child components in the app", "A special prop for passing CSS classes"]
+  },
+  {
+    "title": "State (useState)",
+    "question": "Which correctly initializes state with a value of 0?",
+    "answer": "const [count, setCount] = useState(0)",
+    "type": "multiple",
+    "options": ["const count = useState(0)", "const [count, setCount] = useState(0)", "let [count, setCount] = useState(0)", "const {count, setCount} = useState(0)"]
+  },
+  {
+    "title": "State (useState)",
+    "question": "Why should you use setCount(prev => prev + 1) instead of setCount(count + 1) when updating based on previous state?",
+    "answer": "Because state updates are asynchronous — the functional form always uses the latest value",
+    "type": "multiple",
+    "options": ["It is faster", "Because state updates are asynchronous — the functional form always uses the latest value", "It avoids creating a closure", "There is no difference"]
+  },
+  {
+    "title": "State (useState)",
+    "question": "What happens when you call a state setter function like setCount(5)?",
+    "answer": "React schedules a re-render with the new value",
+    "type": "multiple",
+    "options": ["The variable count is immediately updated to 5", "React schedules a re-render with the new value", "The DOM is updated synchronously", "The component unmounts and remounts"]
+  },
+  {
+    "title": "Prop Types",
+    "question": "How do you set a default value for a prop in a functional component?",
+    "answer": "Use destructuring defaults: function Card({ rating = 0 })",
+    "type": "multiple",
+    "options": ["Card.defaultProps = { rating: 0 }", "Use destructuring defaults: function Card({ rating = 0 })", "function Card(props = { rating: 0 })", "Card.defaults = { rating: 0 }"]
+  },
+  {
+    "title": "Event Handling",
+    "question": "Which is the correct way to attach a click handler in React?",
+    "answer": "onClick={handleClick}",
+    "type": "multiple",
+    "options": ["onclick={handleClick}", "onClick={handleClick()}", "onClick={handleClick}", "onClick=\"handleClick()\""]
+  },
+  {
+    "title": "Event Handling",
+    "question": "How do you prevent a form from reloading the page on submit?",
+    "answer": "Call e.preventDefault() in the onSubmit handler",
+    "type": "multiple",
+    "options": ["Set the form action to '#'", "Use type='button' on the submit button", "Call e.preventDefault() in the onSubmit handler", "Return false from the handler"]
+  },
+  {
+    "title": "Event Handling",
+    "question": "How do you pass an argument to an event handler?",
+    "answer": "Use an inline arrow function: onClick={() => handleDelete(id)}",
+    "type": "multiple",
+    "options": ["onClick={handleDelete(id)}", "onClick={handleDelete, id}", "Use an inline arrow function: onClick={() => handleDelete(id)}", "onClick={handleDelete.bind(id)}"]
+  },
+  {
+    "title": "Conditional Rendering",
+    "question": "Which pattern shows an element only when isVisible is true?",
+    "answer": "{isVisible && <Banner />}",
+    "type": "multiple",
+    "options": ["{isVisible && <Banner />}", "{if (isVisible) <Banner />}", "<Banner visible={isVisible} />", "{isVisible ? <Banner />}"]
+  },
+  {
+    "title": "Conditional Rendering",
+    "question": "What does {count && <Tag />} render when count is 0?",
+    "answer": "It renders 0 (the number zero appears on screen)",
+    "type": "multiple",
+    "options": ["It renders nothing", "It renders 0 (the number zero appears on screen)", "It renders <Tag />", "It throws an error"]
+  },
+  {
+    "title": "Lists and Keys",
+    "question": "Which method is used to transform an array of data into an array of JSX elements?",
+    "answer": ".map()",
+    "type": "multiple",
+    "options": [".forEach()", ".map()", ".filter()", ".reduce()"]
+  },
+  {
+    "title": "Lists and Keys",
+    "question": "Why should you avoid using array indices as keys?",
+    "answer": "It causes bugs when the list is reordered, filtered, or items are removed",
+    "type": "multiple",
+    "options": ["Indices are not unique", "It causes bugs when the list is reordered, filtered, or items are removed", "React does not accept numbers as keys", "It makes rendering slower"]
+  }
+]

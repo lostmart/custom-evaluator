@@ -1,0 +1,116 @@
+{
+  "id": "lists-and-keys",
+  "courseId": "react-fundamentals",
+  "title": "Lists and Keys",
+  "summary": "Rendering lists in React means mapping an array of data to an array of JSX elements using .map(). Each element in the list must have a unique key prop so React can efficiently track which items changed, were added, or removed. Keys should be stable identifiers (like database IDs), not array indices — using indices causes bugs when the list is reordered or filtered.",
+  "keyPoints": [
+    "Use .map() to transform an array of data into an array of JSX elements",
+    "Every element in a list needs a unique key prop: <li key={item.id}>",
+    "Keys help React identify which items changed, were added, or removed",
+    "Use stable, unique IDs as keys — not array indices",
+    "Array index as key causes issues with reordering, filtering, and component state",
+    "Keys must be unique among siblings, not globally",
+    "The key prop is not passed to the component — it is used by React internally"
+  ],
+  "externalLinks": [
+    {
+      "label": "React Docs — Rendering Lists",
+      "url": "https://react.dev/learn/rendering-lists"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "lk-ex-01",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Which correctly renders a list of movie titles?\n\nconst movies = [{ id: 1, title: 'Inception' }, { id: 2, title: 'Dune' }]",
+      "options": [
+        "movies.forEach(m => <li>{m.title}</li>)",
+        "movies.map(m => <li key={m.id}>{m.title}</li>)",
+        "for (let m of movies) { <li>{m.title}</li> }",
+        "movies.filter(m => <li>{m.title}</li>)"
+      ],
+      "answer": "movies.map(m => <li key={m.id}>{m.title}</li>)",
+      "explanation": ".map() returns a new array of JSX elements that React can render. forEach returns undefined and cannot be used in JSX. Each element needs a unique key."
+    },
+    {
+      "id": "lk-ex-02",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "Why do list items need a key prop?",
+      "options": [
+        "To style each item differently",
+        "So React can efficiently track and update individual items",
+        "To make the list sortable",
+        "Keys are optional — React works fine without them"
+      ],
+      "answer": "So React can efficiently track and update individual items",
+      "explanation": "Keys let React match elements across renders. Without keys, React re-renders the entire list on any change. With keys, it only updates the items that actually changed."
+    },
+    {
+      "id": "lk-ex-03",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Why is using array index as a key problematic?\n\nmovies.map((m, index) => <MovieCard key={index} ... />)",
+      "options": [
+        "Indices are not numbers",
+        "Indices change when items are reordered, added, or removed — causing incorrect component reuse",
+        "React does not accept numbers as keys",
+        "It only fails in production mode"
+      ],
+      "answer": "Indices change when items are reordered, added, or removed — causing incorrect component reuse",
+      "explanation": "If you remove the first item, the second item gets key=0 (which was the first item's key). React thinks it is the same component and reuses its state, causing bugs."
+    },
+    {
+      "id": "lk-ex-04",
+      "type": "multiple-choice",
+      "difficulty": "beginner",
+      "prompt": "What happens if you forget the key prop on list items?",
+      "options": [
+        "The app crashes",
+        "React shows a console warning and performance may degrade",
+        "Nothing — keys are purely optional",
+        "The list renders in reverse order"
+      ],
+      "answer": "React shows a console warning and performance may degrade",
+      "explanation": "React still renders the list but warns in the console. Without keys, React cannot optimize updates and may re-render more elements than necessary."
+    },
+    {
+      "id": "lk-ex-05",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Which is a valid key for a list of movies fetched from an API?",
+      "options": [
+        "key={Math.random()}",
+        "key={movie.id}",
+        "key={movie.title + movie.id}",
+        "key={index}"
+      ],
+      "answer": "key={movie.id}",
+      "explanation": "Database IDs are ideal keys — they are stable and unique. Math.random() creates a new key every render, destroying and recreating all components. Index keys cause reorder bugs."
+    },
+    {
+      "id": "lk-ex-06",
+      "type": "multiple-choice",
+      "difficulty": "intermediate",
+      "prompt": "Is the key prop accessible inside the child component?\n\n<MovieCard key={movie.id} title={movie.title} />",
+      "options": [
+        "Yes — access it as props.key",
+        "No — key is consumed by React and not passed as a prop",
+        "Yes — but only in class components",
+        "Yes — access it as this.key"
+      ],
+      "answer": "No — key is consumed by React and not passed as a prop",
+      "explanation": "React uses key internally for reconciliation. If you need the id inside the component, pass it as a separate prop: <MovieCard key={movie.id} id={movie.id} />."
+    },
+    {
+      "id": "lk-ex-07",
+      "type": "fill-in",
+      "difficulty": "beginner",
+      "prompt": "Complete the code to render a <ul> with an <li> for each fruit:\n\nconst fruits = [{ id: 'a', name: 'Apple' }, { id: 'b', name: 'Banana' }]",
+      "code": "return (\n  <ul>\n    {/* map fruits to <li> elements here */}\n  </ul>\n)",
+      "answer": "return (\n  <ul>\n    {fruits.map(f => <li key={f.id}>{f.name}</li>)}\n  </ul>\n)",
+      "explanation": "Use .map() to transform each fruit object into an <li> element with a unique key from the id property."
+    }
+  ]
+}

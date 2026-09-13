@@ -93,6 +93,23 @@ import jsArrayMethods from "@/assets/courses/modern-js/topics/array-methods.json
 import jsAsyncAwait from "@/assets/courses/modern-js/topics/async-await.json";
 import jsOptionalChaining from "@/assets/courses/modern-js/topics/optional-chaining.json";
 
+// ── react-fundamentals ────────────────────────────────────────────────────────
+import rfMeta from "@/assets/courses/react-fundamentals/meta.json";
+import rfJsx from "@/assets/courses/react-fundamentals/topics/jsx.json";
+import rfFunctionalComponents from "@/assets/courses/react-fundamentals/topics/functional-components.json";
+import rfProps from "@/assets/courses/react-fundamentals/topics/props.json";
+import rfUseState from "@/assets/courses/react-fundamentals/topics/use-state.json";
+import rfEventHandling from "@/assets/courses/react-fundamentals/topics/event-handling.json";
+import rfConditionalRendering from "@/assets/courses/react-fundamentals/topics/conditional-rendering.json";
+import rfListsAndKeys from "@/assets/courses/react-fundamentals/topics/lists-and-keys.json";
+import rfUseEffect from "@/assets/courses/react-fundamentals/topics/use-effect.json";
+import rfContextApi from "@/assets/courses/react-fundamentals/topics/context-api.json";
+import rfUseReducer from "@/assets/courses/react-fundamentals/topics/use-reducer.json";
+import rfRouting from "@/assets/courses/react-fundamentals/topics/routing.json";
+import rfCssModules from "@/assets/courses/react-fundamentals/topics/css-modules.json";
+import rfServicesApis from "@/assets/courses/react-fundamentals/topics/services-apis.json";
+import rfDataFetching from "@/assets/courses/react-fundamentals/topics/data-fetching.json";
+
 // ── registry ──────────────────────────────────────────────────────────────────
 
 function toMap(topics: Topic[]): Record<string, Topic> {
@@ -163,6 +180,42 @@ export const courses: Record<string, CourseData> = {
       trReactHooks,
       trAsyncTyping,
       trUtilityTypes,
+    ] as Topic[]),
+  },
+  "react-fundamentals": {
+    ...rfMeta,
+    topicsMap: toMap([
+      rfJsx,
+      rfFunctionalComponents,
+      rfProps,
+      rfUseState,
+      rfEventHandling,
+      rfConditionalRendering,
+      rfListsAndKeys,
+      rfUseEffect,
+      rfContextApi,
+      rfUseReducer,
+      rfRouting,
+      rfCssModules,
+      rfServicesApis,
+      rfDataFetching,
+    ] as Topic[]),
+  },
+  "react-fundamentals-2": {
+    id: "react-fundamentals-2",
+    title: "React Fundamentals — Part 2",
+    description: "EPITA S5 · useEffect, Context API, routing, CSS Modules, services, and data fetching.",
+    topics: rfMeta.topics.filter((t: { id: string }) =>
+      ["use-effect", "context-api", "use-reducer", "routing", "css-modules", "services-apis", "data-fetching"].includes(t.id)
+    ),
+    topicsMap: toMap([
+      rfUseEffect,
+      rfContextApi,
+      rfUseReducer,
+      rfRouting,
+      rfCssModules,
+      rfServicesApis,
+      rfDataFetching,
     ] as Topic[]),
   },
 };

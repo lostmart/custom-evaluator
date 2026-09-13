@@ -110,6 +110,7 @@ function FillInExercise({
         filename="exercise.js"
         defaultValue={exercise.code ?? ""}
         onChange={setValue}
+        disablePaste
       />
       <div className="flex justify-end">
         <button
