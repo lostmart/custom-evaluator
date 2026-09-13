@@ -117,10 +117,11 @@ export default function ExercisePage({ defaultCode, guides, tasks, sheetName, co
   const [timedOut, setTimedOut] = useState(false);
   const [timeLeft, setTimeLeft] = useState(TIMER_SECONDS);
   const [error, setError] = useState<string | null>(null);
+  const [started, setStarted] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
-    if (!user.email) return;
+    if (!started) return;
 
     timerRef.current = setInterval(() => {
       setTimeLeft((t) => {
@@ -146,10 +147,56 @@ export default function ExercisePage({ defaultCode, guides, tasks, sheetName, co
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [user.email]);
+  }, [started]);
 
   if (!user.hydrated) return null;
   if (!user.email) return <LoginGate courseTitle={courseTitle} />;
+
+  if (!started) {
+    const minutes = Math.floor(TIMER_SECONDS / 60);
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-zinc-900 px-4">
+        <div className="w-full max-w-lg bg-zinc-800 border border-zinc-700 rounded-sm shadow-xl flex flex-col gap-6 px-10 py-10">
+          <div className="flex flex-col gap-1">
+            <span className="text-xs font-mono uppercase tracking-widest text-zinc-500">
+              EPITA | BSC Learning Tool
+            </span>
+            <h1 className="text-2xl font-semibold text-zinc-100">{courseTitle}</h1>
+          </div>
+
+          <div className="h-px bg-zinc-700" />
+
+          <div className="flex flex-col gap-2">
+            <h2 className="text-sm font-semibold text-zinc-300">What you need to do</h2>
+            <ul className="space-y-1.5">
+              {tasks.map((task) => (
+                <li key={task.id} className="flex items-start gap-2 text-sm text-zinc-400">
+                  <span className="mt-0.5 text-zinc-600">○</span>
+                  {task.description}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="bg-zinc-900 border border-zinc-700 rounded-sm px-4 py-3 flex items-start gap-3">
+            <span className="text-amber-400 text-base mt-0.5">⏱</span>
+            <p className="text-sm text-zinc-300 leading-relaxed">
+              You have <span className="font-semibold text-white">{minutes} minutes</span> to complete this exercise.
+              The timer starts the moment you click <span className="font-semibold text-white">Start</span> and cannot be paused.
+              If time runs out, your incomplete work is submitted automatically.
+            </p>
+          </div>
+
+          <button
+            onClick={() => setStarted(true)}
+            className="mt-2 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white text-sm font-semibold px-6 py-3 rounded transition"
+          >
+            Start Exercise →
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const completedIds = tasks
     .filter((task) => evaluateTask(task, currentCode))
@@ -269,6 +316,14 @@ export default function ExercisePage({ defaultCode, guides, tasks, sheetName, co
           </button>
           {error && <p className="text-red-400 text-xs">{error}</p>}
         </div>
+      </div>
+
+      {/* Hint bar */}
+      <div className="shrink-0 bg-zinc-900 border-t border-zinc-700 px-6 py-2 text-xs text-zinc-500">
+        Click <kbd className="px-1 py-0.5 bg-zinc-700 text-zinc-300 rounded text-[11px] font-mono">Run</kbd> or press{" "}
+        <kbd className="px-1 py-0.5 bg-zinc-700 text-zinc-300 rounded text-[11px] font-mono">Ctrl</kbd>{" "}+{" "}
+        <kbd className="px-1 py-0.5 bg-zinc-700 text-zinc-300 rounded text-[11px] font-mono">Enter</kbd>{" "}
+        to update the preview.
       </div>
     </div>
   );
