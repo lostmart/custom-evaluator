@@ -4,8 +4,8 @@ export default function App() {
   const [message, setState] = useState("The click will change this message !");
 
   const changeValue = () => {
-    console.log("running the thing ")
-  }
+    console.log("running the thing ");
+  };
 
   return (
     <>
@@ -17,3 +17,5 @@ export default function App() {
     </>
   );
 }
+
+// Click Run or press Ctrl + Enter to update the preview.

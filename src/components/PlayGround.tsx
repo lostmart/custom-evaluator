@@ -11,9 +11,11 @@ import CodeEditor from "./question/CodeEditor";
 const PlayGround = ({
   defaultCode,
   onCodeChange,
+  extraFiles = {},
 }: {
   defaultCode: string;
   onCodeChange?: (code: string) => void;
+  extraFiles?: Record<string, string>;
 }) => {
   const [runCode, setRunCode] = useState(defaultCode);
   const [runKey, setRunKey] = useState(0);
@@ -76,11 +78,11 @@ const PlayGround = ({
         <SandpackProvider
           key={runKey}
           template="react-ts"
-          files={{ "/App.tsx": runCode }}
+          files={{ "/App.tsx": runCode, ...extraFiles }}
           options={{ autorun: true, activeFile: "/App.tsx" }}
         >
           <SandpackPreview
-            style={{ flex: 1 }}
+            style={{ height: 540 }}
             showNavigator={false}
             showOpenInCodeSandbox={false}
           />

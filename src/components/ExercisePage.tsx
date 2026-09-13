@@ -4,8 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import PlayGround from "./PlayGround";
 import { useUser } from "@/context/UserContext";
 
-const TIMER_SECONDS = 3 * 60;
-
 type TaskCheck = {
   type: "code-contains";
   pattern: string;
@@ -59,9 +57,12 @@ function LoginGate({ courseTitle }: { courseTitle: string }) {
           <span className="text-xs font-mono uppercase tracking-widest text-tertiary">
             EPITA | BSC Learning Tool
           </span>
-          <h1 className="text-3xl font-semibold text-secondary">{courseTitle}</h1>
+          <h1 className="text-3xl font-semibold text-secondary">
+            {courseTitle}
+          </h1>
           <p className="text-sm text-zinc-500 leading-relaxed">
-            Identify yourself to start the exercise. Use your EPITA email address.
+            Identify yourself to start the exercise. Use your EPITA email
+            address.
           </p>
         </header>
 
@@ -69,12 +70,17 @@ function LoginGate({ courseTitle }: { courseTitle: string }) {
 
         <form onSubmit={handleIdentify} className="flex flex-col gap-4">
           <label className="flex flex-col gap-1.5">
-            <span className="text-sm font-medium text-secondary">Your email</span>
+            <span className="text-sm font-medium text-secondary">
+              Your email
+            </span>
             <input
               type="email"
               placeholder="firstname.lastname@epita.fr"
               value={email}
-              onChange={(e) => { setEmail(e.target.value); setError(""); }}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setError("");
+              }}
               required
               className={`border px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition ${
                 error ? "border-red-400" : "border-zinc-200"
@@ -88,9 +94,24 @@ function LoginGate({ courseTitle }: { courseTitle: string }) {
             className="mt-2 bg-primary text-white text-sm font-medium px-6 py-3 hover:opacity-90 active:opacity-80 transition disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
             {loading && (
-              <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24" fill="none">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+              <svg
+                className="animate-spin h-4 w-4 text-white"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                />
               </svg>
             )}
             {loading ? "Checking…" : "Continue →"}
@@ -107,15 +128,25 @@ type ExercisePageProps = {
   tasks: Task[];
   sheetName: string;
   courseTitle: string;
+  timerSeconds: number;
+  extraFiles?: Record<string, string>;
 };
 
-export default function ExercisePage({ defaultCode, guides, tasks, sheetName, courseTitle }: ExercisePageProps) {
+export default function ExercisePage({
+  defaultCode,
+  guides,
+  tasks,
+  sheetName,
+  courseTitle,
+  timerSeconds,
+  extraFiles,
+}: ExercisePageProps) {
   const { user } = useUser();
   const [currentCode, setCurrentCode] = useState(defaultCode);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [timedOut, setTimedOut] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(TIMER_SECONDS);
+  const [timeLeft, setTimeLeft] = useState(timerSeconds);
   const [error, setError] = useState<string | null>(null);
   const [started, setStarted] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -153,7 +184,7 @@ export default function ExercisePage({ defaultCode, guides, tasks, sheetName, co
   if (!user.email) return <LoginGate courseTitle={courseTitle} />;
 
   if (!started) {
-    const minutes = Math.floor(TIMER_SECONDS / 60);
+    const minutes = Math.floor(timerSeconds / 60);
     return (
       <div className="min-h-screen flex items-center justify-center bg-zinc-900 px-4">
         <div className="w-full max-w-lg bg-zinc-800 border border-zinc-700 rounded-sm shadow-xl flex flex-col gap-6 px-10 py-10">
@@ -161,16 +192,23 @@ export default function ExercisePage({ defaultCode, guides, tasks, sheetName, co
             <span className="text-xs font-mono uppercase tracking-widest text-zinc-500">
               EPITA | BSC Learning Tool
             </span>
-            <h1 className="text-2xl font-semibold text-zinc-100">{courseTitle}</h1>
+            <h1 className="text-2xl font-semibold text-zinc-100">
+              {courseTitle}
+            </h1>
           </div>
 
           <div className="h-px bg-zinc-700" />
 
           <div className="flex flex-col gap-2">
-            <h2 className="text-sm font-semibold text-zinc-300">What you need to do</h2>
+            <h2 className="text-sm font-semibold text-zinc-300">
+              What you need to do
+            </h2>
             <ul className="space-y-1.5">
               {tasks.map((task) => (
-                <li key={task.id} className="flex items-start gap-2 text-sm text-zinc-400">
+                <li
+                  key={task.id}
+                  className="flex items-start gap-2 text-sm text-zinc-400"
+                >
                   <span className="mt-0.5 text-zinc-600">○</span>
                   {task.description}
                 </li>
@@ -181,9 +219,14 @@ export default function ExercisePage({ defaultCode, guides, tasks, sheetName, co
           <div className="bg-zinc-900 border border-zinc-700 rounded-sm px-4 py-3 flex items-start gap-3">
             <span className="text-amber-400 text-base mt-0.5">⏱</span>
             <p className="text-sm text-zinc-300 leading-relaxed">
-              You have <span className="font-semibold text-white">{minutes} minutes</span> to complete this exercise.
-              The timer starts the moment you click <span className="font-semibold text-white">Start</span> and cannot be paused.
-              If time runs out, your incomplete work is submitted automatically.
+              You have{" "}
+              <span className="font-semibold text-white">
+                {minutes} minutes
+              </span>{" "}
+              to complete this exercise. The timer starts the moment you click{" "}
+              <span className="font-semibold text-white">Start</span> and cannot
+              be paused. If time runs out, your incomplete work is submitted
+              automatically.
             </p>
           </div>
 
@@ -241,9 +284,12 @@ export default function ExercisePage({ defaultCode, guides, tasks, sheetName, co
       <div className="h-screen w-screen flex items-center justify-center bg-zinc-900">
         <div className="flex flex-col items-center gap-4 text-center">
           <span className="text-emerald-400 text-5xl">✓</span>
-          <h1 className="text-2xl font-semibold text-zinc-100">Exercise submitted</h1>
+          <h1 className="text-2xl font-semibold text-zinc-100">
+            Exercise submitted
+          </h1>
           <p className="text-sm text-zinc-400 max-w-sm">
-            Your work on <span className="text-zinc-200">{courseTitle}</span> has been recorded. You can close this tab.
+            Your work on <span className="text-zinc-200">{courseTitle}</span>{" "}
+            has been recorded. You can close this tab.
           </p>
         </div>
       </div>
@@ -257,7 +303,8 @@ export default function ExercisePage({ defaultCode, guides, tasks, sheetName, co
           <span className="text-red-400 text-5xl">⏱</span>
           <h1 className="text-2xl font-semibold text-zinc-100">Time's up</h1>
           <p className="text-sm text-zinc-400 max-w-sm">
-            The 3-minute window has ended. Your attempt has been recorded. You can close this tab.
+            Time is up. Your attempt has been recorded. You
+            can close this tab.
           </p>
         </div>
       </div>
@@ -269,7 +316,7 @@ export default function ExercisePage({ defaultCode, guides, tasks, sheetName, co
   return (
     <div className="h-screen w-screen flex flex-col bg-zinc-900 overflow-hidden">
       <div className="min-h-0">
-        <PlayGround defaultCode={defaultCode} onCodeChange={setCurrentCode} />
+        <PlayGround defaultCode={defaultCode} onCodeChange={setCurrentCode} extraFiles={extraFiles} />
       </div>
 
       <div className="shrink-0 overflow-y-auto bg-zinc-800 border-t border-zinc-700 px-6 py-4 flex items-start gap-8">
@@ -304,7 +351,9 @@ export default function ExercisePage({ defaultCode, guides, tasks, sheetName, co
         </div>
 
         <div className="shrink-0 flex flex-col items-end gap-2">
-          <span className={`font-mono text-sm font-semibold tabular-nums ${urgent ? "text-red-400" : "text-zinc-400"}`}>
+          <span
+            className={`font-mono text-sm font-semibold tabular-nums ${urgent ? "text-red-400" : "text-zinc-400"}`}
+          >
             {formatTime(timeLeft)}
           </span>
           <button
@@ -320,9 +369,18 @@ export default function ExercisePage({ defaultCode, guides, tasks, sheetName, co
 
       {/* Hint bar */}
       <div className="shrink-0 bg-zinc-900 border-t border-zinc-700 px-6 py-2 text-xs text-zinc-500">
-        Click <kbd className="px-1 py-0.5 bg-zinc-700 text-zinc-300 rounded text-[11px] font-mono">Run</kbd> or press{" "}
-        <kbd className="px-1 py-0.5 bg-zinc-700 text-zinc-300 rounded text-[11px] font-mono">Ctrl</kbd>{" "}+{" "}
-        <kbd className="px-1 py-0.5 bg-zinc-700 text-zinc-300 rounded text-[11px] font-mono">Enter</kbd>{" "}
+        Click{" "}
+        <kbd className="px-1 py-0.5 bg-zinc-700 text-zinc-300 rounded text-[11px] font-mono">
+          Run
+        </kbd>{" "}
+        or press{" "}
+        <kbd className="px-1 py-0.5 bg-zinc-700 text-zinc-300 rounded text-[11px] font-mono">
+          Ctrl
+        </kbd>{" "}
+        +{" "}
+        <kbd className="px-1 py-0.5 bg-zinc-700 text-zinc-300 rounded text-[11px] font-mono">
+          Enter
+        </kbd>{" "}
         to update the preview.
       </div>
     </div>

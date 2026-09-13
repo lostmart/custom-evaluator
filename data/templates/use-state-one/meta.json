@@ -1,6 +1,7 @@
 {
   "sheetName": "react1",
   "courseTitle": "use state one",
+  "timerSeconds": 150,
   "guides": [
     "Link the button to the `changeValue` function",
     "Use `useState` to manage state",

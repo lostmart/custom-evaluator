@@ -1,0 +1,34 @@
+[
+  {
+    "id": "task1",
+    "description": "Pass props to ONE ArticleComp (image must use the flowerUrl variable)",
+    "check": {
+      "type": "code-contains",
+      "pattern": "<ArticleComp[^>]*image\\s*=\\s*\\{\\s*flowerUrl\\s*\\}"
+    }
+  },
+  {
+    "id": "task2",
+    "description": "Map over articlesList to render a list of ArticleComp",
+    "check": {
+      "type": "code-contains",
+      "pattern": "articlesList\\.map\\s*\\("
+    }
+  },
+  {
+    "id": "task3",
+    "description": "Add a unique key prop to each rendered ArticleComp",
+    "check": {
+      "type": "code-contains",
+      "pattern": "\\bkey\\s*=\\s*[{\"']"
+    }
+  },
+  {
+    "id": "task4",
+    "description": "Define the ArticleProps type with title, description, and image fields",
+    "check": {
+      "type": "code-contains",
+      "pattern": "type\\s+ArticleProps\\s*=\\s*\\{(?=[\\s\\S]*title\\s*:\\s*string)(?=[\\s\\S]*description\\s*:\\s*string)(?=[\\s\\S]*image\\s*:\\s*string)"
+    }
+  }
+]

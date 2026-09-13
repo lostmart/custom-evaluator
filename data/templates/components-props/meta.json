@@ -1,0 +1,11 @@
+{
+  "sheetName": "components-props",
+  "courseTitle": "React Components & Props",
+  "timerSeconds": 300,
+  "guides": [
+    "Pass data to ONE ArticleComp using hard-coded props in App.js",
+    "Define a const articlesList with at least 3 article objects",
+    "Map over articlesList to render an ArticleComp for each item",
+    "Add a unique key prop to each rendered ArticleComp so React works correctly"
+  ]
+}
