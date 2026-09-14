@@ -95,7 +95,7 @@ function FillInExercise({
   const [revealed, setRevealed] = useState(false);
 
   function normalize(s: string) {
-    return s.split("\n").map((l) => l.trim()).filter(Boolean).join("\n");
+    return s.split("\n").map((l) => l.trim()).filter((l) => l && !l.startsWith("//")).join("\n");
   }
   const correct = normalize(value) === normalize(exercise.answer ?? "");
 
