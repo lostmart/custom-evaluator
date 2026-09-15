@@ -8,6 +8,7 @@ type TestState = {
   points: number;
   cancelled: boolean;
   questionSet: string | null;
+  codeAnswers: Record<string, string>;
 };
 
 type TestContextValue = {
@@ -24,6 +25,7 @@ export function TestProvider({ children }: { children: React.ReactNode }) {
     points: 0,
     cancelled: false,
     questionSet: null,
+    codeAnswers: {},
   });
 
   function setTest(data: Partial<TestState>) {

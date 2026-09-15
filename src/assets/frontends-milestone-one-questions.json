@@ -147,14 +147,14 @@
   },
   {
     "title": "Props",
-    "question": "What is 'prop drilling' and why is it a concern?",
-    "answer": "Passing props through many intermediate components that don't use them, making code harder to maintain",
+    "question": "How do you set a default value for a prop in a functional component?",
+    "answer": "Use destructuring defaults: function Card({ rating = 0 }) { ... }",
     "type": "multiple",
     "options": [
-      "Using too many props on a single component",
-      "Passing props through many intermediate components that don't use them, making code harder to maintain",
-      "Drilling into the DOM to read prop values directly",
-      "A performance optimization technique for deep component trees"
+      "Card.defaultProps = { rating: 0 }",
+      "Use destructuring defaults: function Card({ rating = 0 }) { ... }",
+      "function Card(props = { rating: 0 }) { ... }",
+      "You cannot — every prop must be passed explicitly by the parent"
     ],
     "timer": 25
   },
@@ -470,7 +470,7 @@
       "Two-way data binding between parent and child",
       "Inverse data flow — the child communicates back to the parent via callback props",
       "Event bubbling through the React component tree",
-      "Dependency injection via the Context API"
+      "Dependency injection via a global store"
     ],
     "timer": 25
   }

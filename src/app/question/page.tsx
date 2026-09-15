@@ -127,6 +127,9 @@ export default function QuestionPage() {
 		}
 		const newPoints = isCorrect ? test.points + 1 : test.points
 		const nextQuestion = current + 1
+		const updatedCodeAnswers = question.type === "code"
+			? { ...test.codeAnswers, [`q${current}`]: codeValue }
+			: test.codeAnswers
 
 		setShowModal(false)
 		setHasConfirmedOnce(true)
@@ -134,10 +137,10 @@ export default function QuestionPage() {
 		track({ email: user.email, event: "question_answered", detail: `${newPoints} correct so far` })
 
 		if (nextQuestion >= total) {
-			setTest({ points: newPoints, currentQuestion: nextQuestion })
+			setTest({ points: newPoints, currentQuestion: nextQuestion, codeAnswers: updatedCodeAnswers })
 			router.push(`/score?points=${newPoints}&total=${total}&set=${test.questionSet ?? ""}`)
 		} else {
-			setTest({ points: newPoints, currentQuestion: nextQuestion })
+			setTest({ points: newPoints, currentQuestion: nextQuestion, codeAnswers: updatedCodeAnswers })
 		}
 	}
 

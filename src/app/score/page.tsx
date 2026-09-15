@@ -58,6 +58,10 @@ function ScoreContent() {
         detail: `${points}/${totalQuestions} correct`,
       });
 
+      const codeAnswers = Object.keys(test.codeAnswers).length > 0
+        ? JSON.stringify(test.codeAnswers)
+        : undefined;
+
       fetch("/api/study-submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -67,7 +71,10 @@ function ScoreContent() {
           submittedAt: new Date().toLocaleString("sv-SE", {
             timeZone: "Europe/Paris",
           }),
-          courseTitle: `${questionSet ?? "unknown"} — ${points}/${totalQuestions}`,
+          courseTitle: questionSet ?? "unknown",
+          score: points,
+          maxScore: totalQuestions,
+          code: codeAnswers,
         }),
       }).catch(() => {});
     }
@@ -104,7 +111,7 @@ function ScoreContent() {
             {getDiagnosticMessage(points, totalQuestions)}
           </p>
 
-          {courseLabel && errors > 0 && (
+          {courseLabel && errors > 0 && questionSet !== "frontends-milestone-one" && (
             <Link
               href={`/${questionSet}/study`}
               className="flex items-center justify-between w-full px-4 py-3 border border-zinc-200 rounded-sm hover:border-zinc-300 hover:bg-zinc-50 transition-colors group"
