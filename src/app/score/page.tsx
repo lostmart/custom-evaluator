@@ -15,6 +15,7 @@ const COURSE_LABELS: Record<string, string> = {
   "modern-js": "Front-End Frameworks",
   "react-fundamentals": "React Fundamentals",
   "react-fundamentals-2": "React Fundamentals — Part 2",
+  "frontends-milestone-one": "Frontends — Milestone 1",
 };
 
 function getDiagnosticMessage(score: number, total: number): string {

@@ -11,5 +11,5 @@ export default async function SyllabusPage({
   const course = courses[syllabus];
   if (!course) notFound();
 
-  return <SyllabusLanding syllabus={syllabus} courseTitle={course.title} />;
+  return <SyllabusLanding syllabus={syllabus} courseTitle={course.title} hasStudyMaterials={course.topics.length > 0} />;
 }

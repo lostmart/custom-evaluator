@@ -201,6 +201,13 @@ export const courses: Record<string, CourseData> = {
       rfDataFetching,
     ] as Topic[]),
   },
+  "frontends-milestone-one": {
+    id: "frontends-milestone-one",
+    title: "Frontends — Milestone 1",
+    description: "Props, State, and useState assessment.",
+    topics: [],
+    topicsMap: {},
+  },
   "react-fundamentals-2": {
     id: "react-fundamentals-2",
     title: "React Fundamentals — Part 2",

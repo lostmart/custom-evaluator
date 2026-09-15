@@ -1,0 +1,477 @@
+[
+  {
+    "title": "JSX",
+    "question": "What is JSX?",
+    "answer": "A syntax extension that lets you write HTML-like markup inside JavaScript",
+    "type": "multiple",
+    "options": [
+      "A new version of HTML5",
+      "A syntax extension that lets you write HTML-like markup inside JavaScript",
+      "A template engine like Handlebars or EJS",
+      "A CSS-in-JS library"
+    ],
+    "timer": 20
+  },
+  {
+    "title": "JSX",
+    "question": "Which wrapper lets you group multiple JSX elements without adding an extra DOM node?",
+    "answer": "React Fragment (<>...</> or <React.Fragment>)",
+    "type": "multiple",
+    "options": [
+      "<div>",
+      "<section>",
+      "React Fragment (<>...</> or <React.Fragment>)",
+      "<wrapper>"
+    ],
+    "timer": 20
+  },
+  {
+    "title": "JSX",
+    "question": "Which statement about JSX is FALSE?",
+    "answer": "JSX is interpreted directly by the browser without any compilation step",
+    "type": "multiple",
+    "options": [
+      "JSX is compiled into JavaScript function calls before running",
+      "JSX attributes use camelCase (e.g. onClick, className)",
+      "JSX is interpreted directly by the browser without any compilation step",
+      "You can embed any JavaScript expression inside JSX using curly braces"
+    ],
+    "timer": 25
+  },
+  {
+    "title": "JSX",
+    "question": "What does the expression {items.length} render inside a <p> tag?",
+    "answer": "The number of elements in the array",
+    "type": "multiple",
+    "options": [
+      "The literal text 'items.length'",
+      "The number of elements in the array",
+      "The array contents as a comma-separated string",
+      "Nothing — property access is not allowed in JSX"
+    ],
+    "timer": 20
+  },
+  {
+    "title": "JSX",
+    "question": "Fix ALL the JSX errors in this component so it compiles correctly.",
+    "type": "code",
+    "code": "function Profile() {\n  const name = \"Alice\";\n  return (\n    <div>\n      <h1 class=\"title\">Hello, {name}!</h1>\n      <img src=\"avatar.jpg\">\n      <label for=\"email\">Email</label>\n      <input id=\"email\" type=\"email\">\n    </div>\n  );\n}",
+    "answer": "(?=.*className)(?=.*htmlFor)(?=.*<img[^>]*/>)(?=.*<input[^>]*/>)",
+    "timer": 90
+  },
+  {
+    "title": "Functional Components",
+    "question": "What is a React functional component?",
+    "answer": "A JavaScript function that accepts props and returns JSX",
+    "type": "multiple",
+    "options": [
+      "A class that extends React.Component",
+      "A JavaScript function that accepts props and returns JSX",
+      "Any function that uses the DOM API",
+      "A function that must return a string of HTML"
+    ],
+    "timer": 20
+  },
+  {
+    "title": "Functional Components",
+    "question": "Which of these is a valid React functional component?",
+    "answer": "function Card() { return <div>Hello</div>; }",
+    "type": "multiple",
+    "options": [
+      "function card() { return <div>Hello</div>; }",
+      "function Card() { return <div>Hello</div>; }",
+      "const Card = { render: () => <div>Hello</div> };",
+      "class Card { return <div>Hello</div>; }"
+    ],
+    "timer": 25
+  },
+  {
+    "title": "Functional Components",
+    "question": "What causes a React component to re-render?",
+    "answer": "A change in its state or a change in the props passed by its parent",
+    "type": "multiple",
+    "options": [
+      "Calling document.getElementById() inside the component",
+      "A change in its state or a change in the props passed by its parent",
+      "A setInterval running in the background",
+      "Any local variable inside the component changing its value"
+    ],
+    "timer": 25
+  },
+  {
+    "title": "Functional Components",
+    "question": "Create a component called Greeting that takes no props and returns a <h1> containing \"Welcome!\".",
+    "type": "code",
+    "code": "// Write your component below\n",
+    "answer": "(?=.*(?:function\\s+Greeting|const\\s+Greeting))(?=.*<h1[^>]*>.*Welcome!)",
+    "timer": 60
+  },
+  {
+    "title": "Props",
+    "question": "What does 'one-way data flow' mean in React?",
+    "answer": "Data flows from parent components down to child components via props",
+    "type": "multiple",
+    "options": [
+      "Data can only be read, never written",
+      "Data flows from parent components down to child components via props",
+      "Components can only receive data from a single source",
+      "State can only be updated once per render cycle"
+    ],
+    "timer": 20
+  },
+  {
+    "title": "Props",
+    "question": "Can a child component modify the props it receives?",
+    "answer": "No — props are read-only; the child must ask the parent to change them via a callback",
+    "type": "multiple",
+    "options": [
+      "Yes — the child can reassign any prop freely",
+      "Yes — but only inside useEffect",
+      "No — props are read-only; the child must ask the parent to change them via a callback",
+      "No — but copying them to state and changing that copy will update the parent too"
+    ],
+    "timer": 25
+  },
+  {
+    "title": "Props",
+    "question": "How do you pass the boolean value true for a prop called isActive?",
+    "answer": "<Badge isActive /> or <Badge isActive={true} />",
+    "type": "multiple",
+    "options": [
+      "<Badge isActive=\"true\" />",
+      "<Badge isActive /> or <Badge isActive={true} />",
+      "<Badge isActive=true />",
+      "<Badge set-isActive={true} />"
+    ],
+    "timer": 20
+  },
+  {
+    "title": "Props",
+    "question": "What is 'prop drilling' and why is it a concern?",
+    "answer": "Passing props through many intermediate components that don't use them, making code harder to maintain",
+    "type": "multiple",
+    "options": [
+      "Using too many props on a single component",
+      "Passing props through many intermediate components that don't use them, making code harder to maintain",
+      "Drilling into the DOM to read prop values directly",
+      "A performance optimization technique for deep component trees"
+    ],
+    "timer": 25
+  },
+  {
+    "title": "Props",
+    "question": "Refactor the component to use destructured props instead of props.name and props.age.",
+    "type": "code",
+    "code": "function UserCard(props) {\n  return (\n    <div>\n      <h2>{props.name}</h2>\n      <p>Age: {props.age}</p>\n    </div>\n  );\n}",
+    "answer": "\\{\\s*name\\s*,\\s*age\\s*\\}|\\{\\s*age\\s*,\\s*name\\s*\\}",
+    "timer": 60
+  },
+  {
+    "title": "useState",
+    "question": "What does the useState hook return?",
+    "answer": "An array with two elements: the current state value and a function to update it",
+    "type": "multiple",
+    "options": [
+      "An object with state and setState properties",
+      "An array with two elements: the current state value and a function to update it",
+      "A single value that updates automatically when you reassign it",
+      "A ref object with a .current property"
+    ],
+    "timer": 20
+  },
+  {
+    "title": "useState",
+    "question": "Why should you never mutate state directly (e.g. state.push(item))?",
+    "answer": "React won't detect the change and won't re-render the component",
+    "type": "multiple",
+    "options": [
+      "It throws a runtime TypeError",
+      "It causes an infinite re-render loop",
+      "React won't detect the change and won't re-render the component",
+      "It only works in class components, not functional ones"
+    ],
+    "timer": 25
+  },
+  {
+    "title": "useState",
+    "question": "Where can you call useState inside a component?",
+    "answer": "Only at the top level of the component — not inside loops, conditions, or nested functions",
+    "type": "multiple",
+    "options": [
+      "Anywhere inside the component, including inside if statements and loops",
+      "Only inside a useEffect callback",
+      "Only at the top level of the component — not inside loops, conditions, or nested functions",
+      "Only inside event handlers"
+    ],
+    "timer": 25
+  },
+  {
+    "title": "useState",
+    "question": "What happens when you call the setter from useState (e.g. setCount(5))?",
+    "answer": "React schedules a re-render; the new value is available on the next render, not immediately",
+    "type": "multiple",
+    "options": [
+      "The count variable is updated to 5 immediately on the same line",
+      "React schedules a re-render; the new value is available on the next render, not immediately",
+      "The entire DOM is rebuilt from scratch synchronously",
+      "The component is unmounted and a fresh one is created"
+    ],
+    "timer": 25
+  },
+  {
+    "title": "useState",
+    "question": "Add the missing useState call so the counter works. Do not change anything else.",
+    "type": "code",
+    "code": "import { useState } from \"react\";\n\nfunction Counter() {\n  // TODO: declare a state variable \"count\" starting at 0\n\n  return (\n    <div>\n      <p>Count: {count}</p>\n      <button onClick={() => setCount(count + 1)}>+1</button>\n    </div>\n  );\n}",
+    "answer": "const\\s*\\[\\s*count\\s*,\\s*setCount\\s*\\]\\s*=\\s*useState\\s*\\(\\s*0\\s*\\)",
+    "timer": 60
+  },
+  {
+    "title": "useState",
+    "question": "This component has a bug — clicking 'Add' doesn't update the list. Fix the addItem function.",
+    "type": "code",
+    "code": "import { useState } from \"react\";\n\nfunction TodoList() {\n  const [items, setItems] = useState([\"Learn React\"]);\n\n  function addItem() {\n    items.push(\"New item\");\n    setItems(items);\n  }\n\n  return (\n    <div>\n      <button onClick={addItem}>Add</button>\n      <ul>\n        {items.map((item, i) => (\n          <li key={i}>{item}</li>\n        ))}\n      </ul>\n    </div>\n  );\n}",
+    "answer": "\\[\\.\\.\\.items|items\\.concat|\\[\\.\\.\\.prev",
+    "timer": 90
+  },
+  {
+    "title": "Controlled Components",
+    "question": "What makes an input element 'controlled' in React?",
+    "answer": "Its value is driven by React state, and changes go through an onChange handler",
+    "type": "multiple",
+    "options": [
+      "It has a ref attached to it",
+      "Its value is driven by React state, and changes go through an onChange handler",
+      "It uses the defaultValue attribute",
+      "It is wrapped inside a <form> element"
+    ],
+    "timer": 20
+  },
+  {
+    "title": "Controlled Components",
+    "question": "Why are controlled components preferred for form handling in React?",
+    "answer": "React state becomes the single source of truth, making the data easy to validate, transform, and submit",
+    "type": "multiple",
+    "options": [
+      "They render faster than uncontrolled components",
+      "React state becomes the single source of truth, making the data easy to validate, transform, and submit",
+      "They don't require any event handlers",
+      "They automatically prevent invalid user input"
+    ],
+    "timer": 25
+  },
+  {
+    "title": "Controlled Components",
+    "question": "Which two attributes together make a text input controlled?",
+    "answer": "value={state} and onChange={handler}",
+    "type": "multiple",
+    "options": [
+      "defaultValue={state} and onInput={handler}",
+      "value={state} and onChange={handler}",
+      "ref={inputRef} and onChange={handler}",
+      "name=\"input\" and value={state}"
+    ],
+    "timer": 20
+  },
+  {
+    "title": "Controlled Components",
+    "question": "Make this search input a controlled component. Add state and wire it up so the paragraph shows what the user types.",
+    "type": "code",
+    "code": "import { useState } from \"react\";\n\nfunction SearchBox() {\n  // TODO: Add state for the search query\n\n  return (\n    <div>\n      <input type=\"text\" placeholder=\"Search...\" />\n      <p>You typed: </p>\n    </div>\n  );\n}",
+    "answer": "(?=.*useState)(?=.*value\\s*=\\s*\\{)(?=.*onChange)",
+    "timer": 90
+  },
+  {
+    "title": "Lists and Keys",
+    "question": "Which array method is used to transform data into a list of JSX elements?",
+    "answer": ".map() — it returns a new array with the transformed elements",
+    "type": "multiple",
+    "options": [
+      ".forEach() — it iterates and returns undefined",
+      ".map() — it returns a new array with the transformed elements",
+      ".filter() — it selects matching elements",
+      ".reduce() — it accumulates into a single value"
+    ],
+    "timer": 20
+  },
+  {
+    "title": "Lists and Keys",
+    "question": "Why does React require a key prop on each element in a rendered list?",
+    "answer": "So React can track which items changed, were added, or removed between renders",
+    "type": "multiple",
+    "options": [
+      "To apply CSS styling to each item",
+      "So React can track which items changed, were added, or removed between renders",
+      "To make the list sortable by default",
+      "To enable click events on individual list items"
+    ],
+    "timer": 25
+  },
+  {
+    "title": "Lists and Keys",
+    "question": "Which value makes the BEST key for list items?",
+    "answer": "A unique, stable identifier from the data (e.g. a database ID)",
+    "type": "multiple",
+    "options": [
+      "The array index",
+      "A random number generated on each render",
+      "A unique, stable identifier from the data (e.g. a database ID)",
+      "The item's position in the original unsorted array"
+    ],
+    "timer": 20
+  },
+  {
+    "title": "Lists and Keys",
+    "question": "What warning does React show if you forget the key prop on list items?",
+    "answer": "\"Each child in a list should have a unique 'key' prop\"",
+    "type": "multiple",
+    "options": [
+      "\"Cannot render array without keys\"",
+      "\"Missing required prop: key\"",
+      "\"Each child in a list should have a unique 'key' prop\"",
+      "No warning — it silently uses the array index"
+    ],
+    "timer": 20
+  },
+  {
+    "title": "Lists and Keys",
+    "question": "Render the users array as a list of <li> elements using .map(). Each <li> must show the user's name and have a proper key.",
+    "type": "code",
+    "code": "function UserList() {\n  const users = [\n    { id: 1, name: \"Alice\" },\n    { id: 2, name: \"Bob\" },\n    { id: 3, name: \"Charlie\" },\n  ];\n\n  return (\n    <ul>\n      {/* TODO: render each user as an <li> */}\n    </ul>\n  );\n}",
+    "answer": "(?=.*\\.map\\s*\\()(?=.*key\\s*=\\s*\\{)(?=.*<li)",
+    "timer": 90
+  },
+  {
+    "title": "Event Handling",
+    "question": "What is wrong with onClick={handleClick()}?",
+    "answer": "It calls handleClick immediately during render instead of passing it as a callback for later",
+    "type": "multiple",
+    "options": [
+      "Nothing — this is correct syntax",
+      "It calls handleClick immediately during render instead of passing it as a callback for later",
+      "You need quotes around handleClick()",
+      "onClick only accepts arrow functions"
+    ],
+    "timer": 25
+  },
+  {
+    "title": "Event Handling",
+    "question": "How does React's event system differ from native DOM events?",
+    "answer": "React uses SyntheticEvents that wrap native events and work identically across all browsers",
+    "type": "multiple",
+    "options": [
+      "React attaches a separate listener to every single DOM node",
+      "React events only work on React components, not on HTML elements like <button>",
+      "React uses SyntheticEvents that wrap native events and work identically across all browsers",
+      "There is no difference — React passes native browser events directly"
+    ],
+    "timer": 25
+  },
+  {
+    "title": "Event Handling",
+    "question": "Complete the Toggle component: write the toggle function that flips the state, and attach it to the button's click event.",
+    "type": "code",
+    "code": "import { useState } from \"react\";\n\nfunction Toggle() {\n  const [on, setOn] = useState(false);\n\n  // TODO: write a function called \"toggle\" that flips the value of \"on\"\n\n  return (\n    <button>{/* TODO: attach toggle to this button's click */}\n      {on ? \"ON\" : \"OFF\"}\n    </button>\n  );\n}",
+    "answer": "(?=.*setOn\\s*\\(\\s*(?:!on|prev\\s*=>\\s*!prev|\\(prev\\)\\s*=>\\s*!prev|\\(\\)\\s*=>\\s*!on))(?=.*onClick\\s*=\\s*\\{)",
+    "timer": 90
+  },
+  {
+    "title": "TypeScript & React",
+    "question": "How do you define the type of a component's props in TypeScript?",
+    "answer": "With a type alias or interface, then annotate the function parameter: function Card({ title }: CardProps)",
+    "type": "multiple",
+    "options": [
+      "Using PropTypes.string at the bottom of the file",
+      "With a type alias or interface, then annotate the function parameter: function Card({ title }: CardProps)",
+      "By passing types as a second argument to React.createElement",
+      "By adding JSDoc comments above the component"
+    ],
+    "timer": 25
+  },
+  {
+    "title": "TypeScript & React",
+    "question": "What is the full TypeScript type of the setter returned by useState<number>(0)?",
+    "answer": "React.Dispatch<React.SetStateAction<number>>",
+    "type": "multiple",
+    "options": [
+      "(value: number) => void",
+      "React.Dispatch<React.SetStateAction<number>>",
+      "React.Setter<number>",
+      "(value: number) => number"
+    ],
+    "timer": 30
+  },
+  {
+    "title": "TypeScript & React",
+    "question": "How do you mark a prop as optional in a TypeScript interface?",
+    "answer": "Add a question mark after the name: subtitle?: string",
+    "type": "multiple",
+    "options": [
+      "Use the Optional<> utility type around the interface",
+      "Set the prop to null in the default value",
+      "Add a question mark after the name: subtitle?: string",
+      "Wrap the type in Maybe<string>"
+    ],
+    "timer": 20
+  },
+  {
+    "title": "TypeScript & React",
+    "question": "What is the correct way to type an onChange handler for an HTML input element?",
+    "answer": "(e: React.ChangeEvent<HTMLInputElement>) => void",
+    "type": "multiple",
+    "options": [
+      "(e: Event) => void",
+      "(e: React.ChangeEvent<HTMLInputElement>) => void",
+      "(e: React.InputEvent) => void",
+      "(e: HTMLInputElement) => void"
+    ],
+    "timer": 25
+  },
+  {
+    "title": "TypeScript & React",
+    "question": "Add a TypeScript type or interface for the props. name is a required string and age is a required number.",
+    "type": "code",
+    "code": "// TODO: define a type for the props\n\nfunction ProfileCard({ name, age }) {\n  return (\n    <div>\n      <h2>{name}</h2>\n      <p>Age: {age}</p>\n    </div>\n  );\n}",
+    "answer": "(?=.*(?:type|interface)\\s+\\w+)(?=.*name\\s*:\\s*string)(?=.*age\\s*:\\s*number)",
+    "timer": 90
+  },
+  {
+    "title": "React DevTools",
+    "question": "What can you inspect using the React DevTools browser extension?",
+    "answer": "The component tree, each component's current props and state, and which components re-rendered",
+    "type": "multiple",
+    "options": [
+      "Only the final HTML output of the page",
+      "The component tree, each component's current props and state, and which components re-rendered",
+      "Network requests made by the application",
+      "The JavaScript bundle size and load times"
+    ],
+    "timer": 20
+  },
+  {
+    "title": "React DevTools",
+    "question": "In React DevTools, which tab shows the component hierarchy and lets you inspect props and state?",
+    "answer": "The Components tab",
+    "type": "multiple",
+    "options": [
+      "The Elements tab",
+      "The Components tab",
+      "The Profiler tab",
+      "The Console tab"
+    ],
+    "timer": 20
+  },
+  {
+    "title": "React Fundamentals",
+    "question": "A parent passes a callback function as a prop to a child. The child calls it when a button is clicked. What pattern is this?",
+    "answer": "Inverse data flow — the child communicates back to the parent via callback props",
+    "type": "multiple",
+    "options": [
+      "Two-way data binding between parent and child",
+      "Inverse data flow — the child communicates back to the parent via callback props",
+      "Event bubbling through the React component tree",
+      "Dependency injection via the Context API"
+    ],
+    "timer": 25
+  }
+]

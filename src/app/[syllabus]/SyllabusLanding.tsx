@@ -9,9 +9,11 @@ import { useTest } from "@/context/TestContext";
 export function SyllabusLanding({
   syllabus,
   courseTitle,
+  hasStudyMaterials = true,
 }: {
   syllabus: string;
   courseTitle: string;
+  hasStudyMaterials?: boolean;
 }) {
   const { user, setUser } = useUser();
   const { setTest } = useTest();
@@ -61,10 +63,9 @@ export function SyllabusLanding({
             {courseTitle}
           </h1>
           <p className="text-sm text-zinc-500 leading-relaxed">
-            Use this tool to study and take assessments. Once you're logged in,
-            you can go through the study materials as many times as you want.
-            When you're ready, you can take the assessment. You can only submit
-            once!
+            {hasStudyMaterials
+              ? "Use this tool to study and take assessments. Once you're logged in, you can go through the study materials as many times as you want. When you're ready, you can take the assessment. You can only submit once!"
+              : "Once you're logged in, you can start the assessment. You can only submit once!"}
           </p>
         </header>
 
@@ -74,22 +75,24 @@ export function SyllabusLanding({
           <div className="flex flex-col gap-4">
             <p className="text-xs font-mono text-zinc-400">{user.email}</p>
             <div className="flex flex-col gap-3">
-              <Link
-                href={`/${syllabus}/study`}
-                className="flex items-center justify-between px-4 py-4 border border-zinc-200 rounded-sm hover:border-zinc-300 hover:bg-zinc-50 transition-colors group"
-              >
-                <div className="flex flex-col gap-0.5">
-                  <span className="text-sm font-medium text-secondary">
-                    Study Materials
+              {hasStudyMaterials && (
+                <Link
+                  href={`/${syllabus}/study`}
+                  className="flex items-center justify-between px-4 py-4 border border-zinc-200 rounded-sm hover:border-zinc-300 hover:bg-zinc-50 transition-colors group"
+                >
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-sm font-medium text-secondary">
+                      Study Materials
+                    </span>
+                    <span className="text-xs text-zinc-400">
+                      Review topics and practice exercises
+                    </span>
+                  </div>
+                  <span className="text-zinc-300 group-hover:text-zinc-500 transition-colors">
+                    →
                   </span>
-                  <span className="text-xs text-zinc-400">
-                    Review topics and practice exercises
-                  </span>
-                </div>
-                <span className="text-zinc-300 group-hover:text-zinc-500 transition-colors">
-                  →
-                </span>
-              </Link>
+                </Link>
+              )}
               <Link
                 href={`/${syllabus}/quiz`}
                 className="flex items-center justify-between px-4 py-4 bg-primary/5 border border-primary/20 rounded-sm hover:bg-primary/10 transition-colors group"
@@ -99,7 +102,7 @@ export function SyllabusLanding({
                     Start Assessment
                   </span>
                   <span className="text-xs text-zinc-400">
-                    20 questions: you can only submit once
+                    Timed assessment — you can only submit once
                   </span>
                 </div>
                 <span className="text-primary/40 group-hover:text-primary transition-colors">
